@@ -9,7 +9,11 @@
 
         <div class="flex items-center gap-4">
 
-            <input type="date" class="border border-slate-200 rounded-2xl px-5 py-4 text-[14px] outline-none" />
+            <input type="text" name="search" value="<?= $search ?? ''; ?>" placeholder="Cari pegawai..."
+                class="border border-slate-200 rounded-2xl px-5 py-4 text-[14px] outline-none" />
+
+            <input type="date" name="tanggal" value="<?= $tanggal ?? ''; ?>"
+                class="border border-slate-200 rounded-2xl px-5 py-4 text-[14px] outline-none" />
 
             <select name="status" class="px-5 py-4 rounded-2xl border border-slate-200 bg-white outline-none">
 
@@ -108,8 +112,7 @@
                 <tbody>
 
                     <!-- ROW -->
-                    <?php foreach ($pegawai as $p): ?>
-
+                                        <?php foreach ($pegawai as $index => $p): ?>
                         <tr class="border-t border-slate-100">
 
                             <td class="px-6 py-5">
@@ -170,10 +173,10 @@
 
                             <td class="px-6 py-5">
 
-                                <button
-                                    class="bg-slate-100 hover:bg-slate-200 transition px-5 py-2 rounded-xl text-sm font-semibold">
+                                <a href="<?= base_url('admin/monitoring/detail/' . $index); ?>"
+                                    class="bg-slate-100 hover:bg-slate-200 transition px-5 py-2 rounded-xl text-sm font-semibold inline-block">
                                     Detail
-                                </button>
+                                </a>
 
                             </td>
 
