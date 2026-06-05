@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Setting Lokasi GPS</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:'Inter',sans-serif;
+      background:#eef3f8;
+    }
+
+    ::-webkit-scrollbar{
+      width:8px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#cbd5e1;
+      border-radius:999px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="w-[280px] bg-white border-r border-slate-200 fixed left-0 top-0 h-screen flex flex-col justify-between">
+
+    <div>
+
+      <!-- LOGO -->
+      <div class="px-7 py-6 border-b border-slate-100">
+
+        <div class="flex items-center gap-4">
+
+          <div class="w-14 h-14 rounded-3xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-blue-500/20">
+            🏢
+          </div>
+
+          <div>
+
+            <h1 class="text-slate-900 font-extrabold text-[20px]">
+              Admin Panel
+            </h1>
+
+            <p class="text-slate-400 text-[12px]">
+              Bakorwil III Malang
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- MENU -->
+      <div class="p-5 space-y-3">
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            📊
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Dashboard
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Monitoring sistem
+            </p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            🕒
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Monitoring Absensi
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Kehadiran pegawai
+            </p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            📝
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Approval Izin
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Persetujuan izin
+            </p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            👥
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Data Pegawai
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Master ASN
+            </p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            📁
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Laporan
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Rekap absensi
+            </p>
+          </div>
+        </button>
+
+        <!-- ACTIVE -->
+        <button class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-[24px] px-5 py-4 flex items-center gap-4 shadow-lg shadow-blue-500/20">
+
+          <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-xl">
+            ⚙️
+          </div>
+
+          <div class="text-left">
+
+            <h3 class="font-bold text-[15px]">
+              Setting
+            </h3>
+
+            <p class="text-blue-100 text-[12px]">
+              Konfigurasi sistem
+            </p>
+
+          </div>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- LOGOUT -->
+    <div class="p-5 border-t border-slate-100">
+
+      <button class="w-full bg-red-500 hover:bg-red-600 transition text-white py-4 rounded-[24px] font-bold text-[15px]">
+        Logout
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="ml-[280px] flex-1 p-8">
+
+    <!-- HEADER -->
+    <div class="flex items-center justify-between mb-8">
+
+      <div>
+
+        <p class="text-slate-400 text-[14px] mb-1">
+          Konfigurasi Sistem Absensi ASN
+        </p>
+
+        <h1 class="text-[56px] font-extrabold text-slate-900 leading-none">
+          Setting Sistem
+        </h1>
+
+      </div>
+
+      <button class="bg-blue-600 hover:bg-blue-700 transition text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
+        Simpan Lokasi
+      </button>
+
+    </div>
+
+    <!-- TAB -->
+    <div class="bg-white rounded-[32px] p-4 border border-slate-100 shadow-sm mb-8">
+
+      <div class="flex items-center gap-4 overflow-x-auto">
+
+        <button class="min-w-max bg-slate-100 px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          ⚙️ Jam Kerja
+        </button>
+
+        <!-- ACTIVE -->
+        <button class="min-w-max bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
+          📍 Lokasi GPS
+        </button>
+
+        <button class="min-w-max bg-slate-100 px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          🛰️ Radius Absensi
+        </button>
+
+        <button class="min-w-max bg-slate-100 px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          📅 Hari Kerja
+        </button>
+
+        <button class="min-w-max bg-slate-100 px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          🎉 Hari Libur
+        </button>
+
+        <button class="min-w-max bg-slate-100 px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          🔐 Keamanan
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="grid grid-cols-12 gap-7">
+
+      <!-- LEFT -->
+      <div class="col-span-8 space-y-7">
+
+        <!-- MAP -->
+        <div class="bg-white rounded-[36px] p-8 border border-slate-100 shadow-sm">
+
+          <div class="flex items-center justify-between mb-8">
+
+            <div class="flex items-center gap-4">
+
+              <div class="w-16 h-16 rounded-3xl bg-red-100 flex items-center justify-center text-3xl">
+                📍
+              </div>
+
+              <div>
+
+                <h2 class="text-[32px] font-extrabold text-slate-900">
+                  Lokasi Kantor
+                </h2>
+
+                <p class="text-slate-400 text-[14px]">
+                  Titik lokasi utama absensi ASN
+                </p>
+
+              </div>
+
+            </div>
+
+            <button class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold">
+              Gunakan Lokasi Saat Ini
+            </button>
+
+          </div>
+
+          <!-- MAP -->
+          <div class="rounded-[30px] overflow-hidden border border-slate-200 h-[500px] relative">
+
+            <img
+              src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1600&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+            >
+
+            <!-- PIN -->
+            <div class="absolute inset-0 flex items-center justify-center">
+
+              <div class="w-20 h-20 rounded-full bg-blue-600 border-[8px] border-white shadow-2xl flex items-center justify-center text-white text-3xl">
+                📍
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- FORM -->
+        <div class="bg-white rounded-[36px] p-8 border border-slate-100 shadow-sm">
+
+          <div class="flex items-center gap-4 mb-8">
+
+            <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-3xl">
+              🌍
+            </div>
+
+            <div>
+
+              <h2 class="text-[32px] font-extrabold text-slate-900">
+                Koordinat GPS
+              </h2>
+
+              <p class="text-slate-400 text-[14px]">
+                Pengaturan titik latitude dan longitude kantor
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="grid grid-cols-2 gap-6">
+
+            <div>
+
+              <label class="block text-[14px] font-semibold text-slate-700 mb-3">
+                Latitude
+              </label>
+
+              <input
+                type="text"
+                value="-7.983908"
+                class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none"
+              >
+
+            </div>
+
+            <div>
+
+              <label class="block text-[14px] font-semibold text-slate-700 mb-3">
+                Longitude
+              </label>
+
+              <input
+                type="text"
+                value="112.621391"
+                class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col-span-4 space-y-7">
+
+        <!-- CARD -->
+        <div class="bg-gradient-to-br from-blue-600 to-blue-500 rounded-[36px] p-8 text-white shadow-xl shadow-blue-500/20">
+
+          <div class="flex items-center justify-between mb-10">
+
+            <div>
+
+              <p class="text-blue-100 text-[14px] mb-2">
+                Lokasi Aktif
+              </p>
+
+              <h3 class="text-[28px] font-extrabold leading-tight">
+                Bakorwil III Malang
+              </h3>
+
+            </div>
+
+            <div class="w-16 h-16 rounded-3xl bg-white/20 flex items-center justify-center text-3xl">
+              🏢
+            </div>
+
+          </div>
+
+          <div class="bg-white/10 rounded-3xl p-6 backdrop-blur-sm">
+
+            <p class="text-blue-100 text-[14px] mb-2">
+              Status Lokasi
+            </p>
+
+            <h2 class="text-[24px] font-extrabold mb-3">
+              GPS Aktif
+            </h2>
+
+            <div class="bg-green-400/20 text-green-100 px-5 py-3 rounded-2xl inline-block text-[14px] font-bold">
+              Sinkron Dengan Sistem
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="bg-white rounded-[36px] p-8 border border-slate-100 shadow-sm">
+
+          <h3 class="text-[28px] font-extrabold text-slate-900 mb-8">
+            Informasi Lokasi
+          </h3>
+
+          <div class="space-y-6">
+
+            <div>
+
+              <p class="text-slate-400 text-[13px] mb-2">
+                Alamat Kantor
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[17px] leading-relaxed">
+                Jl. Simpang Ijen No.2 Malang
+              </h4>
+
+            </div>
+
+            <div>
+
+              <p class="text-slate-400 text-[13px] mb-2">
+                Latitude
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[17px]">
+                -7.983908
+              </h4>
+
+            </div>
+
+            <div>
+
+              <p class="text-slate-400 text-[13px] mb-2">
+                Longitude
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[17px]">
+                112.621391
+              </h4>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- WARNING -->
+        <div class="bg-red-50 border border-red-100 rounded-[36px] p-7">
+
+          <div class="flex items-start gap-4">
+
+            <div class="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center text-2xl flex-shrink-0">
+              ⚠️
+            </div>
+
+            <div>
+
+              <h3 class="text-red-600 font-extrabold text-[22px] mb-2">
+                Perhatian
+              </h3>
+
+              <p class="text-red-500 text-[14px] leading-relaxed">
+                Perubahan lokasi GPS akan mempengaruhi validasi absensi seluruh pegawai secara realtime.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

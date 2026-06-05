@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=402, initial-scale=1.0">
+
+  <title>Status Pengajuan</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:'Inter',sans-serif;
+      background:#dfe6ef;
+      display:flex;
+      justify-content:center;
+      margin:0;
+      padding:0;
+    }
+
+    .mobile{
+      width:402px;
+      height:874px;
+      background:linear-gradient(to bottom,#ffffff,#f8fafc);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .no-scrollbar::-webkit-scrollbar{
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="mobile">
+
+  <!-- BG -->
+  <div class="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-blue-100 opacity-70"></div>
+
+  <div class="absolute top-24 right-7 grid grid-cols-4 gap-2 opacity-40">
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+  </div>
+
+  <!-- HEADER -->
+  <div class="px-5 pt-10 relative z-10">
+
+    <div class="flex items-center gap-3">
+
+      <button class="w-11 h-11 rounded-2xl bg-white shadow-md flex items-center justify-center text-lg">
+        ←
+      </button>
+
+      <div>
+
+        <p class="text-slate-400 text-[11px]">
+          Pengajuan Kehadiran
+        </p>
+
+        <h2 class="text-slate-900 font-bold text-[22px]">
+          Status Izin
+        </h2>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="px-5 mt-5 relative z-10">
+
+    <div class="bg-gradient-to-r from-blue-600 to-blue-500 rounded-[28px] p-5 text-white shadow-xl shadow-blue-500/20">
+
+      <div class="flex items-center justify-between">
+
+        <div>
+
+          <p class="text-blue-100 text-[12px] mb-1">
+            Total Pengajuan
+          </p>
+
+          <h3 class="text-[30px] font-extrabold">
+            12
+          </h3>
+
+        </div>
+
+        <div class="w-16 h-16 rounded-3xl bg-white/20 flex items-center justify-center text-3xl">
+          📝
+        </div>
+
+      </div>
+
+      <!-- STATS -->
+      <div class="grid grid-cols-3 gap-3 mt-5">
+
+        <div class="bg-white/10 rounded-2xl p-3 text-center">
+
+          <h4 class="text-[18px] font-bold">
+            3
+          </h4>
+
+          <p class="text-blue-100 text-[11px]">
+            Pending
+          </p>
+
+        </div>
+
+        <div class="bg-white/10 rounded-2xl p-3 text-center">
+
+          <h4 class="text-[18px] font-bold">
+            7
+          </h4>
+
+          <p class="text-blue-100 text-[11px]">
+            Disetujui
+          </p>
+
+        </div>
+
+        <div class="bg-white/10 rounded-2xl p-3 text-center">
+
+          <h4 class="text-[18px] font-bold">
+            2
+          </h4>
+
+          <p class="text-blue-100 text-[11px]">
+            Ditolak
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FILTER -->
+  <div class="px-5 mt-5 relative z-10">
+
+    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+
+      <button class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-3 rounded-2xl text-[13px] font-bold whitespace-nowrap shadow-lg shadow-blue-500/20">
+        Semua
+      </button>
+
+      <button class="bg-white border border-slate-200 text-slate-600 px-5 py-3 rounded-2xl text-[13px] font-semibold whitespace-nowrap">
+        Pending
+      </button>
+
+      <button class="bg-white border border-slate-200 text-slate-600 px-5 py-3 rounded-2xl text-[13px] font-semibold whitespace-nowrap">
+        Disetujui
+      </button>
+
+      <button class="bg-white border border-slate-200 text-slate-600 px-5 py-3 rounded-2xl text-[13px] font-semibold whitespace-nowrap">
+        Ditolak
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- LIST -->
+  <div class="px-5 mt-5 relative z-10 space-y-4">
+
+    <!-- ITEM -->
+    <div class="bg-white rounded-[26px] border border-slate-100 shadow-md p-4 flex items-center justify-between">
+
+      <div class="flex items-center gap-4">
+
+        <div class="w-14 h-14 rounded-2xl bg-yellow-100 flex items-center justify-center text-yellow-600 text-xl shrink-0">
+          ⏳
+        </div>
+
+        <div>
+
+          <h3 class="text-slate-900 font-bold text-[15px]">
+            Izin Keluarga
+          </h3>
+
+          <p class="text-slate-400 text-[12px]">
+            21 Mei 2026
+          </p>
+
+        </div>
+
+      </div>
+
+      <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-xl text-[11px] font-semibold">
+        Pending
+      </span>
+
+    </div>
+
+    <!-- ITEM -->
+    <div class="bg-white rounded-[26px] border border-slate-100 shadow-md p-4 flex items-center justify-between">
+
+      <div class="flex items-center gap-4">
+
+        <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center text-green-600 text-xl shrink-0">
+          ✓
+        </div>
+
+        <div>
+
+          <h3 class="text-slate-900 font-bold text-[15px]">
+            Izin Acara
+          </h3>
+
+          <p class="text-slate-400 text-[12px]">
+            18 Mei 2026
+          </p>
+
+        </div>
+
+      </div>
+
+      <span class="bg-green-100 text-green-700 px-3 py-1 rounded-xl text-[11px] font-semibold">
+        Disetujui
+      </span>
+
+    </div>
+
+    <!-- ITEM -->
+    <div class="bg-white rounded-[26px] border border-slate-100 shadow-md p-4 flex items-center justify-between">
+
+      <div class="flex items-center gap-4">
+
+        <div class="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center text-red-600 text-xl shrink-0">
+          ✕
+        </div>
+
+        <div>
+
+          <h3 class="text-slate-900 font-bold text-[15px]">
+            Izin Pribadi
+          </h3>
+
+          <p class="text-slate-400 text-[12px]">
+            15 Mei 2026
+          </p>
+
+        </div>
+
+      </div>
+
+      <span class="bg-red-100 text-red-700 px-3 py-1 rounded-xl text-[11px] font-semibold">
+        Ditolak
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- FLOAT BUTTON -->
+  <button class="absolute bottom-16 right-5 z-20 w-16 h-16 rounded-full bg-gradient-to-r from-orange-500 to-orange-400 shadow-2xl shadow-orange-300 flex items-center justify-center text-white text-3xl">
+
+    +
+
+  </button>
+
+  <!-- WAVE -->
+  <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+
+    <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="w-full h-12">
+
+      <path
+        d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+        fill="#0f5fe8">
+      </path>
+
+      <path
+        d="M0.00,70.00 C149.99,170.00 349.20,-20.00 500.00,70.00 L500.00,150.00 L0.00,150.00 Z"
+        fill="#ff9f43">
+      </path>
+
+    </svg>
+
+  </div>
+
+</div>
+
+</body>
+</html>

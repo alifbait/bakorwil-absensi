@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Setting Sistem</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:'Inter',sans-serif;
+      background:#eef3f8;
+    }
+
+    ::-webkit-scrollbar{
+      width:8px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#cbd5e1;
+      border-radius:999px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="w-[280px] bg-white border-r border-slate-200 fixed left-0 top-0 h-screen flex flex-col justify-between">
+
+    <div>
+
+      <!-- LOGO -->
+      <div class="px-7 py-6 border-b border-slate-100">
+
+        <div class="flex items-center gap-4">
+
+          <div class="w-14 h-14 rounded-3xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-blue-500/20">
+            🏢
+          </div>
+
+          <div>
+
+            <h1 class="text-slate-900 font-extrabold text-[20px]">
+              Admin Panel
+            </h1>
+
+            <p class="text-slate-400 text-[12px]">
+              Bakorwil III Malang
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- MENU -->
+      <div class="p-5 space-y-3">
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">📊</div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">Dashboard</h3>
+            <p class="text-slate-400 text-[12px]">Monitoring sistem</p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">🕒</div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">Monitoring Absensi</h3>
+            <p class="text-slate-400 text-[12px]">Kehadiran pegawai</p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">📝</div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">Approval Izin</h3>
+            <p class="text-slate-400 text-[12px]">Persetujuan izin</p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">👥</div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">Data Pegawai</h3>
+            <p class="text-slate-400 text-[12px]">Master ASN</p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 rounded-[24px] px-5 py-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">📁</div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">Laporan</h3>
+            <p class="text-slate-400 text-[12px]">Rekap absensi</p>
+          </div>
+        </button>
+
+        <!-- ACTIVE -->
+        <button class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-[24px] px-5 py-4 flex items-center gap-4 shadow-lg shadow-blue-500/20">
+
+          <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-xl">
+            ⚙️
+          </div>
+
+          <div class="text-left">
+            <h3 class="font-bold text-[15px]">Setting</h3>
+            <p class="text-blue-100 text-[12px]">Konfigurasi sistem</p>
+          </div>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- LOGOUT -->
+    <div class="p-5 border-t border-slate-100">
+
+      <button class="w-full bg-red-500 hover:bg-red-600 transition text-white py-4 rounded-[24px] font-bold text-[15px]">
+        Logout
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="ml-[280px] flex-1 p-8">
+
+    <!-- TOP -->
+    <div class="flex items-center justify-between mb-8">
+
+      <div>
+
+        <p class="text-slate-400 text-[14px] mb-1">
+          Konfigurasi Sistem Absensi ASN
+        </p>
+
+        <h1 class="text-[56px] font-extrabold text-slate-900 leading-none">
+          Setting Sistem
+        </h1>
+
+      </div>
+
+      <button class="bg-blue-600 hover:bg-blue-700 transition text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
+        Simpan Setting
+      </button>
+
+    </div>
+
+    <!-- TAB NAVIGATION -->
+    <div class="bg-white rounded-[32px] p-4 border border-slate-100 shadow-sm mb-8">
+
+      <div class="flex items-center gap-4 overflow-x-auto">
+
+        <button class="min-w-max bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          ⚙️ Jam Kerja
+        </button>
+
+        <button class="min-w-max bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          📍 Lokasi GPS
+        </button>
+
+        <button class="min-w-max bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          🛰️ Radius Absensi
+        </button>
+
+        <button class="min-w-max bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          📅 Hari Kerja
+        </button>
+
+        <!-- ACTIVE TAB -->
+        <button class="min-w-max bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
+          🎉 Hari Libur
+        </button>
+
+        <button class="min-w-max bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-semibold text-slate-700">
+          🔐 Keamanan
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="space-y-8">
+
+      <!-- ACTION BAR -->
+      <div class="bg-white rounded-[32px] p-6 border border-slate-100 shadow-sm">
+
+        <div class="flex items-center justify-between gap-5">
+
+          <!-- LEFT -->
+          <div class="flex items-center gap-4">
+
+            <!-- SEARCH -->
+            <div class="relative">
+
+              <input
+                type="text"
+                placeholder="Cari hari libur..."
+                class="w-[320px] bg-slate-50 border border-slate-200 rounded-2xl pl-14 pr-5 py-4 outline-none"
+              >
+
+              <div class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
+                🔍
+              </div>
+
+            </div>
+
+            <!-- FILTER -->
+            <select class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
+
+              <option>Semua Jenis</option>
+              <option>Libur Nasional</option>
+              <option>Libur Instansi</option>
+
+            </select>
+
+          </div>
+
+          <!-- RIGHT -->
+          <button class="bg-blue-600 hover:bg-blue-700 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
+            + Tambah Hari Libur
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- TABLE -->
+      <div class="bg-white rounded-[36px] border border-slate-100 shadow-sm overflow-hidden">
+
+        <!-- HEADER -->
+        <div class="px-8 py-7 border-b border-slate-100">
+
+          <h2 class="text-[36px] font-extrabold text-slate-900 mb-1">
+            Daftar Hari Libur
+          </h2>
+
+          <p class="text-slate-400 text-[14px]">
+            Monitoring tanggal merah dan libur instansi
+          </p>
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="overflow-x-auto">
+
+          <table class="w-full">
+
+            <thead class="bg-slate-50">
+
+              <tr>
+
+                <th class="px-8 py-5 text-left text-[14px] font-bold text-slate-500">
+                  Nama Libur
+                </th>
+
+                <th class="px-8 py-5 text-left text-[14px] font-bold text-slate-500">
+                  Tanggal
+                </th>
+
+                <th class="px-8 py-5 text-left text-[14px] font-bold text-slate-500">
+                  Jenis
+                </th>
+
+                <th class="px-8 py-5 text-left text-[14px] font-bold text-slate-500">
+                  Status
+                </th>
+
+                <th class="px-8 py-5 text-center text-[14px] font-bold text-slate-500">
+                  Aksi
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <!-- ROW -->
+              <tr class="border-t border-slate-100 hover:bg-slate-50 transition">
+
+                <td class="px-8 py-6">
+
+                  <div>
+
+                    <h4 class="text-slate-900 font-bold text-[16px]">
+                      Hari Raya Idul Fitri
+                    </h4>
+
+                    <p class="text-slate-400 text-[13px] mt-1">
+                      Cuti bersama nasional
+                    </p>
+
+                  </div>
+
+                </td>
+
+                <td class="px-8 py-6">
+
+                  <div>
+
+                    <h4 class="text-slate-900 font-bold text-[15px]">
+                      10 Apr - 13 Apr 2026
+                    </h4>
+
+                    <p class="text-slate-400 text-[13px] mt-1">
+                      4 Hari Libur
+                    </p>
+
+                  </div>
+
+                </td>
+
+                <td class="px-8 py-6">
+
+                  <span class="bg-blue-100 text-blue-700 px-5 py-2 rounded-xl text-[13px] font-bold">
+                    Nasional
+                  </span>
+
+                </td>
+
+                <td class="px-8 py-6">
+
+                  <span class="bg-green-100 text-green-700 px-5 py-2 rounded-xl text-[13px] font-bold">
+                    Aktif
+                  </span>
+
+                </td>
+
+                <td class="px-8 py-6">
+
+                  <div class="flex items-center justify-center gap-3">
+
+                    <button class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-5 py-3 rounded-xl text-[13px] font-bold">
+                      Edit
+                    </button>
+
+                    <button class="bg-red-500 hover:bg-red-600 transition text-white px-5 py-3 rounded-xl text-[13px] font-bold">
+                      Hapus
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+              <!-- ROW -->
+              <tr class="border-t border-slate-100 hover:bg-slate-50 transition">
+
+                <td class="px-8 py-6">
+
+                  <div>
+
+                    <h4 class="text-slate-900 font-bold text-[16px]">
+                      Acara Internal ASN
+                    </h4>
+
+                    <p class="text-slate-400 text-[13px] mt-1">
+                      Kegiatan instansi
+                    </p>
+
+                  </div>
+
+                </td>
+
+                <td class="px-8 py-6">
+
+                  <div>
+
+                    <h4 class="text-slate-900 font-bold text-[15px]">
+                      21 Mei 2026
+                    </h4>
+
+                    <p class="text-slate-400 text-[13px] mt-1">
+                      1 Hari Libur
+                    </p>
+
+                  </div>
+
+                </td>
+
+                <td class="px-8 py-6">
+
+                  <span class="bg-purple-100 text-purple-700 px-5 py-2 rounded-xl text-[13px] font-bold">
+                    Instansi
+                  </span>
+
+                </td>
+
+                <td class="px-8 py-6">
+
+                  <span class="bg-green-100 text-green-700 px-5 py-2 rounded-xl text-[13px] font-bold">
+                    Aktif
+                  </span>
+
+                </td>
+
+                <td class="px-8 py-6">
+
+                  <div class="flex items-center justify-center gap-3">
+
+                    <button class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-5 py-3 rounded-xl text-[13px] font-bold">
+                      Edit
+                    </button>
+
+                    <button class="bg-red-500 hover:bg-red-600 transition text-white px-5 py-3 rounded-xl text-[13px] font-bold">
+                      Hapus
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+      <!-- MODAL PREVIEW -->
+      <div class="bg-white rounded-[36px] p-8 border border-dashed border-blue-300">
+
+        <div class="flex items-center justify-between mb-8">
+
+          <div>
+
+            <h2 class="text-[34px] font-extrabold text-slate-900 mb-1">
+              Modal Tambah Hari Libur
+            </h2>
+
+            <p class="text-slate-400 text-[14px]">
+              Preview form ketika tombol tambah ditekan
+            </p>
+
+          </div>
+
+          <button class="bg-red-100 text-red-600 px-5 py-3 rounded-2xl font-bold">
+            Tutup
+          </button>
+
+        </div>
+
+        <!-- FORM -->
+        <div class="grid grid-cols-2 gap-6">
+
+          <div class="col-span-2">
+
+            <label class="block text-[14px] font-semibold text-slate-700 mb-3">
+              Nama Hari Libur
+            </label>
+
+            <input
+              type="text"
+              placeholder="Contoh: Libur Kunjungan Gubernur"
+              class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none"
+            >
+
+          </div>
+
+          <div>
+
+            <label class="block text-[14px] font-semibold text-slate-700 mb-3">
+              Tanggal Mulai
+            </label>
+
+            <input
+              type="date"
+              class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none"
+            >
+
+          </div>
+
+          <div>
+
+            <label class="block text-[14px] font-semibold text-slate-700 mb-3">
+              Tanggal Selesai
+            </label>
+
+            <input
+              type="date"
+              class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none"
+            >
+
+          </div>
+
+          <div>
+
+            <label class="block text-[14px] font-semibold text-slate-700 mb-3">
+              Jenis Libur
+            </label>
+
+            <select class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
+
+              <option>Libur Nasional</option>
+              <option>Libur Instansi</option>
+
+            </select>
+
+          </div>
+
+          <div>
+
+            <label class="block text-[14px] font-semibold text-slate-700 mb-3">
+              Status
+            </label>
+
+            <select class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
+
+              <option>Aktif</option>
+              <option>Nonaktif</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <!-- ACTION -->
+        <div class="flex justify-end gap-4 mt-8">
+
+          <button class="bg-slate-100 hover:bg-slate-200 transition text-slate-700 px-6 py-4 rounded-2xl font-bold">
+            Batal
+          </button>
+
+          <button class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-4 rounded-2xl font-bold">
+            Simpan Hari Libur
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

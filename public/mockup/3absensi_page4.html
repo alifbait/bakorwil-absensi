@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=402, initial-scale=1.0">
+
+  <title>Absen Pulang</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:'Inter',sans-serif;
+      background:#dfe6ef;
+      display:flex;
+      justify-content:center;
+      margin:0;
+      padding:0;
+    }
+
+    .mobile{
+      width:402px;
+      height:874px;
+      background:linear-gradient(to bottom,#ffffff,#f8fafc);
+      position:relative;
+      overflow:hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="mobile">
+
+  <!-- BACKGROUND -->
+  <div class="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-orange-100 opacity-70"></div>
+
+  <div class="absolute top-24 right-7 grid grid-cols-4 gap-2 opacity-40">
+    <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+    <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+    <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+    <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+
+    <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+    <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+    <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+    <span class="w-2 h-2 rounded-full bg-orange-300"></span>
+  </div>
+
+  <!-- HEADER -->
+  <div class="px-5 pt-12 relative z-10">
+
+    <div class="flex items-center justify-between">
+
+      <div class="flex items-center gap-3">
+
+        <button class="w-11 h-11 rounded-2xl bg-white shadow-md flex items-center justify-center text-lg">
+          ←
+        </button>
+
+        <div>
+
+          <p class="text-slate-400 text-[12px]">
+            Absensi Hari Ini
+          </p>
+
+          <h2 class="text-slate-900 font-bold text-[22px]">
+            Absen Pulang
+          </h2>
+
+        </div>
+
+      </div>
+
+      <div class="w-11 h-11 rounded-2xl bg-orange-100 flex items-center justify-center text-orange-500 text-lg">
+        🌇
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- STATUS CARD -->
+  <div class="px-5 mt-5 relative z-10">
+
+    <div class="bg-gradient-to-r from-orange-500 to-orange-400 rounded-[28px] p-5 text-white shadow-xl shadow-orange-300">
+
+      <div class="flex items-center justify-between mb-5">
+
+        <div>
+
+          <p class="text-orange-100 text-[12px] mb-1">
+            Jam Masuk Hari Ini
+          </p>
+
+          <h3 class="text-[30px] font-extrabold leading-none">
+            07:01
+          </h3>
+
+        </div>
+
+        <div class="bg-white/20 px-4 py-2 rounded-2xl text-[12px] font-medium">
+          Sudah Masuk
+        </div>
+
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+
+        <div class="bg-white/10 rounded-2xl p-4">
+
+          <p class="text-orange-100 text-[11px] mb-1">
+            Waktu Sekarang
+          </p>
+
+          <h4 class="text-[18px] font-bold">
+            15:10
+          </h4>
+
+        </div>
+
+        <div class="bg-white/10 rounded-2xl p-4">
+
+          <p class="text-orange-100 text-[11px] mb-1">
+            Total Kerja
+          </p>
+
+          <h4 class="text-[18px] font-bold">
+            8 Jam
+          </h4>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CAMERA -->
+  <div class="px-5 mt-5 relative z-10">
+
+    <div class="bg-white rounded-[28px] border border-slate-100 shadow-lg p-5">
+
+      <div class="flex items-center justify-between mb-4">
+
+        <div>
+
+          <h3 class="text-slate-900 font-bold text-[18px]">
+            Selfie Pulang
+          </h3>
+
+          <p class="text-slate-400 text-[12px]">
+            Ambil foto untuk validasi
+          </p>
+
+        </div>
+
+        <div class="w-11 h-11 rounded-2xl bg-orange-100 flex items-center justify-center text-orange-500">
+          📷
+        </div>
+
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="rounded-[24px] overflow-hidden h-[200px] bg-slate-100 border border-slate-200 flex flex-col items-center justify-center relative">
+
+        <div class="absolute inset-0 bg-gradient-to-b from-orange-50 to-slate-100"></div>
+
+        <div class="relative z-10 w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center text-4xl mb-3">
+          👤
+        </div>
+
+        <p class="relative z-10 text-slate-500 text-[13px]">
+          Preview Kamera
+        </p>
+
+      </div>
+
+      <!-- BUTTON -->
+      <button class="w-full mt-4 bg-orange-500 text-white py-3 rounded-2xl font-bold text-[15px] shadow-lg shadow-orange-300 flex items-center justify-center gap-2">
+
+        Ambil Selfie
+
+        <span>📸</span>
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- GPS -->
+  <div class="px-5 mt-4 relative z-10">
+
+    <div class="bg-white rounded-[24px] border border-slate-100 shadow-md p-4 flex items-center gap-3">
+
+      <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600">
+        📍
+      </div>
+
+      <div>
+
+        <h3 class="text-slate-900 font-bold text-[15px]">
+          Lokasi Valid
+        </h3>
+
+        <p class="text-slate-400 text-[12px]">
+          Anda berada di area kantor
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="px-5 mt-5 relative z-10">
+
+    <button class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-4 rounded-[24px] font-bold text-[17px] shadow-xl shadow-blue-500/30 flex items-center justify-center gap-3">
+
+      Absen Pulang Sekarang
+
+      <span>→</span>
+
+    </button>
+
+  </div>
+
+  <!-- WAVE -->
+  <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+
+    <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="w-full h-20">
+
+      <path
+        d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+        fill="#0f5fe8">
+      </path>
+
+      <path
+        d="M0.00,70.00 C149.99,170.00 349.20,-20.00 500.00,70.00 L500.00,150.00 L0.00,150.00 Z"
+        fill="#ff9f43">
+      </path>
+
+    </svg>
+
+  </div>
+
+</div>
+
+</body>
+</html>

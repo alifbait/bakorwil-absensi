@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=402, initial-scale=1.0">
+
+  <title>Ubah Password</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:'Inter',sans-serif;
+      background:#dfe6ef;
+      display:flex;
+      justify-content:center;
+      margin:0;
+      padding:0;
+    }
+
+    .mobile{
+      width:402px;
+      height:874px;
+      background:linear-gradient(to bottom,#ffffff,#f8fafc);
+      position:relative;
+      overflow:hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="mobile">
+
+  <!-- BG -->
+  <div class="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-blue-100 opacity-70"></div>
+
+  <div class="absolute top-24 right-7 grid grid-cols-4 gap-2 opacity-40">
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+    <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+  </div>
+
+  <!-- HEADER -->
+  <div class="px-5 pt-10 relative z-10">
+
+    <div class="flex items-center gap-3">
+
+      <button class="w-11 h-11 rounded-2xl bg-white shadow-md flex items-center justify-center text-lg">
+        ←
+      </button>
+
+      <div>
+
+        <p class="text-slate-400 text-[11px]">
+          Keamanan Akun
+        </p>
+
+        <h2 class="text-slate-900 font-bold text-[22px]">
+          Ubah Password
+        </h2>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- INFO -->
+  <div class="px-5 mt-5 relative z-10">
+
+    <div class="bg-blue-50 border border-blue-100 rounded-[24px] p-4 flex items-start gap-3">
+
+      <div class="w-11 h-11 rounded-2xl bg-blue-600 flex items-center justify-center text-white shrink-0">
+        🔒
+      </div>
+
+      <div>
+
+        <h3 class="text-slate-900 font-bold text-[14px] mb-1">
+          Keamanan Password
+        </h3>
+
+        <p class="text-slate-500 text-[12px] leading-relaxed">
+          Gunakan kombinasi password yang kuat dan mudah diingat.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FORM -->
+  <div class="px-5 mt-5 relative z-10">
+
+    <div class="bg-white rounded-[28px] border border-slate-100 shadow-lg p-5">
+
+      <!-- PASSWORD LAMA -->
+      <div class="mb-4">
+
+        <label class="block text-slate-900 font-semibold text-[14px] mb-2">
+          Password Lama
+        </label>
+
+        <div class="relative">
+
+          <input
+            type="password"
+            placeholder="Masukkan password lama"
+            class="w-full border border-slate-200 rounded-2xl px-4 py-4 text-[13px] focus:outline-none focus:ring-4 focus:ring-blue-100"
+          >
+
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+            👁️
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- PASSWORD BARU -->
+      <div class="mb-4">
+
+        <label class="block text-slate-900 font-semibold text-[14px] mb-2">
+          Password Baru
+        </label>
+
+        <div class="relative">
+
+          <input
+            type="password"
+            placeholder="Masukkan password baru"
+            class="w-full border border-slate-200 rounded-2xl px-4 py-4 text-[13px] focus:outline-none focus:ring-4 focus:ring-blue-100"
+          >
+
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+            👁️
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- KONFIRMASI -->
+      <div>
+
+        <label class="block text-slate-900 font-semibold text-[14px] mb-2">
+          Konfirmasi Password
+        </label>
+
+        <div class="relative">
+
+          <input
+            type="password"
+            placeholder="Ulangi password baru"
+            class="w-full border border-slate-200 rounded-2xl px-4 py-4 text-[13px] focus:outline-none focus:ring-4 focus:ring-blue-100"
+          >
+
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+            👁️
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SECURITY NOTE -->
+  <div class="px-5 mt-4 relative z-10">
+
+    <div class="bg-orange-50 border border-orange-100 rounded-[24px] p-4 flex items-start gap-3">
+
+      <div class="w-10 h-10 rounded-2xl bg-orange-400 flex items-center justify-center text-white shrink-0">
+        ⚠️
+      </div>
+
+      <div>
+
+        <h3 class="text-slate-900 font-bold text-[14px] mb-1">
+          Tips Keamanan
+        </h3>
+
+        <p class="text-slate-500 text-[12px] leading-relaxed">
+          Jangan bagikan password akun kepada pegawai lain.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- BUTTON -->
+  <div class="px-5 mt-5 relative z-10">
+
+    <button class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-4 rounded-[24px] font-bold text-[16px] shadow-xl shadow-blue-500/20 flex items-center justify-center gap-3">
+
+      Simpan Password
+
+      <span>→</span>
+
+    </button>
+
+  </div>
+
+  <!-- WAVE -->
+  <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+
+    <svg viewBox="0 0 500 150" preserveAspectRatio="none" class="w-full h-12">
+
+      <path
+        d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+        fill="#0f5fe8">
+      </path>
+
+      <path
+        d="M0.00,70.00 C149.99,170.00 349.20,-20.00 500.00,70.00 L500.00,150.00 L0.00,150.00 Z"
+        fill="#ff9f43">
+      </path>
+
+    </svg>
+
+  </div>
+
+</div>
+
+</body>
+</html>

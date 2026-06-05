@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Detail Pegawai</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:'Inter',sans-serif;
+      background:#eef3f8;
+    }
+
+    ::-webkit-scrollbar{
+      width:8px;
+      height:8px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#cbd5e1;
+      border-radius:20px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="w-[280px] bg-white border-r border-slate-200 flex flex-col justify-between fixed left-0 top-0 h-screen">
+
+    <div>
+
+      <!-- LOGO -->
+      <div class="px-7 py-6 border-b border-slate-100">
+
+        <div class="flex items-center gap-4">
+
+          <div class="w-14 h-14 rounded-3xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-blue-500/20">
+            🏢
+          </div>
+
+          <div>
+
+            <h1 class="text-slate-900 font-extrabold text-[20px]">
+              Admin Panel
+            </h1>
+
+            <p class="text-slate-400 text-[12px]">
+              Bakorwil III Malang
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- MENU -->
+      <div class="p-5 space-y-3">
+
+        <button class="w-full bg-slate-50 px-5 py-4 rounded-[24px] flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            📊
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Dashboard
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Monitoring sistem
+            </p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 px-5 py-4 rounded-[24px] flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            🕒
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Monitoring Absensi
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Data kehadiran pegawai
+            </p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 px-5 py-4 rounded-[24px] flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            📝
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Approval Izin
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Persetujuan pengajuan
+            </p>
+          </div>
+        </button>
+
+        <!-- ACTIVE -->
+        <button class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-4 rounded-[24px] flex items-center gap-4 shadow-lg shadow-blue-500/20">
+
+          <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-xl">
+            👥
+          </div>
+
+          <div class="text-left">
+
+            <h3 class="font-bold text-[15px]">
+              Data Pegawai
+            </h3>
+
+            <p class="text-blue-100 text-[12px]">
+              Master data ASN
+            </p>
+
+          </div>
+
+        </button>
+
+        <button class="w-full bg-slate-50 px-5 py-4 rounded-[24px] flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            📁
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Laporan
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Export Excel & PDF
+            </p>
+          </div>
+        </button>
+
+        <button class="w-full bg-slate-50 px-5 py-4 rounded-[24px] flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl">
+            ⚙️
+          </div>
+
+          <div class="text-left">
+            <h3 class="text-slate-800 font-semibold text-[15px]">
+              Setting
+            </h3>
+
+            <p class="text-slate-400 text-[12px]">
+              Konfigurasi sistem
+            </p>
+          </div>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- LOGOUT -->
+    <div class="p-5 border-t border-slate-100">
+
+      <button class="w-full bg-red-500 hover:bg-red-600 transition text-white py-4 rounded-[24px] font-bold text-[15px]">
+        Logout
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="ml-[280px] flex-1 p-8">
+
+    <!-- HEADER -->
+    <div class="flex items-center justify-between mb-8">
+
+      <div>
+
+        <p class="text-slate-400 text-[14px] mb-1">
+          Detail ASN & Pegawai
+        </p>
+
+        <h1 class="text-[52px] font-extrabold text-slate-900 leading-none">
+          Detail Pegawai
+        </h1>
+
+      </div>
+
+      <!-- ACTION -->
+      <div class="flex items-center gap-4">
+
+        <button class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-yellow-300/30">
+          Edit Pegawai
+        </button>
+
+        <button class="bg-blue-600 hover:bg-blue-700 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
+          Reset Password
+        </button>
+
+        <button class="bg-red-500 hover:bg-red-600 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-red-300/30">
+          Nonaktifkan
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="grid grid-cols-3 gap-7">
+
+      <!-- LEFT -->
+      <div class="space-y-7">
+
+        <!-- PROFILE -->
+        <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+
+          <div class="text-center">
+
+            <img
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
+              class="w-40 h-40 rounded-[32px] object-cover mx-auto shadow-lg"
+            >
+
+            <h2 class="text-[34px] font-extrabold text-slate-900 mt-6">
+              Ahmad Rizki
+            </h2>
+
+            <p class="text-slate-400 text-[15px] mt-1">
+              Staff Kepegawaian
+            </p>
+
+            <div class="flex items-center justify-center gap-3 mt-6">
+
+              <span class="bg-blue-100 text-blue-700 px-5 py-2 rounded-xl text-[13px] font-bold">
+                ASN Aktif
+              </span>
+
+              <span class="bg-green-100 text-green-700 px-5 py-2 rounded-xl text-[13px] font-bold">
+                Hadir
+              </span>
+
+            </div>
+
+          </div>
+
+          <!-- INFO -->
+          <div class="space-y-5 mt-8">
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                NIP
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                19881201202401001
+              </h4>
+
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Divisi
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                Kepegawaian
+              </h4>
+
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Bergabung
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                12 Januari 2024
+              </h4>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- AKTIVITAS -->
+        <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+
+          <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
+            Aktivitas Terakhir
+          </h2>
+
+          <p class="text-slate-400 text-[14px] mb-7">
+            Monitoring realtime pegawai
+          </p>
+
+          <div class="space-y-5">
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Absen Masuk
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                07:01 WIB
+              </h4>
+
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Lokasi GPS
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                Radius Valid
+              </h4>
+
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Device
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                Chrome Windows
+              </h4>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col-span-2 space-y-7">
+
+        <!-- STATISTIK -->
+        <div class="grid grid-cols-4 gap-5">
+
+          <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
+
+            <div class="w-16 h-16 rounded-3xl bg-green-100 flex items-center justify-center text-3xl mb-6">
+              ✅
+            </div>
+
+            <p class="text-slate-400 text-[14px] mb-2">
+              Hadir
+            </p>
+
+            <h3 class="text-[42px] font-extrabold text-slate-900">
+              24
+            </h3>
+
+          </div>
+
+          <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
+
+            <div class="w-16 h-16 rounded-3xl bg-red-100 flex items-center justify-center text-3xl mb-6">
+              ⏰
+            </div>
+
+            <p class="text-slate-400 text-[14px] mb-2">
+              Terlambat
+            </p>
+
+            <h3 class="text-[42px] font-extrabold text-slate-900">
+              2
+            </h3>
+
+          </div>
+
+          <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
+
+            <div class="w-16 h-16 rounded-3xl bg-yellow-100 flex items-center justify-center text-3xl mb-6">
+              📄
+            </div>
+
+            <p class="text-slate-400 text-[14px] mb-2">
+              Izin
+            </p>
+
+            <h3 class="text-[42px] font-extrabold text-slate-900">
+              3
+            </h3>
+
+          </div>
+
+          <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
+
+            <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-3xl mb-6">
+              🏥
+            </div>
+
+            <p class="text-slate-400 text-[14px] mb-2">
+              Sakit
+            </p>
+
+            <h3 class="text-[42px] font-extrabold text-slate-900">
+              1
+            </h3>
+
+          </div>
+
+        </div>
+
+        <!-- INFORMASI -->
+        <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+
+          <h2 class="text-[32px] font-extrabold text-slate-900 mb-1">
+            Informasi Personal
+          </h2>
+
+          <p class="text-slate-400 text-[14px] mb-8">
+            Data lengkap pegawai ASN
+          </p>
+
+          <div class="grid grid-cols-2 gap-5">
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Email
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                ahmad@bakorwil.go.id
+              </h4>
+
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                No HP
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                081234567890
+              </h4>
+
+            </div>
+
+            <div class="col-span-2 bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Alamat
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                Jl. Soekarno Hatta No. 10 Kota Malang
+              </h4>
+
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Tanggal Lahir
+              </p>
+
+              <h4 class="text-slate-900 font-bold text-[16px]">
+                10 Mei 1995
+              </h4>
+
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-5">
+
+              <p class="text-slate-400 text-[13px] mb-1">
+                Persentase Kehadiran
+              </p>
+
+              <h4 class="text-green-600 font-extrabold text-[18px]">
+                96%
+              </h4>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RIWAYAT -->
+        <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+
+          <div class="flex items-center justify-between mb-7">
+
+            <div>
+
+              <h2 class="text-[32px] font-extrabold text-slate-900 mb-1">
+                Riwayat Pengajuan
+              </h2>
+
+              <p class="text-slate-400 text-[14px]">
+                Pengajuan izin dan sakit terbaru
+              </p>
+
+            </div>
+
+            <button class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-3 rounded-2xl font-bold text-[14px]">
+              Lihat Semua
+            </button>
+
+          </div>
+
+          <div class="space-y-4">
+
+            <!-- ITEM -->
+            <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
+
+              <div>
+
+                <h4 class="text-slate-900 font-bold text-[16px]">
+                  Izin Acara Keluarga
+                </h4>
+
+                <p class="text-slate-400 text-[13px] mt-1">
+                  21 Mei 2026
+                </p>
+
+              </div>
+
+              <span class="bg-yellow-100 text-yellow-700 px-5 py-2 rounded-xl text-[13px] font-bold">
+                Pending
+              </span>
+
+            </div>
+
+            <!-- ITEM -->
+            <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
+
+              <div>
+
+                <h4 class="text-slate-900 font-bold text-[16px]">
+                  Sakit Demam
+                </h4>
+
+                <p class="text-slate-400 text-[13px] mt-1">
+                  14 Mei 2026
+                </p>
+
+              </div>
+
+              <span class="bg-green-100 text-green-700 px-5 py-2 rounded-xl text-[13px] font-bold">
+                Disetujui
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

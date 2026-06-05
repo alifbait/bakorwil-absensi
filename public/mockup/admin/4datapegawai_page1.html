@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Peserta Magang</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body{
+      font-family: 'Segoe UI', sans-serif;
+      background:#edf2f7;
+    }
+
+    .sidebar-menu{
+      transition:0.3s;
+    }
+
+    .sidebar-menu:hover{
+      transform:translateY(-2px);
+    }
+
+    .active-menu{
+      background: linear-gradient(135deg,#3b82f6,#2563eb);
+      color:white;
+      box-shadow:0 10px 25px rgba(37,99,235,0.25);
+    }
+
+    .card-shadow{
+      box-shadow:0 10px 30px rgba(15,23,42,0.05);
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="w-[290px] bg-white border-r border-slate-200 flex flex-col justify-between">
+
+    <div>
+
+      <!-- LOGO -->
+      <div class="px-8 py-6 border-b border-slate-200">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-blue-500 flex items-center justify-center text-white text-2xl shadow-lg">
+            🏢
+          </div>
+
+          <div>
+            <h1 class="text-[18px] font-bold text-slate-900">
+              Admin Panel
+            </h1>
+
+            <p class="text-slate-400 text-sm">
+              Bakorwil III Malang
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MENU -->
+      <div class="p-5 space-y-4">
+
+        <!-- DASHBOARD -->
+        <div class="sidebar-menu bg-slate-50 rounded-[28px] p-5 flex items-center gap-4 cursor-pointer">
+          <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-2xl shadow-sm">
+            📊
+          </div>
+
+          <div>
+            <h3 class="font-bold text-[16px] text-slate-900">
+              Dashboard
+            </h3>
+
+            <p class="text-slate-400 text-sm">
+              Monitoring sistem
+            </p>
+          </div>
+        </div>
+
+        <!-- MONITORING -->
+        <div class="sidebar-menu bg-slate-50 rounded-[28px] p-5 flex items-center gap-4 cursor-pointer">
+          <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-2xl shadow-sm">
+            🕒
+          </div>
+
+          <div>
+            <h3 class="font-bold text-[16px] text-slate-900">
+              Monitoring Absensi
+            </h3>
+
+            <p class="text-slate-400 text-sm">
+              Data kehadiran pegawai
+            </p>
+          </div>
+        </div>
+
+        <!-- APPROVAL -->
+        <div class="sidebar-menu bg-slate-50 rounded-[28px] p-5 flex items-center gap-4 cursor-pointer">
+          <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-2xl shadow-sm">
+            📝
+          </div>
+
+          <div>
+            <h3 class="font-bold text-[16px] text-slate-900">
+              Approval Izin
+            </h3>
+
+            <p class="text-slate-400 text-sm">
+              Persetujuan pengajuan
+            </p>
+          </div>
+        </div>
+
+        <!-- DATA MAGANG ACTIVE -->
+        <div class="sidebar-menu active-menu rounded-[28px] p-5 flex items-center gap-4 cursor-pointer">
+
+          <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-2xl">
+            👥
+          </div>
+
+          <div>
+            <h3 class="font-bold text-[16px]">
+              Data Magang
+            </h3>
+
+            <p class="text-blue-100 text-sm">
+              Master data peserta
+            </p>
+          </div>
+        </div>
+
+        <!-- LAPORAN -->
+        <div class="sidebar-menu bg-slate-50 rounded-[28px] p-5 flex items-center gap-4 cursor-pointer">
+          <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-2xl shadow-sm">
+            📁
+          </div>
+
+          <div>
+            <h3 class="font-bold text-[16px] text-slate-900">
+              Laporan
+            </h3>
+
+            <p class="text-slate-400 text-sm">
+              Export Excel & PDF
+            </p>
+          </div>
+        </div>
+
+        <!-- SETTING -->
+        <div class="sidebar-menu bg-slate-50 rounded-[28px] p-5 flex items-center gap-4 cursor-pointer">
+          <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-2xl shadow-sm">
+            ⚙️
+          </div>
+
+          <div>
+            <h3 class="font-bold text-[16px] text-slate-900">
+              Setting
+            </h3>
+
+            <p class="text-slate-400 text-sm">
+              Konfigurasi sistem
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- LOGOUT -->
+    <div class="p-5 border-t border-slate-200">
+      <button class="w-full bg-red-500 hover:bg-red-600 transition text-white font-bold py-5 rounded-[24px] text-lg shadow-lg">
+        Logout
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 p-8 overflow-hidden">
+
+    <!-- HEADER -->
+    <div class="flex items-start justify-between mb-8">
+
+      <div>
+        <p class="text-slate-400 mb-2">
+          Master Data ASN & Pegawai
+        </p>
+
+        <h1 class="text-[64px] leading-none font-black text-slate-900">
+          Data Peserta Magang
+        </h1>
+      </div>
+
+      <!-- PROFILE -->
+      <div class="bg-white rounded-[28px] px-6 py-4 flex items-center gap-4 shadow-sm">
+
+        <img
+          src="https://i.pravatar.cc/100?img=12"
+          class="w-16 h-16 rounded-2xl object-cover"
+        />
+
+        <div>
+          <h3 class="font-bold text-xl text-slate-900">
+            Admin Utama
+          </h3>
+
+          <p class="text-slate-400">
+            Super Administrator
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FILTER -->
+    <div class="bg-white rounded-[34px] p-7 mb-7 card-shadow">
+
+      <div class="flex items-center gap-5">
+
+        <!-- SEARCH -->
+        <div class="flex-1 relative">
+
+          <input
+            type="text"
+            placeholder="Cari nama / NIP peserta..."
+            class="w-full h-16 rounded-2xl bg-slate-50 border border-slate-200 pl-16 pr-5 text-lg outline-none"
+          />
+
+          <span class="absolute left-6 top-5 text-xl text-slate-400">
+            🔎
+          </span>
+
+        </div>
+
+        <!-- DIVISI -->
+        <select class="w-56 h-16 rounded-2xl border border-slate-200 px-5 text-lg outline-none">
+          <option>Semua Divisi</option>
+        </select>
+
+        <!-- STATUS -->
+        <select class="w-56 h-16 rounded-2xl border border-slate-200 px-5 text-lg outline-none">
+          <option>Status Akun</option>
+        </select>
+
+        <!-- BUTTON -->
+        <button class="bg-blue-600 hover:bg-blue-700 transition text-white font-bold h-16 px-10 rounded-2xl text-lg shadow-lg whitespace-nowrap">
+          + Tambah Peserta
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- TABLE CARD -->
+    <div class="bg-white rounded-[36px] overflow-hidden card-shadow">
+
+      <!-- TOP -->
+      <div class="p-8 flex items-start justify-between">
+
+        <div>
+          <h2 class="text-[52px] font-black text-slate-900 leading-none mb-3">
+            Data Peserta Magang
+          </h2>
+
+          <p class="text-slate-400 text-xl">
+            Monitoring dan pengelolaan akun peserta magang
+          </p>
+        </div>
+
+        <div class="flex gap-4">
+
+          <button class="bg-green-500 hover:bg-green-600 transition text-white font-bold px-8 h-14 rounded-2xl">
+            Export Excel
+          </button>
+
+          <button class="bg-orange-500 hover:bg-orange-600 transition text-white font-bold px-8 h-14 rounded-2xl">
+            Export PDF
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- TABLE -->
+      <div class="overflow-x-auto">
+
+        <table class="w-full">
+
+          <thead class="bg-slate-50">
+            <tr class="text-slate-500 text-left">
+
+              <th class="px-8 py-6 font-bold">
+                Pegawai
+              </th>
+
+              <th class="px-6 py-6 font-bold">
+                NIP
+              </th>
+
+              <th class="px-6 py-6 font-bold">
+                Jabatan
+              </th>
+
+              <th class="px-6 py-6 font-bold">
+                Divisi
+              </th>
+
+              <th class="px-6 py-6 font-bold">
+                Status Akun
+              </th>
+
+              <th class="px-6 py-6 font-bold text-center">
+                Aksi
+              </th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <!-- ROW -->
+            <tr class="border-b border-slate-100">
+
+              <td class="px-8 py-7">
+
+                <div class="flex items-center gap-4">
+
+                  <img
+                    src="https://i.pravatar.cc/100?img=11"
+                    class="w-16 h-16 rounded-2xl object-cover"
+                  />
+
+                  <div>
+                    <h3 class="font-bold text-[20px] text-slate-900">
+                      Ahmad Rizki
+                    </h3>
+
+                    <p class="text-slate-400">
+                      Staff Kepegawaian
+                    </p>
+                  </div>
+
+                </div>
+
+              </td>
+
+              <td class="px-6 py-7 font-semibold text-slate-700">
+                19881201202401001
+              </td>
+
+              <td class="px-6 py-7 text-slate-700">
+                Staff ASN
+              </td>
+
+              <td class="px-6 py-7 text-slate-700">
+                Kepegawaian
+              </td>
+
+              <td class="px-6 py-7">
+                <span class="bg-green-100 text-green-700 font-bold px-5 py-2 rounded-xl text-sm">
+                  Aktif
+                </span>
+              </td>
+
+              <td class="px-6 py-7">
+
+                <div class="flex items-center justify-center gap-3">
+
+                  <button class="bg-slate-100 hover:bg-slate-200 transition px-5 h-11 rounded-xl font-semibold text-slate-700 text-sm">
+                    Detail
+                  </button>
+
+                  <button class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-5 h-11 rounded-xl font-semibold text-sm">
+                    Edit
+                  </button>
+
+                  <button class="bg-blue-500 hover:bg-blue-600 transition text-white px-5 h-11 rounded-xl font-semibold text-sm">
+                    Reset
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+            <!-- ROW -->
+            <tr class="border-b border-slate-100">
+
+              <td class="px-8 py-7">
+
+                <div class="flex items-center gap-4">
+
+                  <img
+                    src="https://i.pravatar.cc/100?img=32"
+                    class="w-16 h-16 rounded-2xl object-cover"
+                  />
+
+                  <div>
+                    <h3 class="font-bold text-[20px] text-slate-900">
+                      Sinta Permata
+                    </h3>
+
+                    <p class="text-slate-400">
+                      Staff Administrasi
+                    </p>
+                  </div>
+
+                </div>
+
+              </td>
+
+              <td class="px-6 py-7 font-semibold text-slate-700">
+                19890111202401002
+              </td>
+
+              <td class="px-6 py-7 text-slate-700">
+                Staff Administrasi
+              </td>
+
+              <td class="px-6 py-7 text-slate-700">
+                Administrasi
+              </td>
+
+              <td class="px-6 py-7">
+                <span class="bg-green-100 text-green-700 font-bold px-5 py-2 rounded-xl text-sm">
+                  Aktif
+                </span>
+              </td>
+
+              <td class="px-6 py-7">
+
+                <div class="flex items-center justify-center gap-3">
+
+                  <button class="bg-slate-100 hover:bg-slate-200 transition px-5 h-11 rounded-xl font-semibold text-slate-700 text-sm">
+                    Detail
+                  </button>
+
+                  <button class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-5 h-11 rounded-xl font-semibold text-sm">
+                    Edit
+                  </button>
+
+                  <button class="bg-blue-500 hover:bg-blue-600 transition text-white px-5 h-11 rounded-xl font-semibold text-sm">
+                    Reset
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+            <!-- ROW -->
+            <tr>
+
+              <td class="px-8 py-7">
+
+                <div class="flex items-center gap-4">
+
+                  <img
+                    src="https://i.pravatar.cc/100?img=15"
+                    class="w-16 h-16 rounded-2xl object-cover"
+                  />
+
+                  <div>
+                    <h3 class="font-bold text-[20px] text-slate-900">
+                      Budi Santoso
+                    </h3>
+
+                    <p class="text-slate-400">
+                      Staff Operasional
+                    </p>
+                  </div>
+
+                </div>
+
+              </td>
+
+              <td class="px-6 py-7 font-semibold text-slate-700">
+                19900212202401003
+              </td>
+
+              <td class="px-6 py-7 text-slate-700">
+                Staff Operasional
+              </td>
+
+              <td class="px-6 py-7 text-slate-700">
+                Operasional
+              </td>
+
+              <td class="px-6 py-7">
+                <span class="bg-red-100 text-red-600 font-bold px-5 py-2 rounded-xl text-sm">
+                  Nonaktif
+                </span>
+              </td>
+
+              <td class="px-6 py-7">
+
+                <div class="flex items-center justify-center gap-3">
+
+                  <button class="bg-slate-100 hover:bg-slate-200 transition px-5 h-11 rounded-xl font-semibold text-slate-700 text-sm">
+                    Detail
+                  </button>
+
+                  <button class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-5 h-11 rounded-xl font-semibold text-sm">
+                    Edit
+                  </button>
+
+                  <button class="bg-red-500 hover:bg-red-600 transition text-white px-5 h-11 rounded-xl font-semibold text-sm whitespace-nowrap">
+                    Nonaktifkan
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="px-8 py-6 flex items-center justify-between border-t border-slate-100">
+
+        <p class="text-slate-400">
+          Menampilkan 1-10 data peserta
+        </p>
+
+        <div class="flex gap-3">
+
+          <button class="w-12 h-12 rounded-xl bg-slate-100 font-bold text-slate-500">
+            ←
+          </button>
+
+          <button class="w-12 h-12 rounded-xl bg-blue-600 text-white font-bold">
+            1
+          </button>
+
+          <button class="w-12 h-12 rounded-xl bg-slate-100 font-bold text-slate-500">
+            2
+          </button>
+
+          <button class="w-12 h-12 rounded-xl bg-slate-100 font-bold text-slate-500">
+            →
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

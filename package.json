@@ -1,0 +1,14 @@
+{
+  "name": "bakorwil-absensi",
+  "version": "1.0.0",
+  "description": "Sistem Absensi Bakorwil III Malang",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i ./public/assets/css/input.css -o ./public/assets/css/style.css",
+    "watch": "tailwindcss -i ./public/assets/css/input.css -o ./public/assets/css/style.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  }
+}
