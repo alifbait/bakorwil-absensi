@@ -7,11 +7,11 @@
     <div>
 
         <p class="text-slate-400 text-[14px] mb-1">
-            Master Data ASN
+            Master Data Magang
         </p>
 
         <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
-            Tambah Pegawai
+            Tambah Anggota
         </h1>
 
     </div>
@@ -26,12 +26,13 @@
 </div>
 
 <form action="<?= base_url('admin/pegawai/store') ?>" method="POST" enctype="multipart/form-data">
-    <div class="grid grid-cols-3 gap-7">
+
+    <div class="grid grid-cols-12 gap-7">
 
         <!-- LEFT -->
-        <div class="col-span-2 space-y-7">
+        <div class="col-span-8 space-y-7">
 
-            <!-- PERSONAL -->
+            <!-- INFORMASI PERSONAL -->
             <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
                 <h2 class="text-[30px] font-extrabold text-slate-900 mb-1">
@@ -39,7 +40,7 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Data identitas pegawai ASN
+                    Data identitas peserta magang
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">
@@ -51,19 +52,25 @@
                             Nama Lengkap
                         </label>
 
-                        <input type="text" name="nama" placeholder="Masukkan nama lengkap"
+                        <input
+                            type="text"
+                            name="nama"
+                            placeholder="Masukkan nama lengkap"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
 
-                    <!-- NIP -->
+                    <!-- NIM -->
                     <div>
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            NIP
+                            NIM
                         </label>
 
-                        <input type="text" name="nip" placeholder="Masukkan NIP"
+                        <input
+                            type="text"
+                            name="nim"
+                            placeholder="Masukkan NIM"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -75,7 +82,10 @@
                             Email
                         </label>
 
-                        <input type="email" name="email" placeholder="pegawai@email.com"
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="anggota@email.com"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -87,7 +97,10 @@
                             No HP
                         </label>
 
-                        <input type="text" name="no_hp" placeholder="08xxxxxxxxxx"
+                        <input
+                            type="text"
+                            name="nohp"
+                            placeholder="08xxxxxxxxxx"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -99,19 +112,23 @@
                             Tanggal Lahir
                         </label>
 
-                        <input type="date" name="tanggal_lahir"
+                        <input
+                            type="date"
+                            name="lahir"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
 
-                    <!-- GABUNG -->
+                    <!-- TANGGAL BERGABUNG -->
                     <div>
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
                             Tanggal Bergabung
                         </label>
 
-                        <input type="date" name="tanggal_gabung"
+                        <input
+                            type="date"
+                            name="bergabung"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -123,7 +140,10 @@
                             Alamat
                         </label>
 
-                        <textarea rows="4" name="alamat" placeholder="Masukkan alamat lengkap..."
+                        <textarea
+                            rows="5"
+                            name="alamat"
+                            placeholder="Masukkan alamat lengkap..."
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none resize-none focus:border-blue-500"></textarea>
 
                     </div>
@@ -132,30 +152,18 @@
 
             </div>
 
-            <!-- KEPEGAWAIAN -->
+            <!-- INFORMASI KEANGGOTAAN -->
             <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
                 <h2 class="text-[30px] font-extrabold text-slate-900 mb-1">
-                    Informasi Kepegawaian
+                    Informasi Keanggotaan
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Data jabatan dan status pegawai
+                    Data divisi dan status akun
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">
-
-                    <!-- JABATAN -->
-                    <div>
-
-                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Jabatan
-                        </label>
-
-                        <input type="text" name="jabatan" placeholder="Masukkan jabatan"
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
-
-                    </div>
 
                     <!-- DIVISI -->
                     <div>
@@ -164,27 +172,32 @@
                             Divisi
                         </label>
 
-                        <select name="divisi"
+                        <select
+                            name="divisi"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
                             <option value="">
                                 Pilih Divisi
                             </option>
 
-                            <option value="Kepegawaian">
-                                Kepegawaian
+                            <option value="Record Center">
+                                Record Center
                             </option>
 
-                            <option value="Administrasi">
-                                Administrasi
+                            <option value="Sarpras">
+                                Sarpras
                             </option>
 
-                            <option value="Operasional">
-                                Operasional
+                            <option value="Ajudan">
+                                Ajudan
                             </option>
 
-                            <option value="IT">
-                                IT
+                            <option value="TU">
+                                TU
+                            </option>
+
+                            <option value="PE">
+                                PE
                             </option>
 
                         </select>
@@ -198,14 +211,15 @@
                             Role Akun
                         </label>
 
-                        <select name="role"
+                        <select
+                            name="role"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
-                            <option value="pegawai">
-                                Pegawai
+                            <option value="Anggota">
+                                Anggota
                             </option>
 
-                            <option value="admin">
+                            <option value="Admin">
                                 Admin
                             </option>
 
@@ -214,13 +228,14 @@
                     </div>
 
                     <!-- STATUS -->
-                    <div>
+                    <div class="col-span-2">
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
                             Status Akun
                         </label>
 
-                        <select name="status"
+                        <select
+                            name="status"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
                             <option value="Aktif">
@@ -242,31 +257,35 @@
         </div>
 
         <!-- RIGHT -->
-        <div class="space-y-7">
+        <div class="col-span-4 space-y-7">
 
             <!-- FOTO -->
             <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
                 <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
-                    Foto Pegawai
+                    Foto Anggota
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Upload foto profil ASN
+                    Upload foto profil peserta magang
                 </p>
 
                 <div class="border-2 border-dashed border-slate-200 rounded-[28px] p-8 text-center">
 
-                    <img src="https://ui-avatars.com/api/?name=Pegawai&background=e2e8f0&color=0f172a"
+                    <img
+                        src="https://ui-avatars.com/api/?name=Magang&background=e2e8f0&color=0f172a"
                         class="w-36 h-36 rounded-[30px] object-cover mx-auto mb-5">
 
-                    <input type="file" name="foto" class="w-full text-sm text-slate-500">
+                    <input
+                        type="file"
+                        name="foto"
+                        class="w-full text-sm text-slate-500">
 
                 </div>
 
             </div>
 
-            <!-- LOGIN -->
+            <!-- AKUN LOGIN -->
             <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
                 <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
@@ -274,7 +293,7 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Informasi login pegawai
+                    Informasi login anggota
                 </p>
 
                 <div class="space-y-5">
@@ -286,7 +305,10 @@
                             Username
                         </label>
 
-                        <input type="text" name="username" placeholder="username"
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="username"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
                     </div>
@@ -298,7 +320,10 @@
                             Password Default
                         </label>
 
-                        <input type="password" name="password" placeholder="••••••••"
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="••••••••"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
                     </div>
@@ -312,14 +337,16 @@
 
                 <div class="space-y-4">
 
-                    <button type="submit"
+                    <button
+                        type="submit"
                         class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-bold text-[15px] shadow-lg shadow-blue-500/20">
 
-                        Simpan Pegawai
+                        Simpan Anggota
 
                     </button>
 
-                    <button type="reset"
+                    <button
+                        type="reset"
                         class="w-full bg-slate-100 hover:bg-slate-200 transition text-slate-700 py-4 rounded-2xl font-bold text-[15px]">
 
                         Reset Form

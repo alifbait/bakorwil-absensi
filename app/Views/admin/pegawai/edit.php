@@ -2,22 +2,22 @@
 
 <?= $this->section('content') ?>
 
-<div class="flex items-center justify-between mb-8">
+<div class="mb-8 flex items-center justify-between">
 
     <div>
 
-        <p class="text-slate-400 text-[14px] mb-2">
-            Edit Data ASN & Pegawai
+        <p class="text-slate-400 text-[14px] mb-1">
+            Edit Data Magang
         </p>
 
-        <h1 class="text-[48px] leading-none font-extrabold text-slate-900">
-            Edit Pegawai
+        <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
+            Edit Anggota
         </h1>
 
     </div>
 
     <a href="<?= base_url('admin/pegawai/detail/' . $id) ?>"
-        class="bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-bold text-slate-700">
+        class="bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-semibold text-slate-700 text-[14px]">
 
         Kembali
 
@@ -25,76 +25,178 @@
 
 </div>
 
-<form action="<?= base_url('admin/pegawai/update/' . $id) ?>" method="POST">
+<form action="<?= base_url('admin/pegawai/update/' . $id) ?>"
+    method="POST"
+    enctype="multipart/form-data">
 
-    <div class="grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-12 gap-7">
 
         <!-- LEFT -->
-        <div class="col-span-4">
+        <div class="col-span-8 space-y-7">
 
-            <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+            <!-- INFORMASI PERSONAL -->
+            <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
-                <div class="flex flex-col items-center text-center">
+                <h2 class="text-[30px] font-extrabold text-slate-900 mb-1">
+                    Informasi Personal
+                </h2>
 
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
-                        class="w-40 h-40 rounded-[32px] object-cover shadow-lg mb-6">
+                <p class="text-slate-400 text-[14px] mb-8">
+                    Edit data identitas peserta magang
+                </p>
 
-                    <h2 class="text-[36px] font-extrabold text-slate-900 leading-tight">
-                        <?= $pegawai['nama']; ?>
-                    </h2>
+                <div class="grid grid-cols-2 gap-5">
 
-                    <p class="text-slate-400 text-[16px] mt-2">
-                        <?= $pegawai['jabatan']; ?>
-                    </p>
+                    <!-- NAMA -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Nama Lengkap
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nama"
+                            value="<?= $pegawai['nama']; ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- NIM -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            NIM
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nim"
+                            value="<?= $pegawai['nim']; ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            value="<?= $pegawai['email']; ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- NO HP -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            No HP
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nohp"
+                            value="<?= $pegawai['nohp']; ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- TANGGAL LAHIR -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Tanggal Lahir
+                        </label>
+
+                        <input
+                            type="date"
+                            name="lahir"
+                            value="<?= $pegawai['lahir']; ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- TANGGAL BERGABUNG -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Tanggal Bergabung
+                        </label>
+
+                        <input
+                            type="date"
+                            name="bergabung"
+                            value="<?= $pegawai['bergabung']; ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- ALAMAT -->
+                    <div class="col-span-2">
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Alamat
+                        </label>
+
+                        <textarea
+                            rows="5"
+                            name="alamat"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none resize-none focus:border-blue-500"><?= $pegawai['alamat']; ?></textarea>
+
+                    </div>
 
                 </div>
 
-                <div class="mt-10 space-y-5">
+            </div>
 
-                    <!-- NIP -->
-                    <div class="bg-slate-50 rounded-2xl p-5">
+            <!-- INFORMASI KEANGGOTAAN -->
+            <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
-                        <p class="text-slate-400 text-[13px] mb-2">
-                            NIP
-                        </p>
+                <h2 class="text-[30px] font-extrabold text-slate-900 mb-1">
+                    Informasi Keanggotaan
+                </h2>
 
-                        <input type="text" name="nip" value="<?= $pegawai['nip']; ?>"
-                            class="w-full bg-transparent outline-none font-bold text-slate-900 text-[16px]">
+                <p class="text-slate-400 text-[14px] mb-8">
+                    Edit data divisi anggota
+                </p>
 
-                    </div>
+                <div class="grid grid-cols-2 gap-5">
 
                     <!-- DIVISI -->
-                    <div class="bg-slate-50 rounded-2xl p-5">
+                    <div>
 
-                        <p class="text-slate-400 text-[13px] mb-2">
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
                             Divisi
-                        </p>
+                        </label>
 
-                        <input type="text" name="divisi" value="<?= $pegawai['divisi']; ?>"
-                            class="w-full bg-transparent outline-none font-bold text-slate-900 text-[16px]">
+                        <select
+                            name="divisi"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
-                    </div>
-
-                    <!-- STATUS -->
-                    <div class="bg-slate-50 rounded-2xl p-5">
-
-                        <p class="text-slate-400 text-[13px] mb-2">
-                            Status Pegawai
-                        </p>
-
-                        <select name="status"
-                            class="w-full bg-transparent outline-none font-bold text-slate-900 text-[16px]">
-
-                            <option value="Aktif" <?= $pegawai['status'] == 'Aktif' ? 'selected' : ''; ?>>
-
-                                Aktif
-
+                            <option value="Record Center" <?= $pegawai['divisi'] == 'Record Center' ? 'selected' : ''; ?>>
+                                Record Center
                             </option>
 
-                            <option value="Nonaktif" <?= $pegawai['status'] == 'Nonaktif' ? 'selected' : ''; ?>>
+                            <option value="Sarpras" <?= $pegawai['divisi'] == 'Sarpras' ? 'selected' : ''; ?>>
+                                Sarpras
+                            </option>
 
-                                Nonaktif
+                            <option value="Ajudan" <?= $pegawai['divisi'] == 'Ajudan' ? 'selected' : ''; ?>>
+                                Ajudan
+                            </option>
 
+                            <option value="TU" <?= $pegawai['divisi'] == 'TU' ? 'selected' : ''; ?>>
+                                TU
+                            </option>
+
+                            <option value="PE" <?= $pegawai['divisi'] == 'PE' ? 'selected' : ''; ?>>
+                                PE
                             </option>
 
                         </select>
@@ -108,102 +210,55 @@
         </div>
 
         <!-- RIGHT -->
-        <div class="col-span-8 space-y-6">
+        <div class="col-span-4 space-y-7">
 
-            <!-- INFORMASI -->
-            <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+            <!-- FOTO -->
+            <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
-                <h2 class="text-[32px] font-extrabold text-slate-900 mb-2">
-                    Informasi Personal
+                <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
+                    Foto Anggota
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Edit data lengkap pegawai ASN
+                    Update foto profil peserta magang
                 </p>
 
-                <div class="grid grid-cols-2 gap-5">
+                <div class="border-2 border-dashed border-slate-200 rounded-[28px] p-8 text-center">
 
-                    <!-- NAMA -->
-                    <div class="bg-slate-50 rounded-2xl p-5">
+                    <img
+                        src="https://ui-avatars.com/api/?name=<?= urlencode($pegawai['nama']); ?>&background=e2e8f0&color=0f172a"
+                        class="w-36 h-36 rounded-[30px] object-cover mx-auto mb-5">
 
-                        <p class="text-slate-400 text-[13px] mb-2">
-                            Nama Lengkap
-                        </p>
-
-                        <input type="text" name="nama" value="<?= $pegawai['nama']; ?>"
-                            class="w-full bg-transparent outline-none font-bold text-slate-900 text-[16px]">
-
-                    </div>
-
-                    <!-- EMAIL -->
-                    <div class="bg-slate-50 rounded-2xl p-5">
-
-                        <p class="text-slate-400 text-[13px] mb-2">
-                            Email
-                        </p>
-
-                        <input type="email" name="email" value="<?= $pegawai['email']; ?>"
-                            class="w-full bg-transparent outline-none font-bold text-slate-900 text-[16px]">
-
-                    </div>
-
-                    <!-- NO HP -->
-                    <div class="bg-slate-50 rounded-2xl p-5">
-
-                        <p class="text-slate-400 text-[13px] mb-2">
-                            No HP
-                        </p>
-
-                        <input type="text" name="nohp" value="<?= $pegawai['nohp']; ?>"
-                            class="w-full bg-transparent outline-none font-bold text-slate-900 text-[16px]">
-
-                    </div>
-
-                    <!-- TANGGAL LAHIR -->
-                    <div class="bg-slate-50 rounded-2xl p-5">
-
-                        <p class="text-slate-400 text-[13px] mb-2">
-                            Tanggal Lahir
-                        </p>
-
-                        <input type="text" name="lahir" value="<?= $pegawai['lahir']; ?>"
-                            class="w-full bg-transparent outline-none font-bold text-slate-900 text-[16px]">
-
-                    </div>
-
-                    <!-- ALAMAT -->
-                    <div class="bg-slate-50 rounded-2xl p-5 col-span-2">
-
-                        <p class="text-slate-400 text-[13px] mb-2">
-                            Alamat
-                        </p>
-
-                        <textarea name="alamat" rows="4"
-                            class="w-full bg-transparent outline-none font-bold text-slate-900 text-[16px] resize-none"><?= $pegawai['alamat']; ?></textarea>
-
-                    </div>
+                    <input
+                        type="file"
+                        name="foto"
+                        class="w-full text-sm text-slate-500">
 
                 </div>
 
             </div>
 
-            <!-- BUTTON -->
-            <div
-                class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm flex items-center justify-end gap-4">
+            <!-- AKSI -->
+            <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
-                <a href="<?= base_url('admin/pegawai/detail/' . $id) ?>"
-                    class="px-7 py-4 rounded-2xl bg-slate-100 hover:bg-slate-200 transition font-bold text-slate-700">
+                <div class="space-y-4">
 
-                    Batal
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-bold text-[15px] shadow-lg shadow-blue-500/20">
 
-                </a>
+                        Simpan Perubahan
 
-                <button type="submit"
-                    class="px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 transition text-white font-bold shadow-lg shadow-blue-300/30">
+                    </button>
 
-                    Simpan Perubahan
+                    <a href="<?= base_url('admin/pegawai/detail/' . $id) ?>"
+                        class="w-full block text-center bg-slate-100 hover:bg-slate-200 transition text-slate-700 py-4 rounded-2xl font-bold text-[15px]">
 
-                </button>
+                        Batal
+
+                    </a>
+
+                </div>
 
             </div>
 

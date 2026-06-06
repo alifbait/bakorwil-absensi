@@ -7,7 +7,7 @@ use App\Controllers\BaseController;
 class Pegawai extends BaseController
 {
     // =========================================
-    // MASTER DATA PEGAWAI
+    // MASTER DATA PEGAWAI MAGANG
     // =========================================
     private function pegawaiData()
     {
@@ -15,9 +15,10 @@ class Pegawai extends BaseController
 
             [
                 'nama' => 'Ahmad Rizki',
-                'nip' => '19881201202401001',
-                'jabatan' => 'Staff ASN',
-                'divisi' => 'Kepegawaian',
+                'nim' => '22110001',
+                'divisi' => 'Record Center',
+                'role' => 'Admin',
+                'username' => 'ahmad_rizki',
                 'status' => 'Aktif',
 
                 'email' => 'ahmad@bakorwil.go.id',
@@ -57,12 +58,6 @@ class Pegawai extends BaseController
                         'status' => 'Alfa',
                     ],
 
-                    [
-                        'title' => 'Hadir Tepat Waktu',
-                        'tanggal' => '02 Juni 2026 • 06:58 WIB',
-                        'status' => 'Hadir',
-                    ],
-
                 ],
 
                 // RIWAYAT PENGAJUAN
@@ -86,9 +81,10 @@ class Pegawai extends BaseController
 
             [
                 'nama' => 'Sinta Permata',
-                'nip' => '19890111202401002',
-                'jabatan' => 'Staff Administrasi',
-                'divisi' => 'Administrasi',
+                'nim' => '22110002',
+                'divisi' => 'TU',
+                'role' => 'Anggota',
+                'username' => 'sinta_permataa',
                 'status' => 'Aktif',
 
                 'email' => 'sinta@bakorwil.go.id',
@@ -100,14 +96,12 @@ class Pegawai extends BaseController
 
                 'persentase' => '92%',
 
-                // STATISTIK
                 'hadir' => 21,
                 'terlambat' => 4,
                 'izin' => 2,
                 'sakit' => 0,
                 'alfa' => 1,
 
-                // RIWAYAT KEHADIRAN
                 'riwayat_kehadiran' => [
 
                     [
@@ -116,15 +110,8 @@ class Pegawai extends BaseController
                         'status' => 'Hadir',
                     ],
 
-                    [
-                        'title' => 'Izin Tidak Masuk',
-                        'tanggal' => '04 Juni 2026',
-                        'status' => 'Izin',
-                    ],
-
                 ],
 
-                // RIWAYAT PENGAJUAN
                 'riwayat_pengajuan' => [
 
                     [
@@ -139,9 +126,10 @@ class Pegawai extends BaseController
 
             [
                 'nama' => 'Budi Santoso',
-                'nip' => '19900212202401003',
-                'jabatan' => 'Staff Operasional',
-                'divisi' => 'Operasional',
+                'nim' => '22110003',
+                'divisi' => 'Sarpras',
+                'role' => 'Anggota',
+                'username' => 'budi_santoso',
                 'status' => 'Nonaktif',
 
                 'email' => 'budi@bakorwil.go.id',
@@ -153,14 +141,12 @@ class Pegawai extends BaseController
 
                 'persentase' => '81%',
 
-                // STATISTIK
                 'hadir' => 18,
                 'terlambat' => 7,
                 'izin' => 5,
                 'sakit' => 2,
                 'alfa' => 4,
 
-                // RIWAYAT KEHADIRAN
                 'riwayat_kehadiran' => [
 
                     [
@@ -169,15 +155,8 @@ class Pegawai extends BaseController
                         'status' => 'Alfa',
                     ],
 
-                    [
-                        'title' => 'Terlambat Absensi',
-                        'tanggal' => '04 Juni 2026 • 07:40 WIB',
-                        'status' => 'Terlambat',
-                    ],
-
                 ],
 
-                // RIWAYAT PENGAJUAN
                 'riwayat_pengajuan' => [
 
                     [
@@ -194,7 +173,7 @@ class Pegawai extends BaseController
     }
 
     // =========================================
-    // INDEX PEGAWAI
+    // INDEX
     // =========================================
     public function index()
     {
@@ -210,7 +189,7 @@ class Pegawai extends BaseController
 
                 return
                     stripos($item['nama'], $search) !== false ||
-                    stripos($item['nip'], $search) !== false;
+                    stripos($item['nim'], $search) !== false;
 
             });
 
@@ -238,13 +217,12 @@ class Pegawai extends BaseController
     }
 
     // =========================================
-    // DETAIL PEGAWAI
+    // DETAIL
     // =========================================
     public function detail($id)
     {
         $pegawai = $this->pegawaiData();
 
-        // VALIDASI ID
         if (!isset($pegawai[$id])) {
 
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -254,32 +232,27 @@ class Pegawai extends BaseController
         $data = [
             'title' => 'Detail Pegawai',
             'pegawai' => $pegawai[$id],
+            'id' => $id,
         ];
 
         return view('admin/pegawai/detail', $data);
     }
 
     // =========================================
-    // CREATE PEGAWAI
+    // CREATE
     // =========================================
     public function create()
     {
-        $data = [
+        return view('admin/pegawai/create', [
             'title' => 'Tambah Pegawai',
-        ];
-
-        return view('admin/pegawai/create', $data);
+        ]);
     }
 
     // =========================================
-    // STORE PEGAWAI
+    // STORE
     // =========================================
     public function store()
     {
-        $nama = $this->request->getPost('nama');
-        $nip = $this->request->getPost('nip');
-
-        // SIMULASI SAVE
         session()->setFlashdata(
             'success',
             'Data pegawai berhasil ditambahkan.'
@@ -287,6 +260,10 @@ class Pegawai extends BaseController
 
         return redirect()->to('/admin/pegawai');
     }
+
+    // =========================================
+    // EDIT
+    // =========================================
     public function edit($id)
     {
         $pegawai = $this->pegawaiData();
@@ -300,11 +277,15 @@ class Pegawai extends BaseController
         $data = [
             'title' => 'Edit Pegawai',
             'pegawai' => $pegawai[$id],
+            'id' => $id,
         ];
 
         return view('admin/pegawai/edit', $data);
     }
 
+    // =========================================
+    // UPDATE
+    // =========================================
     public function update($id)
     {
         session()->setFlashdata(
@@ -314,4 +295,40 @@ class Pegawai extends BaseController
 
         return redirect()->to('/admin/pegawai/detail/' . $id);
     }
+
+    // =========================================
+    // KELOLA AKUN
+    // =========================================
+    public function akun($id)
+    {
+        $pegawai = $this->pegawaiData();
+
+        if (!isset($pegawai[$id])) {
+
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+
+        }
+
+        $data = [
+            'title' => 'Kelola Akun',
+            'pegawai' => $pegawai[$id],
+            'id' => $id,
+        ];
+
+        return view('admin/pegawai/akun', $data);
+    }
+
+    // =========================================
+    // UPDATE AKUN
+    // =========================================
+    public function akunUpdate($id)
+    {
+        session()->setFlashdata(
+            'success',
+            'Akun berhasil diperbarui.'
+        );
+
+        return redirect()->to('/admin/pegawai/akun/' . $id);
+    }
+
 }

@@ -126,11 +126,7 @@
                     </th>
 
                     <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
-                        NIP
-                    </th>
-
-                    <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
-                        Jabatan
+                        NIM
                     </th>
 
                     <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
@@ -169,24 +165,15 @@
                                         <?= $p['nama']; ?>
                                     </h3>
 
-                                    <p class="text-slate-400 text-sm">
-                                        <?= $p['jabatan']; ?>
-                                    </p>
-
                                 </div>
 
                             </div>
 
                         </td>
 
-                        <!-- NIP -->
+                        <!-- NIM -->
                         <td class="px-6 py-5 text-slate-600">
-                            <?= $p['nip']; ?>
-                        </td>
-
-                        <!-- JABATAN -->
-                        <td class="px-6 py-5 text-slate-600">
-                            <?= $p['jabatan']; ?>
+                            <?= $p['nim']; ?>
                         </td>
 
                         <!-- DIVISI -->

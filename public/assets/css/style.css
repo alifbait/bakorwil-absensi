@@ -389,6 +389,9 @@
   .mt-6 {
     margin-top: calc(var(--spacing) * 6);
   }
+  .mt-7 {
+    margin-top: calc(var(--spacing) * 7);
+  }
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
   }
@@ -521,6 +524,9 @@
   .h-\[230px\] {
     height: 230px;
   }
+  .h-\[300px\] {
+    height: 300px;
+  }
   .h-\[320px\] {
     height: 320px;
   }
@@ -538,12 +544,6 @@
   }
   .h-screen {
     height: 100vh;
-  }
-  .max-h-\[420px\] {
-    max-height: 420px;
-  }
-  .max-h-\[500px\] {
-    max-height: 500px;
   }
   .min-h-screen {
     min-height: 100vh;
@@ -660,17 +660,6 @@
   }
   .resize-none {
     resize: none;
-  }
-  .scrollbar-thin {
-    scrollbar-width: thin;
-  }
-  .scrollbar-thumb-slate-300 {
-    --tw-scrollbar-thumb: var(--color-slate-300);
-    scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
-  }
-  .scrollbar-track-transparent {
-    --tw-scrollbar-track: transparent;
-    scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
   }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1309,9 +1298,6 @@
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
   }
-  .break-all {
-    word-break: break-all;
-  }
   .whitespace-nowrap {
     white-space: nowrap;
   }
@@ -1515,18 +1501,6 @@
       --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-red-300) 30%, transparent) var(--tw-shadow-alpha), transparent);
     }
   }
-  .shadow-yellow-200 {
-    --tw-shadow-color: oklch(94.5% 0.129 101.54);
-    @supports (color: color-mix(in lab, red, red)) {
-      --tw-shadow-color: color-mix(in oklab, var(--color-yellow-200) var(--tw-shadow-alpha), transparent);
-    }
-  }
-  .shadow-yellow-200\/50 {
-    --tw-shadow-color: color-mix(in srgb, oklch(94.5% 0.129 101.54) 50%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-yellow-200) 50%, transparent) var(--tw-shadow-alpha), transparent);
-    }
-  }
   .shadow-yellow-300 {
     --tw-shadow-color: oklch(90.5% 0.182 98.111);
     @supports (color: color-mix(in lab, red, red)) {
@@ -1678,16 +1652,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0;
-}
-@property --tw-scrollbar-thumb {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #0000;
-}
-@property --tw-scrollbar-track {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #0000;
 }
 @property --tw-space-y-reverse {
   syntax: "*";
@@ -1914,8 +1878,6 @@
       --tw-translate-x: 0;
       --tw-translate-y: 0;
       --tw-translate-z: 0;
-      --tw-scrollbar-thumb: #0000;
-      --tw-scrollbar-track: #0000;
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
       --tw-gradient-position: initial;

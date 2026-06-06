@@ -19,20 +19,18 @@
     <!-- ACTION -->
     <div class="flex items-center gap-4">
 
-        <button
-            class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-yellow-300/30">
+        <a href="<?= base_url('admin/pegawai/edit/' . $id) ?>"
+            class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-yellow-300/30 inline-flex items-center justify-center">
 
             Edit Pegawai
-            
-        </button>
 
-        <button
-            class="bg-blue-600 hover:bg-blue-700 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
+        </a>
+        <a href="<?= base_url('admin/pegawai/akun/' . $id) ?>"
+            class="bg-blue-600 hover:bg-blue-700 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20 inline-block">
 
             Kelola Akun
 
-        </button>
-
+        </a>
     </div>
 
 </div>
@@ -54,10 +52,6 @@
                 <h2 class="text-[34px] font-extrabold text-slate-900 mt-6">
                     <?= $pegawai['nama']; ?>
                 </h2>
-
-                <p class="text-slate-400 text-[15px] mt-1">
-                    <?= $pegawai['jabatan']; ?>
-                </p>
 
                 <div class="flex items-center justify-center gap-3 mt-6">
 
@@ -83,11 +77,11 @@
                 <div class="bg-slate-50 rounded-2xl p-5">
 
                     <p class="text-slate-400 text-[13px] mb-1">
-                        NIP
+                        NIM
                     </p>
 
                     <h4 class="text-slate-900 font-bold text-[16px]">
-                        <?= $pegawai['nip']; ?>
+                        <?= $pegawai['nim']; ?>
                     </h4>
 
                 </div>
@@ -132,7 +126,7 @@
             </p>
 
             <div class="space-y-4 h-[320px] overflow-y-auto pr-2 scroll-smooth">
-                 <!-- ITEM -->
+                <!-- ITEM -->
                 <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
 
                     <div>
@@ -423,7 +417,7 @@
 
             </div>
 
-            <div class="space-y-4">
+            <div class="space-y-4 h-[320px] overflow-y-auto pr-2 scroll-smooth">
                 <!-- ITEM -->
                 <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
 

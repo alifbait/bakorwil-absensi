@@ -122,13 +122,9 @@
                             <?= $pegawai['nama']; ?>
                         </h3>
 
-                        <p class="text-slate-400 text-[14px] mb-3">
-                            <?= $pegawai['jabatan']; ?>
-                        </p>
-
                         <div class="bg-blue-100 text-blue-700 px-5 py-2 rounded-xl text-[13px] font-bold inline-block">
 
-                            NIP. <?= $pegawai['nip']; ?>
+                            NIM. <?= $pegawai['nim']; ?>
 
                         </div>
 

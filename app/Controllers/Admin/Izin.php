@@ -18,7 +18,6 @@ class Izin extends BaseController
 
             [
                 'nama' => 'Sinta Permata',
-                'jabatan' => 'Staff Administrasi',
                 'jenis' => 'Izin',
                 'tanggal' => '2026-06-05',
                 'alasan' => 'Menghadiri acara keluarga',
@@ -27,7 +26,6 @@ class Izin extends BaseController
 
             [
                 'nama' => 'Ahmad Rizki',
-                'jabatan' => 'Staff Kepegawaian',
                 'jenis' => 'Sakit',
                 'tanggal' => '2026-06-05',
                 'alasan' => 'Demam dan istirahat',
@@ -36,7 +34,6 @@ class Izin extends BaseController
 
             [
                 'nama' => 'Budi Santoso',
-                'jabatan' => 'Staff Operasional',
                 'jenis' => 'Izin',
                 'tanggal' => '2026-06-04',
                 'alasan' => 'Keperluan keluarga',
@@ -94,7 +91,6 @@ class Izin extends BaseController
 
             [
                 'nama' => 'Sinta Permata',
-                'jabatan' => 'Staff Administrasi',
                 'jenis' => 'Izin',
                 'tanggal' => '2026-06-05',
                 'alasan' => 'Menghadiri acara keluarga di luar kota dan tidak dapat mengikuti absensi kantor pada tanggal tersebut.',
@@ -104,7 +100,6 @@ class Izin extends BaseController
 
             [
                 'nama' => 'Ahmad Rizki',
-                'jabatan' => 'Staff Kepegawaian',
                 'jenis' => 'Sakit',
                 'tanggal' => '2026-06-05',
                 'alasan' => 'Demam dan harus istirahat total sesuai anjuran dokter.',
@@ -114,7 +109,6 @@ class Izin extends BaseController
 
             [
                 'nama' => 'Budi Santoso',
-                'jabatan' => 'Staff Operasional',
                 'jenis' => 'Izin',
                 'tanggal' => '2026-06-04',
                 'alasan' => 'Keperluan keluarga mendadak.',

@@ -82,7 +82,7 @@
                         </th>
 
                         <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
-                            NIP
+                            NIM
                         </th>
 
                         <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
@@ -128,10 +128,6 @@
                                             <?= $p['nama']; ?>
                                         </h3>
 
-                                        <p class="text-slate-400 text-sm">
-                                            <?= $p['jabatan']; ?>
-                                        </p>
-
                                     </div>
 
                                 </div>
@@ -139,7 +135,7 @@
                             </td>
 
                             <td class="px-6 py-5 text-slate-600">
-                                <?= $p['nip']; ?>
+                                <?= $p['nim']; ?>
                             </td>
 
                             <td class="px-6 py-5 text-slate-600">

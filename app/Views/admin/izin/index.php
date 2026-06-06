@@ -195,10 +195,6 @@
                                             <?= $i['nama']; ?>
                                         </h3>
 
-                                        <p class="text-slate-400 text-sm">
-                                            <?= $i['jabatan']; ?>
-                                        </p>
-
                                     </div>
 
                                 </div>

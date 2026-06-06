@@ -201,13 +201,9 @@
                             <?= $izin['nama']; ?>
                         </h3>
 
-                        <p class="text-slate-400 text-[14px] mb-3">
-                            <?= $izin['jabatan']; ?>
-                        </p>
-
                         <div class="bg-blue-100 text-blue-700 px-5 py-2 rounded-xl text-[13px] font-bold inline-block">
 
-                            NIP. 19890111202401002
+                            NIM. 19890111202401002
 
                         </div>
 
@@ -335,8 +331,7 @@
 
             </div>
 
-            <div class="space-y-4">
-
+            <div class="space-y-4 h-[300px] overflow-y-auto pr-2 scroll-smooth">
                 <div class="bg-slate-50 rounded-[24px] p-5 flex items-center justify-between">
 
                     <div>

@@ -16,8 +16,7 @@ class Monitoring extends BaseController
 
             [
                 'nama' => 'Ahmad Rizki',
-                'jabatan' => 'Staff Kepegawaian',
-                'nip' => '198812012024011001',
+                'nim' => '198812012024011001',
                 'jam_masuk' => '07:01',
                 'jam_pulang' => '15:10',
                 'status' => 'Hadir',
@@ -27,8 +26,7 @@ class Monitoring extends BaseController
 
             [
                 'nama' => 'Sinta Permata',
-                'jabatan' => 'Staff Administrasi',
-                'nip' => '198812012024011002',
+                'nim' => '198812012024011002',
                 'jam_masuk' => '07:15',
                 'jam_pulang' => '15:00',
                 'status' => 'Terlambat',
@@ -38,8 +36,7 @@ class Monitoring extends BaseController
 
             [
                 'nama' => 'Budi Santoso',
-                'jabatan' => 'Staff IT',
-                'nip' => '198812012024011003',
+                'nim' => '198812012024011003',
                 'jam_masuk' => '07:20',
                 'jam_pulang' => '15:00',
                 'status' => 'Terlambat',
@@ -98,8 +95,7 @@ class Monitoring extends BaseController
 
             [
                 'nama' => 'Ahmad Rizki',
-                'jabatan' => 'Staff Kepegawaian',
-                'nip' => '198812012024011001',
+                'nim' => '198812012024011001',
                 'jam_masuk' => '07:01',
                 'jam_pulang' => '15:10',
                 'status' => 'Hadir',
@@ -109,8 +105,7 @@ class Monitoring extends BaseController
 
             [
                 'nama' => 'Sinta Permata',
-                'jabatan' => 'Staff Administrasi',
-                'nip' => '198812012024011002',
+                'nim' => '198812012024011002',
                 'jam_masuk' => '07:15',
                 'jam_pulang' => '15:00',
                 'status' => 'Terlambat',
@@ -119,8 +114,7 @@ class Monitoring extends BaseController
             ],
             [
                 'nama' => 'Budi Santoso',
-                'jabatan' => 'Staff IT',
-                'nip' => '198812012024011003',
+                'nim' => '198812012024011003',
                 'jam_masuk' => '07:20',
                 'jam_pulang' => '15:00',
                 'status' => 'Terlambat',
