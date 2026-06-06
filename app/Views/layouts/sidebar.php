@@ -1,5 +1,7 @@
 <?php $uri = service('uri'); ?>
+
 <aside class="w-[280px] bg-white border-r border-slate-200 flex flex-col justify-between shrink-0">
+
     <div>
 
         <!-- LOGO -->
@@ -9,7 +11,9 @@
 
                 <div
                     class="w-14 h-14 rounded-3xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-blue-500/20">
+
                     🏢
+
                 </div>
 
                 <div>
@@ -33,21 +37,38 @@
 
             <!-- DASHBOARD -->
             <a href="<?= base_url('admin/dashboard') ?>"
-                class="w-full <?= $uri->getSegment(2) == 'dashboard' ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20' : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?> px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
-                <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-xl">
+                class="w-full <?= $uri->getSegment(2) == 'dashboard'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+                px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
+
+                <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'dashboard'
+                    ? 'bg-white/20 text-white'
+                    : 'bg-white text-slate-800 shadow-sm' ?>
+                    flex items-center justify-center text-xl">
+
                     📊
+
                 </div>
 
                 <div class="text-left">
 
-                    <h3
-                        class="<?= $uri->getSegment(2) == 'dashboard' ? 'text-white' : 'text-slate-800' ?> font-semibold text-[15px]">
+                    <h3 class="<?= $uri->getSegment(2) == 'dashboard'
+                        ? 'text-white'
+                        : 'text-slate-800' ?>
+                        font-semibold text-[15px]">
+
                         Dashboard
+
                     </h3>
 
-                    <p
-                        class="<?= $uri->getSegment(2) == 'dashboard' ? 'text-blue-100' : 'text-slate-400' ?> text-[12px]">
+                    <p class="<?= $uri->getSegment(2) == 'dashboard'
+                        ? 'text-blue-100'
+                        : 'text-slate-400' ?>
+                        text-[12px]">
+
                         Monitoring sistem
+
                     </p>
 
                 </div>
@@ -56,35 +77,55 @@
 
             <!-- MONITORING -->
             <a href="<?= base_url('admin/monitoring') ?>"
-                class="w-full <?= $uri->getSegment(2) == 'monitoring' ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20' : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?> px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
-                <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-xl shadow-sm">
+                class="w-full <?= $uri->getSegment(2) == 'monitoring'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+                px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
+
+                <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'monitoring'
+                    ? 'bg-white/20 text-white'
+                    : 'bg-white text-slate-800 shadow-sm' ?>
+                    flex items-center justify-center text-xl">
+
                     🕒
+
                 </div>
 
                 <div class="text-left">
 
-                    <h3 class="font-semibold text-[15px]">
+                    <h3 class="<?= $uri->getSegment(2) == 'monitoring'
+                        ? 'text-white'
+                        : 'text-slate-800' ?>
+                        font-semibold text-[15px]">
+
                         Monitoring Absensi
+
                     </h3>
 
-                    <p
-                        class="<?= $uri->getSegment(2) == 'monitoring' ? 'text-blue-100' : 'text-slate-400' ?> text-[12px]">
+                    <p class="<?= $uri->getSegment(2) == 'monitoring'
+                        ? 'text-blue-100'
+                        : 'text-slate-400' ?>
+                        text-[12px]">
+
                         Data kehadiran pegawai
+
                     </p>
 
                 </div>
-            </a>
 
+            </a>
 
             <!-- IZIN -->
             <a href="<?= base_url('admin/izin') ?>"
                 class="w-full <?= $uri->getSegment(2) == 'izin'
                     ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?> px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+                px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'izin'
                     ? 'bg-white/20 text-white'
-                    : 'bg-white text-slate-800 shadow-sm' ?> flex items-center justify-center text-xl">
+                    : 'bg-white text-slate-800 shadow-sm' ?>
+                    flex items-center justify-center text-xl">
 
                     📝
 
@@ -94,7 +135,8 @@
 
                     <h3 class="<?= $uri->getSegment(2) == 'izin'
                         ? 'text-white'
-                        : 'text-slate-800' ?> font-semibold text-[15px]">
+                        : 'text-slate-800' ?>
+                        font-semibold text-[15px]">
 
                         Approval Izin
 
@@ -102,7 +144,8 @@
 
                     <p class="<?= $uri->getSegment(2) == 'izin'
                         ? 'text-blue-100'
-                        : 'text-slate-400' ?> text-[12px]">
+                        : 'text-slate-400' ?>
+                        text-[12px]">
 
                         Persetujuan pengajuan
 
@@ -116,11 +159,13 @@
             <a href="<?= base_url('admin/pegawai') ?>"
                 class="w-full <?= $uri->getSegment(2) == 'pegawai'
                     ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?> px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+                px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'pegawai'
                     ? 'bg-white/20 text-white'
-                    : 'bg-white text-slate-800 shadow-sm' ?> flex items-center justify-center text-xl">
+                    : 'bg-white text-slate-800 shadow-sm' ?>
+                    flex items-center justify-center text-xl">
 
                     👥
 
@@ -130,7 +175,8 @@
 
                     <h3 class="<?= $uri->getSegment(2) == 'pegawai'
                         ? 'text-white'
-                        : 'text-slate-800' ?> font-semibold text-[15px]">
+                        : 'text-slate-800' ?>
+                        font-semibold text-[15px]">
 
                         Data Pegawai
 
@@ -138,7 +184,8 @@
 
                     <p class="<?= $uri->getSegment(2) == 'pegawai'
                         ? 'text-blue-100'
-                        : 'text-slate-400' ?> text-[12px]">
+                        : 'text-slate-400' ?>
+                        text-[12px]">
 
                         Master data ASN
 
@@ -152,11 +199,13 @@
             <a href="<?= base_url('admin/laporan') ?>"
                 class="w-full <?= $uri->getSegment(2) == 'laporan'
                     ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?> px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+                px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'laporan'
                     ? 'bg-white/20 text-white'
-                    : 'bg-white text-slate-800 shadow-sm' ?> flex items-center justify-center text-xl">
+                    : 'bg-white text-slate-800 shadow-sm' ?>
+                    flex items-center justify-center text-xl">
 
                     📁
 
@@ -166,7 +215,8 @@
 
                     <h3 class="<?= $uri->getSegment(2) == 'laporan'
                         ? 'text-white'
-                        : 'text-slate-800' ?> font-semibold text-[15px]">
+                        : 'text-slate-800' ?>
+                        font-semibold text-[15px]">
 
                         Laporan
 
@@ -174,7 +224,8 @@
 
                     <p class="<?= $uri->getSegment(2) == 'laporan'
                         ? 'text-blue-100'
-                        : 'text-slate-400' ?> text-[12px]">
+                        : 'text-slate-400' ?>
+                        text-[12px]">
 
                         Export Excel & PDF
 
@@ -183,22 +234,41 @@
                 </div>
 
             </a>
-            <!-- SETTING -->
-            <a href="<?= base_url('admin/setting') ?>"
-                class="w-full bg-slate-50 hover:bg-slate-100 transition px-5 py-4 rounded-[24px] flex items-center gap-4">
 
-                <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-xl shadow-sm">
+            <!-- SETTING -->
+            <a href="<?= base_url('admin/setting/absensi') ?>"
+                class="w-full <?= $uri->getSegment(2) == 'setting'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+                px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
+
+                <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'setting'
+                    ? 'bg-white/20 text-white'
+                    : 'bg-white text-slate-800 shadow-sm' ?>
+                    flex items-center justify-center text-xl">
+
                     ⚙️
+
                 </div>
 
                 <div class="text-left">
 
-                    <h3 class="text-slate-800 font-semibold text-[15px]">
+                    <h3 class="<?= $uri->getSegment(2) == 'setting'
+                        ? 'text-white'
+                        : 'text-slate-800' ?>
+                        font-semibold text-[15px]">
+
                         Setting
+
                     </h3>
 
-                    <p class="text-slate-400 text-[12px]">
+                    <p class="<?= $uri->getSegment(2) == 'setting'
+                        ? 'text-blue-100'
+                        : 'text-slate-400' ?>
+                        text-[12px]">
+
                         Konfigurasi sistem
+
                     </p>
 
                 </div>
@@ -214,10 +284,11 @@
 
         <button
             class="w-full bg-red-500 hover:bg-red-600 transition text-white py-4 rounded-[24px] font-bold text-[15px] shadow-lg shadow-red-300/30">
+
             Logout
+
         </button>
 
     </div>
-    ```
 
 </aside>
