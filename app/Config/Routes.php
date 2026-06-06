@@ -17,3 +17,6 @@ $routes->get('admin/pegawai/edit/(:num)', 'Admin\Pegawai::edit/$1');
 $routes->post('admin/pegawai/update/(:num)', 'Admin\Pegawai::update/$1');
 $routes->get('admin/pegawai/akun/(:num)', 'Admin\Pegawai::akun/$1');
 $routes->post('admin/pegawai/akun-update/(:num)', 'Admin\Pegawai::akunUpdate/$1');
+$routes->get('admin/laporan', 'Admin\Laporan::index');
+$routes->get('admin/laporan/export-excel', 'Admin\Laporan::exportExcel');
+$routes->get('admin/laporan/export-pdf', 'Admin\Laporan::exportPdf');

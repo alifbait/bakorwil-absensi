@@ -150,26 +150,39 @@
 
             <!-- LAPORAN -->
             <a href="<?= base_url('admin/laporan') ?>"
-                class="w-full bg-slate-50 hover:bg-slate-100 transition px-5 py-4 rounded-[24px] flex items-center gap-4">
+                class="w-full <?= $uri->getSegment(2) == 'laporan'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?> px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
-                <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-xl shadow-sm">
+                <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'laporan'
+                    ? 'bg-white/20 text-white'
+                    : 'bg-white text-slate-800 shadow-sm' ?> flex items-center justify-center text-xl">
+
                     📁
+
                 </div>
 
                 <div class="text-left">
 
-                    <h3 class="text-slate-800 font-semibold text-[15px]">
+                    <h3 class="<?= $uri->getSegment(2) == 'laporan'
+                        ? 'text-white'
+                        : 'text-slate-800' ?> font-semibold text-[15px]">
+
                         Laporan
+
                     </h3>
 
-                    <p class="text-slate-400 text-[12px]">
+                    <p class="<?= $uri->getSegment(2) == 'laporan'
+                        ? 'text-blue-100'
+                        : 'text-slate-400' ?> text-[12px]">
+
                         Export Excel & PDF
+
                     </p>
 
                 </div>
 
             </a>
-
             <!-- SETTING -->
             <a href="<?= base_url('admin/setting') ?>"
                 class="w-full bg-slate-50 hover:bg-slate-100 transition px-5 py-4 rounded-[24px] flex items-center gap-4">

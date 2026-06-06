@@ -2,6 +2,8 @@
 
 <?= $this->section('content') ?>
 
+<?= view('components/alert'); ?>
+
 <!-- HEADER -->
 <div class="mb-8 flex items-center justify-between">
 

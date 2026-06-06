@@ -2,6 +2,8 @@
 
 <?= $this->section('content') ?>
 
+<?= view('components/alert'); ?>
+
 <!-- FILTER -->
 <form action="<?= base_url('admin/monitoring') ?>" method="GET" class="mb-6">
 
