@@ -20,3 +20,13 @@ $routes->post('admin/pegawai/akun-update/(:num)', 'Admin\Pegawai::akunUpdate/$1'
 $routes->get('admin/laporan', 'Admin\Laporan::index');
 $routes->get('admin/laporan/export-excel', 'Admin\Laporan::exportExcel');
 $routes->get('admin/laporan/export-pdf', 'Admin\Laporan::exportPdf');
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($routes) {
+    $routes->get('setting', 'Setting::umum');
+    $routes->get('setting/umum', 'Setting::umum');
+    $routes->get('setting/lokasi', 'Setting::lokasi');
+    $routes->get('setting/absensi', 'Setting::absensi');
+    $routes->get('setting/jamkerja', 'Setting::jamkerja');
+    $routes->get('setting/harilibur', 'Setting::harilibur');
+    $routes->get('setting/notifikasi', 'Setting::notifikasi');
+
+});
