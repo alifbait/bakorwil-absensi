@@ -1,4 +1,3 @@
-```php
 <?= $this->extend('layouts/admin_layout') ?>
 
 <?= $this->section('content') ?>
@@ -6,22 +5,22 @@
 <?= view('components/alert'); ?>
 
 <?php
+
 $uri = service('uri');
+
 $activeTab = $uri->getSegment(3, 'notifikasi');
 
 /*
 |--------------------------------------------------------------------------
-| DEFAULT VALUE
+| DATABASE VALUE
 |--------------------------------------------------------------------------
-| Nanti tinggal ganti dari database:
-|
-| $setting['notif_telat']
-|
 */
 
-$notifTelat     = true;
-$notifIzin      = true;
-$notifReminder  = false;
+$notifTerlambat = $setting['notif_terlambat'] ?? 1;
+
+$notifIzin = $setting['notif_izin'] ?? 1;
+
+$reminderAbsensi = $setting['reminder_absensi'] ?? 0;
 
 ?>
 
@@ -56,49 +55,67 @@ $notifReminder  = false;
 
     <div class="flex items-center gap-4 overflow-x-auto">
 
+        <!-- ABSENSI -->
         <a href="<?= base_url('admin/setting/absensi') ?>"
             class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'absensi')
                                                                                 ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
                                                                                 : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+
             🕒 Absensi
+
         </a>
 
+        <!-- LOKASI -->
         <a href="<?= base_url('admin/setting/lokasi') ?>"
             class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'lokasi')
                                                                                 ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
                                                                                 : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+
             📍 Lokasi GPS
+
         </a>
 
+        <!-- HARI LIBUR -->
         <a href="<?= base_url('admin/setting/harilibur') ?>"
             class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'harilibur')
                                                                                 ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
                                                                                 : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+
             🎉 Hari Libur
+
         </a>
 
+        <!-- UMUM -->
         <a href="<?= base_url('admin/setting/umum') ?>"
             class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'umum')
                                                                                 ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
                                                                                 : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+
             🔑 Akun & Keamanan
+
         </a>
 
+        <!-- NOTIFIKASI -->
         <a href="<?= base_url('admin/setting/notifikasi') ?>"
             class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'notifikasi')
                                                                                 ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
                                                                                 : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+
             🔔 Notifikasi
+
         </a>
 
     </div>
 
 </div>
 
+<!-- FORM -->
 <form
     id="form-setting-notifikasi"
     action="<?= base_url('admin/setting/notifikasi/save') ?>"
     method="POST">
+
+    <?= csrf_field(); ?>
 
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-7">
 
@@ -130,7 +147,7 @@ $notifReminder  = false;
 
                 <div class="space-y-6">
 
-                    <!-- ITEM -->
+                    <!-- NOTIFIKASI TERLAMBAT -->
                     <label class="bg-slate-50 border border-slate-200 rounded-[28px] p-6 flex items-center justify-between cursor-pointer">
 
                         <div>
@@ -147,14 +164,14 @@ $notifReminder  = false;
 
                         <input
                             type="checkbox"
-                            name="notif_telat"
+                            name="notif_terlambat"
                             value="1"
-                            <?= $notifTelat ? 'checked' : '' ?>
+                            <?= $notifTerlambat ? 'checked' : '' ?>
                             class="w-6 h-6 accent-blue-600">
 
                     </label>
 
-                    <!-- ITEM -->
+                    <!-- APPROVAL IZIN -->
                     <label class="bg-slate-50 border border-slate-200 rounded-[28px] p-6 flex items-center justify-between cursor-pointer">
 
                         <div>
@@ -178,7 +195,7 @@ $notifReminder  = false;
 
                     </label>
 
-                    <!-- ITEM -->
+                    <!-- REMINDER ABSENSI -->
                     <label class="bg-slate-50 border border-slate-200 rounded-[28px] p-6 flex items-center justify-between cursor-pointer">
 
                         <div>
@@ -195,9 +212,9 @@ $notifReminder  = false;
 
                         <input
                             type="checkbox"
-                            name="notif_reminder"
+                            name="reminder_absensi"
                             value="1"
-                            <?= $notifReminder ? 'checked' : '' ?>
+                            <?= $reminderAbsensi ? 'checked' : '' ?>
                             class="w-6 h-6 accent-blue-600">
 
                     </label>
@@ -211,6 +228,7 @@ $notifReminder  = false;
         <!-- RIGHT -->
         <div class="xl:col-span-4 space-y-7">
 
+            <!-- STATUS -->
             <div class="bg-gradient-to-br from-blue-600 to-blue-500 rounded-[36px] p-8 text-white shadow-xl shadow-blue-500/20">
 
                 <div class="flex items-center justify-between mb-10">
@@ -244,8 +262,59 @@ $notifReminder  = false;
                     </h2>
 
                     <span class="bg-green-400/20 text-green-100 px-4 py-2 rounded-xl inline-block text-[13px] font-bold">
+
                         Notification Ready
+
                     </span>
+
+                </div>
+
+            </div>
+
+            <!-- INFO -->
+            <div class="bg-white rounded-[36px] p-8 border border-slate-100 shadow-sm">
+
+                <h3 class="text-[26px] font-extrabold text-slate-900 mb-6">
+                    Ringkasan Notifikasi
+                </h3>
+
+                <div class="space-y-4">
+
+                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+
+                        <p class="text-slate-400 text-sm mb-1">
+                            Notifikasi Terlambat
+                        </p>
+
+                        <h4 class="text-xl font-bold text-slate-900">
+                            <?= $notifTerlambat ? 'Aktif' : 'Nonaktif' ?>
+                        </h4>
+
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+
+                        <p class="text-slate-400 text-sm mb-1">
+                            Approval Izin
+                        </p>
+
+                        <h4 class="text-xl font-bold text-slate-900">
+                            <?= $notifIzin ? 'Aktif' : 'Nonaktif' ?>
+                        </h4>
+
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+
+                        <p class="text-slate-400 text-sm mb-1">
+                            Reminder Absensi
+                        </p>
+
+                        <h4 class="text-xl font-bold text-slate-900">
+                            <?= $reminderAbsensi ? 'Aktif' : 'Nonaktif' ?>
+                        </h4>
+
+                    </div>
 
                 </div>
 

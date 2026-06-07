@@ -4,331 +4,617 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
+use App\Models\UserModel;
+use App\Models\PesertaModel;
+use App\Models\DivisionModel;
+
 class Pegawai extends BaseController
 {
-    // =========================================
-    // MASTER DATA PEGAWAI MAGANG
-    // =========================================
-    private function pegawaiData()
-    {
-        return [
+    /*
+    |--------------------------------------------------------------------------
+    | LIST DATA PEGAWAI
+    |--------------------------------------------------------------------------
+    */
 
-            [
-                'nama' => 'Ahmad Rizki',
-                'nim' => '22110001',
-                'divisi' => 'Record Center',
-                'role' => 'Admin',
-                'username' => 'ahmad_rizki',
-                'status' => 'Aktif',
-
-                'email' => 'ahmad@bakorwil.go.id',
-                'nohp' => '081234567890',
-                'alamat' => 'Jl. Soekarno Hatta No.10 Kota Malang',
-
-                'lahir' => '10 Mei 1995',
-                'bergabung' => '12 Januari 2024',
-
-                'persentase' => '96%',
-
-                // STATISTIK
-                'hadir' => 24,
-                'terlambat' => 2,
-                'izin' => 3,
-                'sakit' => 1,
-                'alfa' => 0,
-
-                // RIWAYAT KEHADIRAN
-                'riwayat_kehadiran' => [
-
-                    [
-                        'title' => 'Hadir Tepat Waktu',
-                        'tanggal' => '05 Juni 2026 • 07:01 WIB',
-                        'status' => 'Hadir',
-                    ],
-
-                    [
-                        'title' => 'Terlambat Absensi',
-                        'tanggal' => '04 Juni 2026 • 07:20 WIB',
-                        'status' => 'Terlambat',
-                    ],
-
-                    [
-                        'title' => 'Tidak Hadir',
-                        'tanggal' => '03 Juni 2026',
-                        'status' => 'Alfa',
-                    ],
-
-                ],
-
-                // RIWAYAT PENGAJUAN
-                'riwayat_pengajuan' => [
-
-                    [
-                        'title' => 'Izin Acara Keluarga',
-                        'tanggal' => '21 Mei 2026',
-                        'status' => 'Pending',
-                    ],
-
-                    [
-                        'title' => 'Sakit Demam',
-                        'tanggal' => '14 Mei 2026',
-                        'status' => 'Disetujui',
-                    ],
-
-                ],
-
-            ],
-
-            [
-                'nama' => 'Sinta Permata',
-                'nim' => '22110002',
-                'divisi' => 'TU',
-                'role' => 'Anggota',
-                'username' => 'sinta_permataa',
-                'status' => 'Aktif',
-
-                'email' => 'sinta@bakorwil.go.id',
-                'nohp' => '081222333444',
-                'alamat' => 'Jl. Ijen No.20 Kota Malang',
-
-                'lahir' => '12 Februari 1997',
-                'bergabung' => '15 Januari 2024',
-
-                'persentase' => '92%',
-
-                'hadir' => 21,
-                'terlambat' => 4,
-                'izin' => 2,
-                'sakit' => 0,
-                'alfa' => 1,
-
-                'riwayat_kehadiran' => [
-
-                    [
-                        'title' => 'Hadir Tepat Waktu',
-                        'tanggal' => '05 Juni 2026 • 06:59 WIB',
-                        'status' => 'Hadir',
-                    ],
-
-                ],
-
-                'riwayat_pengajuan' => [
-
-                    [
-                        'title' => 'Izin Acara Keluarga',
-                        'tanggal' => '01 Juni 2026',
-                        'status' => 'Disetujui',
-                    ],
-
-                ],
-
-            ],
-
-            [
-                'nama' => 'Budi Santoso',
-                'nim' => '22110003',
-                'divisi' => 'Sarpras',
-                'role' => 'Anggota',
-                'username' => 'budi_santoso',
-                'status' => 'Nonaktif',
-
-                'email' => 'budi@bakorwil.go.id',
-                'nohp' => '081777888999',
-                'alamat' => 'Jl. Veteran No.99 Kota Malang',
-
-                'lahir' => '03 Januari 1990',
-                'bergabung' => '01 Februari 2024',
-
-                'persentase' => '81%',
-
-                'hadir' => 18,
-                'terlambat' => 7,
-                'izin' => 5,
-                'sakit' => 2,
-                'alfa' => 4,
-
-                'riwayat_kehadiran' => [
-
-                    [
-                        'title' => 'Tidak Hadir',
-                        'tanggal' => '05 Juni 2026',
-                        'status' => 'Alfa',
-                    ],
-
-                ],
-
-                'riwayat_pengajuan' => [
-
-                    [
-                        'title' => 'Izin Keperluan Keluarga',
-                        'tanggal' => '28 Mei 2026',
-                        'status' => 'Ditolak',
-                    ],
-
-                ],
-
-            ],
-
-        ];
-    }
-
-    // =========================================
-    // INDEX
-    // =========================================
     public function index()
     {
+        $pesertaModel = new \App\Models\PesertaModel();
+
         $search = $this->request->getGet('search');
         $status = $this->request->getGet('status');
 
-        $pegawai = $this->pegawaiData();
+        $builder = $pesertaModel
+            ->select('
+            peserta.*,
+            divisions.nama_divisi
+        ')
+            ->join(
+                'divisions',
+                'divisions.id = peserta.division_id',
+                'left'
+            );
 
-        // FILTER SEARCH
-        if ($search) {
+        // SEARCH
+        if (!empty($search)) {
 
-            $pegawai = array_filter($pegawai, function ($item) use ($search) {
-
-                return
-                    stripos($item['nama'], $search) !== false ||
-                    stripos($item['nim'], $search) !== false;
-
-            });
-
+            $builder->groupStart()
+                ->like('nama_lengkap', $search)
+                ->orLike('nim', $search)
+                ->orLike('email', $search)
+                ->groupEnd();
         }
 
         // FILTER STATUS
-        if ($status) {
+        if (!empty($status)) {
 
-            $pegawai = array_filter($pegawai, function ($item) use ($status) {
-
-                return $item['status'] == $status;
-
-            });
-
+            $builder->where(
+                'peserta.status',
+                $status
+            );
         }
 
-        $data = [
-            'title' => 'Data Pegawai',
-            'pegawai' => $pegawai,
-            'search' => $search,
-            'status' => $status,
-        ];
+        $data['pegawai'] = $builder->findAll();
 
-        return view('admin/pegawai/index', $data);
+        return view(
+            'admin/pegawai/index',
+            $data
+        );
     }
+    /*
+    |--------------------------------------------------------------------------
+    | DETAIL PEGAWAI
+    |--------------------------------------------------------------------------
+    */
 
-    // =========================================
-    // DETAIL
-    // =========================================
     public function detail($id)
     {
-        $pegawai = $this->pegawaiData();
+        $pesertaModel = new PesertaModel();
 
-        if (!isset($pegawai[$id])) {
+        $pegawai = $pesertaModel
+            ->select('
+                peserta.*,
+                divisions.nama_divisi,
+                users.username,
+                users.role,
+                users.is_active,
+                users.last_login
+            ')
+            ->join(
+                'divisions',
+                'divisions.id = peserta.division_id',
+                'left'
+            )
+            ->join(
+                'users',
+                'users.id = peserta.user_id',
+                'left'
+            )
+            ->where('peserta.id', $id)
+            ->first();
+
+        if (!$pegawai) {
 
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 
         }
 
         $data = [
+
             'title' => 'Detail Pegawai',
-            'pegawai' => $pegawai[$id],
-            'id' => $id,
+
+            'pegawai' => $pegawai
+
         ];
 
-        return view('admin/pegawai/detail', $data);
+        return view(
+            'admin/pegawai/detail',
+            $data
+        );
     }
 
-    // =========================================
-    // CREATE
-    // =========================================
+    /*
+    |--------------------------------------------------------------------------
+    | FORM CREATE
+    |--------------------------------------------------------------------------
+    */
+
     public function create()
     {
-        return view('admin/pegawai/create', [
+        $divisionModel = new DivisionModel();
+
+        $data = [
+
             'title' => 'Tambah Pegawai',
-        ]);
+
+            'divisions' => $divisionModel->findAll()
+
+        ];
+
+        return view(
+            'admin/pegawai/create',
+            $data
+        );
     }
 
-    // =========================================
-    // STORE
-    // =========================================
+    /*
+    |--------------------------------------------------------------------------
+    | STORE DATA
+    |--------------------------------------------------------------------------
+    */
+
     public function store()
     {
+        $userModel = new UserModel();
+
+        $pesertaModel = new PesertaModel();
+
+        /*
+        |--------------------------------------------------------------------------
+        | FOTO PROFILE
+        |--------------------------------------------------------------------------
+        */
+
+        $foto = $this->request->getFile('foto');
+
+        $namaFoto = 'default.png';
+
+        if ($foto && $foto->isValid()) {
+
+            $namaFoto = $foto->getRandomName();
+
+            $foto->move(
+                FCPATH . 'uploads/profile',
+                $namaFoto
+            );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | AMBIL DIVISI
+        |--------------------------------------------------------------------------
+        */
+
+        $divisionModel = new DivisionModel();
+
+        $division = $divisionModel->find(
+            $this->request->getPost('division_id')
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | INSERT USERS
+        |--------------------------------------------------------------------------
+        */
+
+        $userModel->insert([
+
+            'nama' => $this->request->getPost('nama_lengkap'),
+
+            'username' => $this->request->getPost('username'),
+
+            'password' => password_hash(
+                '12345678',
+                PASSWORD_DEFAULT
+            ),
+
+            'role' => strtolower(
+                $this->request->getPost('role')
+            ),
+
+            'divisi' => $division['nama_divisi'],
+
+            'foto' => $namaFoto,
+
+            'is_active' => 1
+
+        ]);
+
+        $userId = $userModel->getInsertID();
+
+        /*
+        |--------------------------------------------------------------------------
+        | INSERT PESERTA
+        |--------------------------------------------------------------------------
+        */
+
+        $pesertaModel->insert([
+
+            'user_id' => $userId,
+
+            'division_id' => $this->request->getPost('division_id'),
+
+            'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+
+            'nim' => $this->request->getPost('nim'),
+
+            'email' => $this->request->getPost('email'),
+
+            'no_hp' => $this->request->getPost('no_hp'),
+
+            'asal_instansi' => $this->request->getPost('asal_instansi'),
+
+            'foto_profile' => $namaFoto,
+
+            'tanggal_mulai' => $this->request->getPost('tanggal_mulai'),
+
+            'tanggal_selesai' => $this->request->getPost('tanggal_selesai'),
+
+            'status' => strtolower(
+                $this->request->getPost('status')
+            )
+
+        ]);
+
         session()->setFlashdata(
+
             'success',
+
             'Data pegawai berhasil ditambahkan.'
+
         );
 
         return redirect()->to('/admin/pegawai');
     }
 
-    // =========================================
-    // EDIT
-    // =========================================
+    /*
+|--------------------------------------------------------------------------
+| FORM EDIT
+|--------------------------------------------------------------------------
+*/
+
     public function edit($id)
     {
-        $pegawai = $this->pegawaiData();
+        $pesertaModel = new PesertaModel();
 
-        if (!isset($pegawai[$id])) {
+        $divisionModel = new DivisionModel();
+
+        $pegawai = $pesertaModel
+            ->where('id', $id)
+            ->first();
+
+        if (!$pegawai) {
 
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 
         }
 
         $data = [
+
             'title' => 'Edit Pegawai',
-            'pegawai' => $pegawai[$id],
-            'id' => $id,
+
+            'pegawai' => $pegawai,
+
+            'divisions' => $divisionModel->findAll()
+
         ];
 
-        return view('admin/pegawai/edit', $data);
+        return view(
+            'admin/pegawai/edit',
+            $data
+        );
     }
 
-    // =========================================
-    // UPDATE
-    // =========================================
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE DATA
+    |--------------------------------------------------------------------------
+    */
+
     public function update($id)
     {
+        $pesertaModel = new PesertaModel();
+
+        $userModel = new UserModel();
+
+        $pegawai = $pesertaModel->find($id);
+
+        if (!$pegawai) {
+
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | FOTO PROFILE
+        |--------------------------------------------------------------------------
+        */
+
+        $foto = $this->request->getFile('foto_profile');
+
+        $namaFoto = $pegawai['foto_profile'];
+
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+
+            $namaFoto = $foto->getRandomName();
+
+            /*
+            |--------------------------------------------------------------------------
+            | BUAT FOLDER JIKA BELUM ADA
+            |--------------------------------------------------------------------------
+            */
+
+            if (!is_dir(FCPATH . 'uploads/profile')) {
+
+                mkdir(
+                    FCPATH . 'uploads/profile',
+                    0777,
+                    true
+                );
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | HAPUS FOTO LAMA
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                !empty($pegawai['foto_profile']) &&
+                $pegawai['foto_profile'] != 'default.png' &&
+                file_exists(
+                    FCPATH . 'uploads/profile/' . $pegawai['foto_profile']
+                )
+            ) {
+
+                unlink(
+                    FCPATH . 'uploads/profile/' . $pegawai['foto_profile']
+                );
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | UPLOAD FOTO BARU
+            |--------------------------------------------------------------------------
+            */
+
+            $foto->move(
+                FCPATH . 'uploads/profile',
+                $namaFoto
+            );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE PESERTA
+        |--------------------------------------------------------------------------
+        */
+
+        $pesertaModel->update($id, [
+
+            'division_id' => $this->request->getPost('division_id'),
+
+            'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+
+            'nim' => $this->request->getPost('nim'),
+
+            'email' => $this->request->getPost('email'),
+
+            'no_hp' => $this->request->getPost('no_hp'),
+
+            'asal_instansi' => $this->request->getPost('asal_instansi'),
+
+            'foto_profile' => $namaFoto,
+
+            'tanggal_mulai' => $this->request->getPost('tanggal_mulai'),
+
+            'tanggal_selesai' => $this->request->getPost('tanggal_selesai'),
+
+            'status' => strtolower(
+                $this->request->getPost('status')
+            )
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE USERS
+        |--------------------------------------------------------------------------
+        */
+
+        $divisionModel = new DivisionModel();
+
+        $division = $divisionModel->find(
+            $this->request->getPost('division_id')
+        );
+
+        $userModel->update($pegawai['user_id'], [
+
+            'nama' => $this->request->getPost('nama_lengkap'),
+
+            'divisi' => $division['nama_divisi'],
+
+            'foto' => $namaFoto
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | FLASH MESSAGE
+        |--------------------------------------------------------------------------
+        */
+
         session()->setFlashdata(
+
             'success',
+
             'Data pegawai berhasil diperbarui.'
+
         );
 
         return redirect()->to('/admin/pegawai/detail/' . $id);
     }
+    /*
+    |--------------------------------------------------------------------------
+    | KELOLA AKUN
+    |--------------------------------------------------------------------------
+    */
 
-    // =========================================
-    // KELOLA AKUN
-    // =========================================
     public function akun($id)
     {
-        $pegawai = $this->pegawaiData();
+        $pesertaModel = new PesertaModel();
 
-        if (!isset($pegawai[$id])) {
+        $pegawai = $pesertaModel
+            ->select('
+            peserta.*,
+            users.id as user_id,
+            users.nama,
+            users.username,
+            users.role,
+            users.divisi,
+            users.foto,
+            users.is_active,
+            users.last_login
+        ')
+            ->join(
+                'users',
+                'users.id = peserta.user_id',
+                'left'
+            )
+            ->where('peserta.id', $id)
+            ->first();
+
+        if (!$pegawai) {
 
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 
         }
 
-        $data = [
-            'title' => 'Kelola Akun',
-            'pegawai' => $pegawai[$id],
-            'id' => $id,
-        ];
+        /*
+        |--------------------------------------------------------------------------
+        | FORMAT STATUS
+        |--------------------------------------------------------------------------
+        */
 
-        return view('admin/pegawai/akun', $data);
-    }
+        $pegawai['status'] = $pegawai['is_active'] == 1
+            ? 'Aktif'
+            : 'Nonaktif';
 
-    // =========================================
-    // UPDATE AKUN
-    // =========================================
-    public function akunUpdate($id)
-    {
-        session()->setFlashdata(
-            'success',
-            'Akun berhasil diperbarui.'
+        /*
+        |--------------------------------------------------------------------------
+        | FORMAT ROLE
+        |--------------------------------------------------------------------------
+        */
+
+        $pegawai['role'] = ucfirst(
+            strtolower($pegawai['role'])
         );
 
-        return redirect()->to('/admin/pegawai/akun/' . $id);
+        $data = [
+
+            'title' => 'Kelola Akun',
+
+            'pegawai' => $pegawai,
+
+            'id' => $id
+
+        ];
+
+        return view(
+            'admin/pegawai/akun',
+            $data
+        );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE AKUN
+    |--------------------------------------------------------------------------
+    */
+
+    public function akunUpdate($id)
+    {
+        $pesertaModel = new PesertaModel();
+
+        $userModel = new UserModel();
+
+        /*
+        |--------------------------------------------------------------------------
+        | AMBIL DATA PEGAWAI
+        |--------------------------------------------------------------------------
+        */
+
+        $pegawai = $pesertaModel
+            ->where('id', $id)
+            ->first();
+
+        if (!$pegawai) {
+
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | DATA UPDATE
+        |--------------------------------------------------------------------------
+        */
+
+        $dataUpdate = [
+
+            'username' => $this->request->getPost('username'),
+
+            'role' => strtolower(
+                $this->request->getPost('role')
+            ),
+
+            'is_active' => $this->request->getPost('status') == 'Aktif'
+                ? 1
+                : 0
+
+        ];
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE PASSWORD JIKA DIISI
+        |--------------------------------------------------------------------------
+        */
+
+        $password = $this->request->getPost('password');
+
+        if (!empty($password)) {
+
+            $dataUpdate['password'] = password_hash(
+                $password,
+                PASSWORD_DEFAULT
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE USERS
+        |--------------------------------------------------------------------------
+        */
+
+        $userModel->update(
+            $pegawai['user_id'],
+            $dataUpdate
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | SINKRON STATUS PESERTA
+        |--------------------------------------------------------------------------
+        */
+
+        $pesertaModel->update($id, [
+
+            'status' => $this->request->getPost('status') == 'Aktif'
+                ? 'aktif'
+                : 'nonaktif'
+
+        ]);
+
+        session()->setFlashdata(
+
+            'success',
+            'Akun pegawai berhasil diperbarui.'
+
+        );
+
+        return redirect()->to(
+            '/admin/pegawai/akun/' . $id
+        );
+    }
 }

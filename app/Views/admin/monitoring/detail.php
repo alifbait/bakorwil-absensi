@@ -1,130 +1,322 @@
-<?= $this->extend('layouts/admin_layout') ?>
+<?= $this->extend('layouts/admin_layout'); ?>
 
-<?= $this->section('content') ?>
+<?= $this->section('content'); ?>
 
-<div class="flex items-center justify-between mb-6">
+<div class="space-y-6">
 
-    <div>
+    <!-- HEADER -->
+    <div
+        class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+    >
 
-        <p class="text-slate-400 text-[13px] mb-1">
-            Audit Kehadiran Pegawai
-        </p>
+        <div>
 
-        <h2 class="text-slate-900 font-extrabold text-[38px]">
-            Detail Absensi
-        </h2>
+            <h1 class="text-2xl font-bold text-slate-800">
+                Detail Monitoring
+            </h1>
 
-    </div>
+            <p class="text-sm text-slate-500 mt-1">
+                Detail lengkap data absensi peserta
+            </p>
 
-    <div class="flex items-center gap-4">
+        </div>
 
-        <button
-            class="bg-orange-500 hover:bg-orange-600 transition text-white px-6 py-4 rounded-2xl font-semibold text-[14px]">
-
-            Print Detail
-
-        </button>
-
-        <a href="<?= base_url('admin/monitoring') ?>"
-            class="bg-white border border-slate-200 hover:bg-slate-100 transition text-slate-700 px-6 py-4 rounded-2xl font-semibold text-[14px] shadow-sm">
-
-            Kembali
-
+        <a
+            href="<?= base_url('admin/monitoring'); ?>"
+            class="inline-flex items-center justify-center px-4 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-sm font-medium transition"
+        >
+            ← Kembali
         </a>
 
     </div>
 
-</div>
+    <!-- CARD -->
+    <div
+        class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden"
+    >
 
-<div class="grid grid-cols-12 gap-6">
+        <!-- TOP PROFILE -->
+        <div
+            class="p-6 border-b border-slate-200 bg-gradient-to-r from-indigo-600 to-indigo-700"
+        >
 
-    <!-- LEFT -->
-    <div class="col-span-5 space-y-6">
+            <div class="flex flex-col md:flex-row items-center gap-5">
 
-        <!-- SELFIE -->
-        <div class="bg-white rounded-[32px] border border-slate-100 shadow-sm p-6">
+                <!-- FOTO -->
+                <div
+                    class="w-28 h-28 rounded-full overflow-hidden bg-white/20 flex items-center justify-center border-4 border-white/30"
+                >
 
-            <div class="flex items-center justify-between mb-5">
+                    <?php if (!empty($pegawai['foto_profile'])) : ?>
 
-                <div>
+                        <img
+                            src="<?= base_url('uploads/profile/' . $pegawai['foto_profile']); ?>"
+                            class="w-full h-full object-cover"
+                        >
 
-                    <h3 class="text-slate-900 font-bold text-[24px]">
-                        Selfie Absensi
-                    </h3>
+                    <?php else : ?>
 
-                    <p class="text-slate-400 text-[13px]">
-                        Bukti kehadiran pegawai
-                    </p>
+                        <span
+                            class="text-4xl font-bold text-white"
+                        >
+                            <?= strtoupper(substr($pegawai['nama_lengkap'], 0, 1)); ?>
+                        </span>
+
+                    <?php endif; ?>
 
                 </div>
 
-                <span class="bg-green-100 text-green-700 px-5 py-2 rounded-xl text-[13px] font-bold">
-                    <?= $pegawai['status']; ?>
-                </span>
+                <!-- INFO -->
+                <div class="text-center md:text-left text-white">
+
+                    <h2 class="text-2xl font-bold">
+                        <?= esc($pegawai['nama_lengkap']); ?>
+                    </h2>
+
+                    <p class="text-indigo-100 mt-1">
+                        NIM :
+                        <?= esc($pegawai['nim']); ?>
+                    </p>
+
+                    <div class="mt-4">
+
+                        <?php
+
+                        $badge = match ($pegawai['status']) {
+
+                            'hadir' => 'bg-emerald-100 text-emerald-700',
+
+                            'telat' => 'bg-yellow-100 text-yellow-700',
+
+                            'izin' => 'bg-blue-100 text-blue-700',
+
+                            'sakit' => 'bg-orange-100 text-orange-700',
+
+                            'alpha' => 'bg-red-100 text-red-700',
+
+                            default => 'bg-slate-100 text-slate-700'
+
+                        };
+
+                        ?>
+
+                        <span
+                            class="px-4 py-2 rounded-full text-sm font-semibold <?= $badge; ?>"
+                        >
+                            <?= ucfirst($pegawai['status']); ?>
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
-                class="w-full h-[320px] object-cover rounded-[28px]" />
-
         </div>
 
-        <!-- GPS -->
-        <div class="bg-white rounded-[32px] border border-slate-100 shadow-sm p-6">
+        <!-- DETAIL -->
+        <div class="p-6">
 
-            <div class="flex items-center justify-between mb-5">
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+            >
 
-                <div>
+                <!-- TANGGAL -->
+                <div
+                    class="rounded-2xl border border-slate-200 p-5"
+                >
 
-                    <h3 class="text-slate-900 font-bold text-[24px]">
+                    <p class="text-sm text-slate-500">
+                        Tanggal Absensi
+                    </p>
+
+                    <h3
+                        class="mt-2 text-lg font-bold text-slate-800"
+                    >
+                        <?= date('d F Y', strtotime($pegawai['tanggal'])); ?>
+                    </h3>
+
+                </div>
+
+                <!-- JAM MASUK -->
+                <div
+                    class="rounded-2xl border border-slate-200 p-5"
+                >
+
+                    <p class="text-sm text-slate-500">
+                        Jam Masuk
+                    </p>
+
+                    <h3
+                        class="mt-2 text-lg font-bold text-slate-800"
+                    >
+                        <?= $pegawai['jam_masuk'] ?: '-'; ?>
+                    </h3>
+
+                </div>
+
+                <!-- JAM PULANG -->
+                <div
+                    class="rounded-2xl border border-slate-200 p-5"
+                >
+
+                    <p class="text-sm text-slate-500">
+                        Jam Pulang
+                    </p>
+
+                    <h3
+                        class="mt-2 text-lg font-bold text-slate-800"
+                    >
+                        <?= $pegawai['jam_pulang'] ?: '-'; ?>
+                    </h3>
+
+                </div>
+
+                <!-- TOTAL KERJA -->
+                <div
+                    class="rounded-2xl border border-slate-200 p-5"
+                >
+
+                    <p class="text-sm text-slate-500">
+                        Total Jam Kerja
+                    </p>
+
+                    <h3
+                        class="mt-2 text-lg font-bold text-slate-800"
+                    >
+                        <?= $pegawai['total_jam_kerja']; ?> Jam
+                    </h3>
+
+                </div>
+
+                <!-- GPS -->
+                <div
+                    class="rounded-2xl border border-slate-200 p-5"
+                >
+
+                    <p class="text-sm text-slate-500">
                         Validasi GPS
-                    </h3>
-
-                    <p class="text-slate-400 text-[13px]">
-                        Lokasi absensi realtime
                     </p>
+
+                    <h3
+                        class="mt-2 text-lg font-bold text-emerald-600"
+                    >
+                        Valid GPS
+                    </h3>
 
                 </div>
 
-                <span class="bg-blue-100 text-blue-700 px-5 py-2 rounded-xl text-[13px] font-bold">
-                    Radius Valid
-                </span>
+                <!-- SURVEY -->
+                <div
+                    class="rounded-2xl border border-slate-200 p-5"
+                >
+
+                    <p class="text-sm text-slate-500">
+                        Survey Harian
+                    </p>
+
+                    <h3
+                        class="mt-2 text-lg font-bold text-slate-800"
+                    >
+
+                        <?= $pegawai['survey_filled']
+                            ? 'Sudah Mengisi'
+                            : 'Belum Mengisi'; ?>
+
+                    </h3>
+
+                </div>
 
             </div>
 
-            <div class="h-[220px] rounded-[28px] overflow-hidden relative">
+            <!-- FOTO ABSENSI -->
+            <div class="mt-8">
 
-                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1400&auto=format&fit=crop"
-                    class="w-full h-full object-cover" />
+                <h3
+                    class="text-lg font-bold text-slate-800 mb-4"
+                >
+                    Foto Absensi
+                </h3>
 
-            </div>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 gap-5"
+                >
 
-        </div>
+                    <!-- FOTO MASUK -->
+                    <div
+                        class="rounded-2xl border border-slate-200 overflow-hidden"
+                    >
 
-    </div>
+                        <div
+                            class="px-5 py-4 border-b border-slate-200 bg-slate-50"
+                        >
 
-    <!-- RIGHT -->
-    <div class="col-span-7 space-y-6">
+                            <h4
+                                class="font-semibold text-slate-700"
+                            >
+                                Selfie Masuk
+                            </h4>
 
-        <!-- PROFILE -->
-        <div class="bg-white rounded-[32px] border border-slate-100 shadow-sm p-7">
+                        </div>
 
-            <div class="flex items-center justify-between">
+                        <div class="p-5">
 
-                <div class="flex items-center gap-5">
+                            <?php if (!empty($pegawai['selfie_masuk'])) : ?>
 
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
-                        class="w-20 h-20 rounded-3xl object-cover" />
+                                <img
+                                    src="<?= base_url('uploads/selfie/' . $pegawai['selfie_masuk']); ?>"
+                                    class="w-full rounded-xl object-cover"
+                                >
 
-                    <div>
+                            <?php else : ?>
 
-                        <h3 class="text-slate-900 font-extrabold text-[28px]">
-                            <?= $pegawai['nama']; ?>
-                        </h3>
+                                <div
+                                    class="h-64 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400"
+                                >
+                                    Tidak Ada Foto
+                                </div>
 
-                        <div class="bg-blue-100 text-blue-700 px-5 py-2 rounded-xl text-[13px] font-bold inline-block">
+                            <?php endif; ?>
 
-                            NIM. <?= $pegawai['nim']; ?>
+                        </div>
+
+                    </div>
+
+                    <!-- FOTO PULANG -->
+                    <div
+                        class="rounded-2xl border border-slate-200 overflow-hidden"
+                    >
+
+                        <div
+                            class="px-5 py-4 border-b border-slate-200 bg-slate-50"
+                        >
+
+                            <h4
+                                class="font-semibold text-slate-700"
+                            >
+                                Selfie Pulang
+                            </h4>
+
+                        </div>
+
+                        <div class="p-5">
+
+                            <?php if (!empty($pegawai['selfie_pulang'])) : ?>
+
+                                <img
+                                    src="<?= base_url('uploads/selfie/' . $pegawai['selfie_pulang']); ?>"
+                                    class="w-full rounded-xl object-cover"
+                                >
+
+                            <?php else : ?>
+
+                                <div
+                                    class="h-64 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400"
+                                >
+                                    Tidak Ada Foto
+                                </div>
+
+                            <?php endif; ?>
 
                         </div>
 
@@ -132,71 +324,6 @@
 
                 </div>
 
-                <div class="bg-green-100 text-green-700 px-6 py-3 rounded-2xl text-[14px] font-bold">
-                    <?= $pegawai['status']; ?>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- ABSENSI -->
-        <div class="bg-white rounded-[32px] border border-slate-100 shadow-sm p-7">
-
-            <h3 class="text-slate-900 font-bold text-[26px] mb-6">
-                Informasi Absensi
-            </h3>
-
-            <div class="grid grid-cols-2 gap-5">
-
-                <div class="bg-slate-50 rounded-[24px] p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-2">
-                        Tanggal
-                    </p>
-
-                    <h4 class="text-slate-900 font-bold text-[20px]">
-                        <?= $pegawai['tanggal']; ?>
-                    </h4>
-
-                </div>
-
-                <div class="bg-slate-50 rounded-[24px] p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-2">
-                        Jam Masuk
-                    </p>
-
-                    <h4 class="text-slate-900 font-bold text-[20px]">
-                        <?= $pegawai['jam_masuk']; ?>
-                    </h4>
-
-                </div>
-
-                <div class="bg-slate-50 rounded-[24px] p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-2">
-                        Jam Pulang
-                    </p>
-
-                    <h4 class="text-slate-900 font-bold text-[20px]">
-                        <?= $pegawai['jam_pulang']; ?>
-                    </h4>
-
-                </div>
-
-                <div class="bg-slate-50 rounded-[24px] p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-2">
-                        Lokasi
-                    </p>
-
-                    <h4 class="text-slate-900 font-bold text-[20px]">
-                        <?= $pegawai['lokasi']; ?>
-                    </h4>
-
-                </div>
-
             </div>
 
         </div>
@@ -205,4 +332,4 @@
 
 </div>
 
-<?= $this->endSection() ?>
+<?= $this->endSection(); ?>

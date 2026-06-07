@@ -36,10 +36,9 @@
         <div class="p-5 space-y-3">
 
             <!-- DASHBOARD -->
-            <a href="<?= base_url('admin/dashboard') ?>"
-                class="w-full <?= $uri->getSegment(2) == 'dashboard'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+            <a href="<?= base_url('admin/dashboard') ?>" class="w-full <?= $uri->getSegment(2) == 'dashboard'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                  : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
                 px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'dashboard'
@@ -76,10 +75,9 @@
             </a>
 
             <!-- MONITORING -->
-            <a href="<?= base_url('admin/monitoring') ?>"
-                class="w-full <?= $uri->getSegment(2) == 'monitoring'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+            <a href="<?= base_url('admin/monitoring') ?>" class="w-full <?= $uri->getSegment(2) == 'monitoring'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                  : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
                 px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'monitoring'
@@ -116,10 +114,9 @@
             </a>
 
             <!-- IZIN -->
-            <a href="<?= base_url('admin/izin') ?>"
-                class="w-full <?= $uri->getSegment(2) == 'izin'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+            <a href="<?= base_url('admin/izin') ?>" class="w-full <?= $uri->getSegment(2) == 'izin'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                  : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
                 px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'izin'
@@ -156,10 +153,9 @@
             </a>
 
             <!-- PEGAWAI -->
-            <a href="<?= base_url('admin/pegawai') ?>"
-                class="w-full <?= $uri->getSegment(2) == 'pegawai'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+            <a href="<?= base_url('admin/pegawai') ?>" class="w-full <?= $uri->getSegment(2) == 'pegawai'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                  : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
                 px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'pegawai'
@@ -196,10 +192,9 @@
             </a>
 
             <!-- LAPORAN -->
-            <a href="<?= base_url('admin/laporan') ?>"
-                class="w-full <?= $uri->getSegment(2) == 'laporan'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+            <a href="<?= base_url('admin/laporan') ?>" class="w-full <?= $uri->getSegment(2) == 'laporan'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                  : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
                 px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'laporan'
@@ -236,10 +231,9 @@
             </a>
 
             <!-- SETTING -->
-            <a href="<?= base_url('admin/setting/absensi') ?>"
-                class="w-full <?= $uri->getSegment(2) == 'setting'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                    : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
+            <a href="<?= base_url('admin/setting/absensi') ?>" class="w-full <?= $uri->getSegment(2) == 'setting'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                  : 'bg-slate-50 hover:bg-slate-100 text-slate-800' ?>
                 px-5 py-4 rounded-[24px] flex items-center gap-4 transition">
 
                 <div class="w-12 h-12 rounded-2xl <?= $uri->getSegment(2) == 'setting'
@@ -282,12 +276,20 @@
     <!-- LOGOUT -->
     <div class="p-5 border-t border-slate-100">
 
-        <button
-            class="w-full bg-red-500 hover:bg-red-600 transition text-white py-4 rounded-[24px] font-bold text-[15px] shadow-lg shadow-red-300/30">
+        <a href="<?= base_url('logout') ?>" class="flex items-center justify-center gap-3
+          bg-gradient-to-r from-red-500 to-red-600
+          hover:from-red-600 hover:to-red-700
+          text-white font-bold
+          py-4 rounded-3xl
+          shadow-lg shadow-red-500/20
+          transition-all duration-300
+          hover:scale-[1.02]">
 
-            Logout
+            <span class="text-xl">↩</span>
 
-        </button>
+            <span>Logout</span>
+
+        </a>
 
     </div>
 

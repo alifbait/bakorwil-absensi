@@ -3,126 +3,232 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\IzinModel;
 
 class Izin extends BaseController
 {
+    /*
+    |--------------------------------------------------------------------------
+    | LIST IZIN
+    |--------------------------------------------------------------------------
+    */
+
     public function index()
     {
-        $search = $this->request->getGet('search');
-        $status = $this->request->getGet('status');
+        helper('text');
+        $search  = $this->request->getGet('search');
+        $status  = $this->request->getGet('status');
+        $tanggal = $this->request->getGet('tanggal');
 
-        // DEFAULT TANGGAL = HARI INI
-        $tanggal = $this->request->getGet('tanggal') ?? date('Y-m-d');
+        $izinModel = new IzinModel();
 
-        $izin = [
+        /*
+        |--------------------------------------------------------------------------
+        | QUERY
+        |--------------------------------------------------------------------------
+        */
 
-            [
-                'nama' => 'Sinta Permata',
-                'jenis' => 'Izin',
-                'tanggal' => '2026-06-05',
-                'alasan' => 'Menghadiri acara keluarga',
-                'status' => 'Pending',
-            ],
+        $builder = $izinModel
 
-            [
-                'nama' => 'Ahmad Rizki',
-                'jenis' => 'Sakit',
-                'tanggal' => '2026-06-05',
-                'alasan' => 'Demam dan istirahat',
-                'status' => 'Disetujui',
-            ],
+            ->select('
+                izin.*,
+                peserta.nama_lengkap,
+                peserta.nim,
+                peserta.foto_profile
+            ')
 
-            [
-                'nama' => 'Budi Santoso',
-                'jenis' => 'Izin',
-                'tanggal' => '2026-06-04',
-                'alasan' => 'Keperluan keluarga',
-                'status' => 'Ditolak',
-            ],
+            ->join(
+                'peserta',
+                'peserta.id = izin.peserta_id'
+            );
 
-        ];
+        /*
+        |--------------------------------------------------------------------------
+        | SEARCH
+        |--------------------------------------------------------------------------
+        */
 
-        // FILTER SEARCH
         if ($search) {
 
-            $izin = array_filter($izin, function ($item) use ($search) {
+            $builder->groupStart()
 
-                return stripos($item['nama'], $search) !== false;
+                ->like('peserta.nama_lengkap', $search)
 
-            });
+                ->orLike('peserta.nim', $search)
 
+                ->groupEnd();
         }
 
-        // FILTER STATUS
+        /*
+        |--------------------------------------------------------------------------
+        | FILTER STATUS
+        |--------------------------------------------------------------------------
+        */
+
         if ($status) {
 
-            $izin = array_filter($izin, function ($item) use ($status) {
-
-                return $item['status'] == $status;
-
-            });
-
+            $builder->where(
+                'izin.status',
+                strtolower($status)
+            );
         }
 
-        // FILTER TANGGAL
+        /*
+        |--------------------------------------------------------------------------
+        | FILTER TANGGAL
+        |--------------------------------------------------------------------------
+        */
+
         if ($tanggal) {
 
-            $izin = array_filter($izin, function ($item) use ($tanggal) {
+            $builder->where(
+                'izin.tanggal_mulai',
+                $tanggal
+            );
+        }
 
-                return $item['tanggal'] == $tanggal;
+        /*
+        |--------------------------------------------------------------------------
+        | GET DATA
+        |--------------------------------------------------------------------------
+        */
 
-            });
+        $izin = $builder
+            ->orderBy('izin.id', 'DESC')
+            ->findAll();
 
+        $data = [
+
+            'title'    => 'Approval Izin',
+
+            'izin'     => $izin,
+
+            'search'   => $search,
+
+            'status'   => $status,
+
+            'tanggal'  => $tanggal
+
+        ];
+
+        return view(
+            'admin/izin/index',
+            $data
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DETAIL IZIN
+    |--------------------------------------------------------------------------
+    */
+
+    public function detail($id)
+    {
+        $izinModel = new IzinModel();
+
+        $izin = $izinModel
+
+            ->select('
+                izin.*,
+                peserta.nama_lengkap,
+                peserta.nim,
+                peserta.email,
+                peserta.no_hp,
+                peserta.asal_instansi,
+                peserta.foto_profile
+            ')
+
+            ->join(
+                'peserta',
+                'peserta.id = izin.peserta_id'
+            )
+
+            ->where(
+                'izin.id',
+                $id
+            )
+
+            ->first();
+
+        /*
+        |--------------------------------------------------------------------------
+        | DATA TIDAK ADA
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$izin) {
+
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
         $data = [
-            'title' => 'Approval Izin',
-            'izin' => $izin,
-            'search' => $search,
-            'status' => $status,
-            'tanggal' => $tanggal,
-        ];
 
-        return view('admin/izin/index', $data);
-    }
-    public function detail($id)
-    {
-        $izin = [
-
-            [
-                'nama' => 'Sinta Permata',
-                'jenis' => 'Izin',
-                'tanggal' => '2026-06-05',
-                'alasan' => 'Menghadiri acara keluarga di luar kota dan tidak dapat mengikuti absensi kantor pada tanggal tersebut.',
-                'status' => 'Pending',
-                'file' => 'surat_izin.pdf',
-            ],
-
-            [
-                'nama' => 'Ahmad Rizki',
-                'jenis' => 'Sakit',
-                'tanggal' => '2026-06-05',
-                'alasan' => 'Demam dan harus istirahat total sesuai anjuran dokter.',
-                'status' => 'Disetujui',
-                'file' => 'surat_sakit.pdf',
-            ],
-
-            [
-                'nama' => 'Budi Santoso',
-                'jenis' => 'Izin',
-                'tanggal' => '2026-06-04',
-                'alasan' => 'Keperluan keluarga mendadak.',
-                'status' => 'Ditolak',
-                'file' => 'izin_keluarga.pdf',
-            ],
-
-        ];
-
-        $data = [
             'title' => 'Detail Pengajuan',
-            'izin' => $izin[$id],
+
+            'izin'  => $izin
+
         ];
 
-        return view('admin/izin/detail', $data);
+        return view(
+            'admin/izin/detail',
+            $data
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | APPROVE IZIN
+    |--------------------------------------------------------------------------
+    */
+
+    public function approve($id)
+    {
+        $izinModel = new IzinModel();
+
+        $izinModel->update($id, [
+
+            'status'      => 'disetujui',
+
+            'approved_by' => session()->get('user_id')
+
+        ]);
+
+        return redirect()
+
+            ->back()
+
+            ->with(
+                'success',
+                'Pengajuan berhasil disetujui'
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | REJECT IZIN
+    |--------------------------------------------------------------------------
+    */
+
+    public function reject($id)
+    {
+        $izinModel = new IzinModel();
+
+        $izinModel->update($id, [
+
+            'status'      => 'ditolak',
+
+            'approved_by' => session()->get('user_id')
+
+        ]);
+
+        return redirect()
+
+            ->back()
+
+            ->with(
+                'success',
+                'Pengajuan berhasil ditolak'
+            );
     }
 }

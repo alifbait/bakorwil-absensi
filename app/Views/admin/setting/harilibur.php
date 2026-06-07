@@ -9,10 +9,10 @@ $uri = service('uri');
 $activeTab = $uri->getSegment(3, 'harilibur');
 ?>
 
-<!-- HEADER -->
 <div class="flex items-center justify-between mb-8">
 
     <div>
+
         <p class="text-slate-400 text-[14px] mb-1">
             Konfigurasi Sistem Absensi Magang
         </p>
@@ -20,81 +20,60 @@ $activeTab = $uri->getSegment(3, 'harilibur');
         <h1 class="text-[56px] font-extrabold text-slate-900 leading-none">
             Setting Hari Libur
         </h1>
+
     </div>
 
 </div>
 
 <!-- TAB -->
-<div class="bg-white rounded-[32px] p-4 border border-slate-100 shadow-sm mb-8">
+<div class="bg-white rounded-[32px] p-4 border border-slate-100 shadow-sm mb-8 overflow-x-auto">
 
-    <div class="flex items-center gap-4 overflow-x-auto">
+    <div class="flex items-center gap-4 min-w-max">
 
-        <a href="<?= base_url('admin/setting/absensi') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'absensi')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+        <?php
+        $tabs = [
+            'absensi' => '🕒 Absensi',
+            'lokasi' => '📍 Lokasi GPS',
+            'harilibur' => '🎉 Hari Libur',
+            'umum' => '🔑 Akun & Keamanan',
+            'notifikasi' => '🔔 Notifikasi',
+        ];
+        ?>
 
-            🕒 Absensi
+        <?php foreach ($tabs as $key => $label): ?>
 
-        </a>
+            <a
+                href="<?= base_url('admin/setting/' . $key) ?>"
+                class="px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === $key)
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
 
-        <a href="<?= base_url('admin/setting/lokasi') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'lokasi')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+                <?= $label ?>
 
-            📍 Lokasi GPS
+            </a>
 
-        </a>
-
-        <a href="<?= base_url('admin/setting/harilibur') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'harilibur')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
-
-            🎉 Hari Libur
-
-        </a>
-
-        <a href="<?= base_url('admin/setting/umum') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'umum')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
-
-            🔑 Akun & Keamanan
-
-        </a>
-
-        <a href="<?= base_url('admin/setting/notifikasi') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'notifikasi')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
-
-            🔔 Notifikasi
-
-        </a>
+        <?php endforeach; ?>
 
     </div>
 
 </div>
 
-<!-- CONTENT -->
 <div class="grid grid-cols-1 xl:grid-cols-12 gap-7">
 
     <!-- LEFT -->
     <div class="xl:col-span-8 space-y-7">
 
-        <!-- DAFTAR LIBUR -->
+        <!-- TABLE -->
         <div class="bg-white rounded-[36px] border border-slate-100 shadow-sm overflow-hidden">
 
             <div class="p-8 border-b border-slate-100">
 
-                <h2 class="text-[34px] font-extrabold text-slate-900 leading-tight">
+                <h2 class="text-[34px] font-extrabold text-slate-900">
                     Daftar Hari Libur
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mt-1">
-                    Hari libur nasional dan libur internal instansi
+                    Hari libur nasional dan internal instansi
                 </p>
 
             </div>
@@ -108,7 +87,7 @@ $activeTab = $uri->getSegment(3, 'harilibur');
                         <tr>
 
                             <th class="px-8 py-5 text-left text-[13px] font-bold text-slate-500">
-                                Nama Hari Libur
+                                Hari Libur
                             </th>
 
                             <th class="px-8 py-5 text-left text-[13px] font-bold text-slate-500">
@@ -129,125 +108,82 @@ $activeTab = $uri->getSegment(3, 'harilibur');
 
                     <tbody>
 
-                        <!-- ITEM -->
-                        <tr class="border-t border-slate-100 hover:bg-slate-50/50 transition">
+                        <?php if (!empty($hariLibur)) : ?>
 
-                            <td class="px-8 py-5">
+                            <?php foreach ($hariLibur as $libur) : ?>
 
-                                <h3 class="font-bold text-slate-900">
-                                    Tahun Baru Islam 1448 H
-                                </h3>
+                                <tr class="border-t border-slate-100 hover:bg-slate-50/50 transition">
 
-                                <p class="text-slate-400 text-[12px] mt-1">
-                                    Hari Libur Nasional
-                                </p>
+                                    <td class="px-8 py-5">
 
-                            </td>
+                                        <h3 class="font-bold text-slate-900">
+                                            <?= esc($libur['nama_libur']) ?>
+                                        </h3>
 
-                            <td class="px-8 py-5 text-slate-600 font-medium">
-                                17 Juli 2026
-                            </td>
+                                        <p class="text-slate-400 text-[12px] mt-1">
+                                            <?= esc($libur['keterangan']) ?>
+                                        </p>
 
-                            <td class="px-8 py-5">
+                                    </td>
 
-                                <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl text-sm font-bold">
-                                    Nasional
-                                </span>
+                                    <td class="px-8 py-5 text-slate-600 font-medium">
 
-                            </td>
+                                        <?= date('d F Y', strtotime($libur['tanggal'])) ?>
 
-                            <td class="px-8 py-5 text-center">
+                                    </td>
 
-                                <button
-                                    class="bg-red-50 hover:bg-red-100 transition text-red-600 px-5 py-3 rounded-2xl text-sm font-bold">
+                                    <td class="px-8 py-5">
 
-                                    🗑️ Hapus
+                                        <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl text-sm font-bold">
 
-                                </button>
+                                            <?= esc($libur['tipe']) ?>
 
-                            </td>
+                                        </span>
 
-                        </tr>
+                                    </td>
 
-                        <!-- ITEM -->
-                        <tr class="border-t border-slate-100 hover:bg-slate-50/50 transition">
+                                    <td class="px-8 py-5 text-center">
 
-                            <td class="px-8 py-5">
+                                        <?php if (empty($libur['is_api'])) : ?>
 
-                                <h3 class="font-bold text-slate-900">
-                                    Hari Kemerdekaan RI
-                                </h3>
+                                            <a
+                                                href="<?= base_url('admin/setting/harilibur/delete/' . $libur['id']) ?>"
+                                                onclick="return confirm('Hapus hari libur ini?')"
+                                                class="bg-red-50 hover:bg-red-100 transition text-red-600 px-5 py-3 rounded-2xl text-sm font-bold inline-block">
 
-                                <p class="text-slate-400 text-[12px] mt-1">
-                                    HUT RI Ke-81
-                                </p>
+                                                🗑️ Hapus
 
-                            </td>
+                                            </a>
 
-                            <td class="px-8 py-5 text-slate-600 font-medium">
-                                17 Agustus 2026
-                            </td>
+                                        <?php else : ?>
 
-                            <td class="px-8 py-5">
+                                            <span class="text-slate-400 text-sm font-bold">
 
-                                <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl text-sm font-bold">
-                                    Nasional
-                                </span>
+                                                API Nasional
 
-                            </td>
+                                            </span>
 
-                            <td class="px-8 py-5 text-center">
+                                        <?php endif; ?>
 
-                                <button
-                                    class="bg-red-50 hover:bg-red-100 transition text-red-600 px-5 py-3 rounded-2xl text-sm font-bold">
+                                    </td>
 
-                                    🗑️ Hapus
+                                </tr>
 
-                                </button>
+                            <?php endforeach; ?>
 
-                            </td>
+                        <?php else : ?>
 
-                        </tr>
+                            <tr>
 
-                        <!-- ITEM -->
-                        <tr class="border-t border-slate-100 hover:bg-slate-50/50 transition">
+                                <td colspan="4" class="px-8 py-10 text-center text-slate-400">
 
-                            <td class="px-8 py-5">
+                                    Belum ada data hari libur.
 
-                                <h3 class="font-bold text-slate-900">
-                                    Evaluasi Magang Internal
-                                </h3>
+                                </td>
 
-                                <p class="text-slate-400 text-[12px] mt-1">
-                                    Libur Khusus Internal Bakorwil
-                                </p>
+                            </tr>
 
-                            </td>
-
-                            <td class="px-8 py-5 text-slate-600 font-medium">
-                                10 September 2026
-                            </td>
-
-                            <td class="px-8 py-5">
-
-                                <span class="bg-purple-100 text-purple-700 px-4 py-2 rounded-xl text-sm font-bold">
-                                    Internal
-                                </span>
-
-                            </td>
-
-                            <td class="px-8 py-5 text-center">
-
-                                <button
-                                    class="bg-red-50 hover:bg-red-100 transition text-red-600 px-5 py-3 rounded-2xl text-sm font-bold">
-
-                                    🗑️ Hapus
-
-                                </button>
-
-                            </td>
-
-                        </tr>
+                        <?php endif; ?>
 
                     </tbody>
 
@@ -276,7 +212,7 @@ $activeTab = $uri->getSegment(3, 'harilibur');
                     </h2>
 
                     <p class="text-slate-400 text-[14px]">
-                        Tambahkan hari libur custom di luar kalender nasional
+                        Tambahkan hari libur internal tambahan
                     </p>
 
                 </div>
@@ -294,21 +230,22 @@ $activeTab = $uri->getSegment(3, 'harilibur');
                     <input
                         type="text"
                         name="nama_libur"
-                        placeholder="Contoh: Evaluasi Peserta Magang"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition">
+                        required
+                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                 </div>
 
                 <div>
 
                     <label class="block text-[14px] font-semibold text-slate-700 mb-3">
-                        Tanggal Libur
+                        Tanggal
                     </label>
 
                     <input
                         type="date"
                         name="tanggal_libur"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition">
+                        required
+                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                 </div>
 
@@ -320,14 +257,14 @@ $activeTab = $uri->getSegment(3, 'harilibur');
 
                     <select
                         name="tipe_libur"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition">
+                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                         <option value="Internal">
-                            Internal Bakorwil
+                            Internal
                         </option>
 
                         <option value="Khusus">
-                            Libur Khusus Magang
+                            Khusus
                         </option>
 
                     </select>
@@ -343,8 +280,7 @@ $activeTab = $uri->getSegment(3, 'harilibur');
                     <textarea
                         name="keterangan"
                         rows="4"
-                        placeholder="Masukkan keterangan tambahan..."
-                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none resize-none focus:border-blue-500 focus:bg-white transition"></textarea>
+                        class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none resize-none focus:border-blue-500"></textarea>
 
                 </div>
 
@@ -364,89 +300,11 @@ $activeTab = $uri->getSegment(3, 'harilibur');
 
         </form>
 
-        <!-- API NASIONAL -->
-        <div class="bg-white rounded-[36px] p-8 border border-slate-100 shadow-sm">
-
-            <div class="flex items-center gap-4 mb-6">
-
-                <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-3xl">
-                    📅
-                </div>
-
-                <div>
-
-                    <h2 class="text-[34px] font-extrabold text-slate-900">
-                        Kalender Nasional
-                    </h2>
-
-                    <p class="text-slate-400 text-[14px]">
-                        Data hari libur nasional otomatis dari API kalender Indonesia
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="flex items-center gap-3 mb-6">
-
-                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-xl text-[12px] font-bold">
-                    Auto Sync API
-                </span>
-
-                <span class="text-slate-400 text-[12px]">
-                    Sinkron otomatis kalender nasional Indonesia
-                </span>
-
-            </div>
-
-            <div class="bg-slate-50 border border-slate-200 rounded-[28px] p-6 space-y-4">
-
-                <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-
-                    <span class="text-[14px] font-bold text-slate-800">
-                        1 Januari 2026
-                    </span>
-
-                    <span class="text-[14px] text-slate-500 font-semibold">
-                        Tahun Baru Masehi
-                    </span>
-
-                </div>
-
-                <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-
-                    <span class="text-[14px] font-bold text-slate-800">
-                        17 Februari 2026
-                    </span>
-
-                    <span class="text-[14px] text-slate-500 font-semibold">
-                        Isra Mikraj Nabi Muhammad SAW
-                    </span>
-
-                </div>
-
-                <div class="flex items-center justify-between">
-
-                    <span class="text-[14px] font-bold text-slate-800">
-                        17 Agustus 2026
-                    </span>
-
-                    <span class="text-[14px] text-slate-500 font-semibold">
-                        Hari Kemerdekaan RI
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
 
     <!-- RIGHT -->
     <div class="xl:col-span-4 space-y-7">
 
-        <!-- CARD -->
         <div class="bg-gradient-to-br from-blue-600 to-blue-500 rounded-[36px] p-8 text-white shadow-xl shadow-blue-500/20">
 
             <div class="flex items-center justify-between mb-10">
@@ -458,7 +316,7 @@ $activeTab = $uri->getSegment(3, 'harilibur');
                     </p>
 
                     <h3 class="text-[42px] font-extrabold">
-                        16 Hari
+                        <?= $totalLibur ?> Hari
                     </h3>
 
                 </div>
@@ -476,65 +334,30 @@ $activeTab = $uri->getSegment(3, 'harilibur');
                 </p>
 
                 <h2 class="text-[22px] font-extrabold mb-3">
-                    Tahun Baru Islam
+
+                    <?= $liburTerdekat['nama_libur'] ?? '-' ?>
+
                 </h2>
 
-                <div class="bg-green-400/20 text-green-100 px-4 py-2 rounded-xl inline-block text-[13px] font-bold">
-                    Tersisa 41 Hari Lagi
-                </div>
+                <span class="bg-green-400/20 text-green-100 px-4 py-2 rounded-xl inline-block text-[13px] font-bold">
 
-            </div>
+                    <?php if ($liburTerdekat) : ?>
 
-        </div>
+                        <?php
+                        $selisih = floor(
+                            (strtotime($liburTerdekat['tanggal']) - time()) / 86400
+                        );
+                        ?>
 
-        <!-- LIST -->
-        <div class="bg-white rounded-[36px] p-8 border border-slate-100 shadow-sm">
+                        Tersisa <?= $selisih ?> Hari Lagi
 
-            <h3 class="text-[24px] font-extrabold text-slate-900 mb-6">
-                Libur Terdekat
-            </h3>
+                    <?php else : ?>
 
-            <div class="space-y-5">
+                        Tidak ada libur mendatang
 
-                <div class="flex items-center justify-between">
+                    <?php endif; ?>
 
-                    <div>
-
-                        <p class="text-slate-400 text-[12px]">
-                            17 Juli 2026
-                        </p>
-
-                        <h4 class="text-slate-900 font-bold text-[15px]">
-                            Tahun Baru Islam
-                        </h4>
-
-                    </div>
-
-                    <span class="bg-blue-50 text-blue-700 text-[11px] font-extrabold px-3 py-1 rounded-xl">
-                        Nasional
-                    </span>
-
-                </div>
-
-                <div class="flex items-center justify-between">
-
-                    <div>
-
-                        <p class="text-slate-400 text-[12px]">
-                            17 Agustus 2026
-                        </p>
-
-                        <h4 class="text-slate-900 font-bold text-[15px]">
-                            Hari Kemerdekaan RI
-                        </h4>
-
-                    </div>
-
-                    <span class="bg-blue-50 text-blue-700 text-[11px] font-extrabold px-3 py-1 rounded-xl">
-                        Nasional
-                    </span>
-
-                </div>
+                </span>
 
             </div>
 

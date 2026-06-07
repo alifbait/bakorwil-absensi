@@ -15,45 +15,117 @@ class Laporan extends BaseController
 {
     private function laporanData()
     {
-        return [
+        $db = \Config\Database::connect();
 
-            [
-                'nama' => 'Ahmad Rizki',
-                'nim' => '22110001',
-                'divisi' => 'Record Center',
-                'hadir' => 24,
-                'izin' => 2,
-                'sakit' => 1,
-                'alfa' => 0,
-                'persentase' => '96%',
-                'status' => 'Aktif',
-            ],
+        $bulan = $this->request->getGet('bulan');
+        $tahun = $this->request->getGet('tahun');
 
-            [
-                'nama' => 'Sinta Permata',
-                'nim' => '22110002',
-                'divisi' => 'TU',
-                'hadir' => 21,
-                'izin' => 3,
-                'sakit' => 0,
-                'alfa' => 1,
-                'persentase' => '90%',
-                'status' => 'Aktif',
-            ],
-
-            [
-                'nama' => 'Budi Santoso',
-                'nim' => '22110003',
-                'divisi' => 'Sarpras',
-                'hadir' => 18,
-                'izin' => 5,
-                'sakit' => 2,
-                'alfa' => 4,
-                'persentase' => '81%',
-                'status' => 'Nonaktif',
-            ],
-
+        // KONVERSI BULAN
+        $bulanMap = [
+            'Januari' => '01',
+            'Februari' => '02',
+            'Maret' => '03',
+            'April' => '04',
+            'Mei' => '05',
+            'Juni' => '06',
+            'Juli' => '07',
+            'Agustus' => '08',
+            'September' => '09',
+            'Oktober' => '10',
+            'November' => '11',
+            'Desember' => '12',
         ];
+
+        $bulanAngka = $bulanMap[$bulan] ?? date('m');
+
+        $builder = $db->table('peserta');
+
+        $builder->select('
+        peserta.id,
+        peserta.nama_lengkap,
+        peserta.nim,
+        peserta.status,
+        divisions.nama_divisi
+    ');
+
+        $builder->join(
+            'divisions',
+            'divisions.id = peserta.division_id',
+            'left'
+        );
+
+        $peserta = $builder->get()->getResultArray();
+
+        $laporan = [];
+
+        foreach ($peserta as $p) {
+
+            // HADIR
+            $hadir = $db->table('absensi')
+                ->where('peserta_id', $p['id'])
+                ->where('status', 'hadir')
+                ->where('MONTH(tanggal)', $bulanAngka)
+                ->where('YEAR(tanggal)', $tahun)
+                ->countAllResults();
+
+            // IZIN
+            $izin = $db->table('absensi')
+                ->where('peserta_id', $p['id'])
+                ->where('status', 'izin')
+                ->where('MONTH(tanggal)', $bulanAngka)
+                ->where('YEAR(tanggal)', $tahun)
+                ->countAllResults();
+
+            // SAKIT
+            $sakit = $db->table('absensi')
+                ->where('peserta_id', $p['id'])
+                ->where('status', 'sakit')
+                ->where('MONTH(tanggal)', $bulanAngka)
+                ->where('YEAR(tanggal)', $tahun)
+                ->countAllResults();
+
+            // ALPHA
+            $alfa = $db->table('absensi')
+                ->where('peserta_id', $p['id'])
+                ->where('status', 'alpha')
+                ->where('MONTH(tanggal)', $bulanAngka)
+                ->where('YEAR(tanggal)', $tahun)
+                ->countAllResults();
+
+            $total = $hadir + $izin + $sakit + $alfa;
+
+            $persentase = 0;
+
+            if ($total > 0) {
+
+                $persentase = round(($hadir / $total) * 100);
+
+            }
+
+            $laporan[] = [
+
+                'nama' => $p['nama_lengkap'],
+
+                'nim' => $p['nim'],
+
+                'divisi' => $p['nama_divisi'] ?? '-',
+
+                'hadir' => $hadir,
+
+                'izin' => $izin,
+
+                'sakit' => $sakit,
+
+                'alfa' => $alfa,
+
+                'persentase' => $persentase . '%',
+
+                'status' => ucfirst($p['status'])
+
+            ];
+        }
+
+        return $laporan;
     }
 
     // =====================================

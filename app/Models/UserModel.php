@@ -10,12 +10,23 @@ class UserModel extends Model
 
     protected $primaryKey = 'id';
 
+    protected $useAutoIncrement = true;
+
+    protected $returnType = 'array';
+
+    protected $protectFields = true;
+
     protected $allowedFields = [
+
+        'nama',
         'username',
         'password',
         'role',
+        'divisi',
+        'foto',
         'is_active',
         'last_login'
+
     ];
 
     protected $useTimestamps = true;
@@ -23,4 +34,6 @@ class UserModel extends Model
     protected $createdField = 'created_at';
 
     protected $updatedField = 'updated_at';
+
+    protected bool $updateOnlyChanged = false;
 }

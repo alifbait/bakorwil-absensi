@@ -12,8 +12,7 @@ use CodeIgniter\Router\RouteCollection;
 |--------------------------------------------------------------------------
 */
 
-$routes->get('/', 'Home::index');
-
+$routes->get('/', 'Auth::login');
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +44,7 @@ $routes->group(
     'admin',
     [
         'namespace' => 'App\Controllers\Admin',
-        'filter'    => 'auth'
+        'filter' => 'auth'
     ],
     function ($routes) {
 
@@ -92,6 +91,15 @@ $routes->group(
         $routes->get(
             'izin/detail/(:num)',
             'Izin::detail/$1'
+        );
+        $routes->get(
+            'izin/approve/(:num)',
+            'Izin::approve/$1'
+        );
+
+        $routes->get(
+            'izin/reject/(:num)',
+            'Izin::reject/$1'
         );
 
 
@@ -166,9 +174,48 @@ $routes->group(
 
         /*
         |--------------------------------------------------------------------------
-        | SETTING SYSTEM
+        | SETTING
         |--------------------------------------------------------------------------
         */
+        $routes->get(
+            'setting/harilibur/delete/(:num)',
+            'Setting::deleteHariLibur/$1'
+        );
+
+        $routes->get(
+            'setting/absensi',
+            'Setting::absensi'
+        );
+
+        $routes->post(
+            'setting/save-absensi',
+            'Setting::saveAbsensi'
+        );
+
+        $routes->get(
+            'setting/lokasi',
+            'Setting::lokasi'
+        );
+
+        $routes->post(
+            'setting/save-lokasi',
+            'Setting::saveLokasi'
+        );
+
+        $routes->get(
+            'setting/harilibur',
+            'Setting::hariLibur'
+        );
+
+        $routes->get(
+            'setting/notifikasi',
+            'Setting::notifikasi'
+        );
+
+        $routes->get(
+            'setting/umum',
+            'Setting::umum'
+        );
 
         /*
         |--------------------------------------------------------------------------
@@ -238,6 +285,16 @@ $routes->group(
             'Setting::saveNotifikasi'
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | DELETE HARI LIBUR
+        |--------------------------------------------------------------------------
+        */
+        $routes->get(
+            'setting/harilibur/delete/(:num)',
+            'Setting::deleteHariLibur/$1'
+        );
+
     }
 );
 
@@ -252,7 +309,7 @@ $routes->group(
     '',
     [
         'namespace' => 'App\Controllers\User',
-        'filter'    => 'auth'
+        'filter' => 'auth'
     ],
     function ($routes) {
 
@@ -322,3 +379,13 @@ $routes->group(
 
     }
 );
+
+
+$routes->group('', ['filter' => 'auth'], function ($routes) {
+
+    $routes->get(
+        'dashboard',
+        'User\Dashboard::index'
+    );
+
+});

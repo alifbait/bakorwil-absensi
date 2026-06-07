@@ -2,111 +2,119 @@
 
 <?= $this->section('content') ?>
 
-<div class="flex items-center justify-between mb-8">
+<div class="mb-8 flex items-center justify-between">
 
     <div>
 
         <p class="text-slate-400 text-[14px] mb-1">
-            Detail ASN & Pegawai
+            Detail Peserta Magang
         </p>
 
-        <h1 class="text-[52px] font-extrabold text-slate-900 leading-none">
+        <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
             Detail Pegawai
         </h1>
 
     </div>
 
-    <!-- ACTION -->
-    <div class="flex items-center gap-4">
+    <a href="<?= base_url('admin/pegawai') ?>"
+        class="bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-semibold text-slate-700 text-[14px]">
 
-        <a href="<?= base_url('admin/pegawai/edit/' . $id) ?>"
-            class="bg-yellow-400 hover:bg-yellow-500 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-yellow-300/30 inline-flex items-center justify-center">
+        Kembali
 
-            Edit Pegawai
-
-        </a>
-        <a href="<?= base_url('admin/pegawai/akun/' . $id) ?>"
-            class="bg-blue-600 hover:bg-blue-700 transition text-white px-7 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20 inline-block">
-
-            Kelola Akun
-
-        </a>
-    </div>
+    </a>
 
 </div>
 
-<!-- CONTENT -->
-<div class="grid grid-cols-3 gap-7">
+<div class="grid grid-cols-12 gap-7">
 
     <!-- LEFT -->
-    <div class="space-y-7">
+    <div class="col-span-8 space-y-7">
 
-        <!-- PROFILE -->
-        <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+        <!-- INFORMASI PERSONAL -->
+        <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
-            <div class="text-center">
+            <h2 class="text-[30px] font-extrabold text-slate-900 mb-1">
+                Informasi Personal
+            </h2>
 
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
-                    class="w-40 h-40 rounded-[32px] object-cover mx-auto shadow-lg">
+            <p class="text-slate-400 text-[14px] mb-8">
+                Detail identitas peserta magang
+            </p>
 
-                <h2 class="text-[34px] font-extrabold text-slate-900 mt-6">
-                    <?= $pegawai['nama']; ?>
-                </h2>
+            <div class="grid grid-cols-2 gap-5">
 
-                <div class="flex items-center justify-center gap-3 mt-6">
+                <!-- NAMA -->
+                <div>
 
-                    <span class="bg-blue-100 text-blue-700 px-5 py-2 rounded-xl text-[13px] font-bold">
-                        ASN Aktif
-                    </span>
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        Nama Lengkap
+                    </label>
 
-                    <span class="<?= $pegawai['status'] == 'Aktif'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-red-100 text-red-700'; ?> px-5 py-2 rounded-xl text-[13px] font-bold">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
 
-                        <?= $pegawai['status']; ?>
+                        <?= $pegawai['nama_lengkap']; ?>
 
-                    </span>
+                    </div>
 
                 </div>
 
-            </div>
+                <!-- NIM -->
+                <div>
 
-            <!-- INFO -->
-            <div class="space-y-5 mt-8">
-
-                <div class="bg-slate-50 rounded-2xl p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-1">
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
                         NIM
-                    </p>
+                    </label>
 
-                    <h4 class="text-slate-900 font-bold text-[16px]">
-                        <?= $pegawai['nim']; ?>
-                    </h4>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
 
-                </div>
+                        <?= $pegawai['nim'] ?? '-'; ?>
 
-                <div class="bg-slate-50 rounded-2xl p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-1">
-                        Divisi
-                    </p>
-
-                    <h4 class="text-slate-900 font-bold text-[16px]">
-                        <?= $pegawai['divisi']; ?>
-                    </h4>
+                    </div>
 
                 </div>
 
-                <div class="bg-slate-50 rounded-2xl p-5">
+                <!-- EMAIL -->
+                <div>
 
-                    <p class="text-slate-400 text-[13px] mb-1">
-                        Bergabung
-                    </p>
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        Email
+                    </label>
 
-                    <h4 class="text-slate-900 font-bold text-[16px]">
-                        <?= $pegawai['bergabung']; ?>
-                    </h4>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
+
+                        <?= $pegawai['email'] ?? '-'; ?>
+
+                    </div>
+
+                </div>
+
+                <!-- NO HP -->
+                <div>
+
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        No HP
+                    </label>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
+
+                        <?= $pegawai['no_hp'] ?? '-'; ?>
+
+                    </div>
+
+                </div>
+
+                <!-- ASAL INSTANSI -->
+                <div class="col-span-2">
+
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        Asal Instansi
+                    </label>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
+
+                        <?= $pegawai['asal_instansi'] ?? '-'; ?>
+
+                    </div>
 
                 </div>
 
@@ -114,99 +122,151 @@
 
         </div>
 
-        <!-- RIWAYAT KEHADIRAN -->
-        <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+        <!-- INFORMASI MAGANG -->
+        <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
-            <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
-                Riwayat Kehadiran
+            <h2 class="text-[30px] font-extrabold text-slate-900 mb-1">
+                Informasi Magang
             </h2>
 
-            <p class="text-slate-400 text-[14px] mb-7">
-                Aktivitas absensi terbaru pegawai
+            <p class="text-slate-400 text-[14px] mb-8">
+                Data keanggotaan & status peserta
             </p>
 
-            <div class="space-y-4 h-[320px] overflow-y-auto pr-2 scroll-smooth">
-                <!-- ITEM -->
-                <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
+            <div class="grid grid-cols-2 gap-5">
 
-                    <div>
+                <!-- DIVISI -->
+                <div>
 
-                        <h4 class="text-slate-900 font-bold text-[15px]">
-                            Hadir Tepat Waktu
-                        </h4>
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        Divisi
+                    </label>
 
-                        <p class="text-slate-400 text-[13px] mt-1">
-                            05 Juni 2026 • 07:01 WIB
-                        </p>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
+
+                        <?= $pegawai['nama_divisi'] ?? '-'; ?>
 
                     </div>
 
-                    <span class="bg-green-100 text-green-700 px-4 py-2 rounded-xl text-[12px] font-bold">
+                </div>
+
+                <!-- ROLE -->
+                <div>
+
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        Role
+                    </label>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
+
+                        <?= ucfirst($pegawai['role'] ?? 'anggota'); ?>
+
+                    </div>
+
+                </div>
+
+                <!-- TANGGAL MULAI -->
+                <div>
+
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        Tanggal Mulai
+                    </label>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
+
+                        <?= $pegawai['tanggal_mulai'] ?? '-'; ?>
+
+                    </div>
+
+                </div>
+
+                <!-- TANGGAL SELESAI -->
+                <div>
+
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        Tanggal Selesai
+                    </label>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700">
+
+                        <?= $pegawai['tanggal_selesai'] ?? '-'; ?>
+
+                    </div>
+
+                </div>
+
+                <!-- STATUS -->
+                <div class="col-span-2">
+
+                    <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                        Status Peserta
+                    </label>
+
+                    <div>
+
+                        <span class="px-5 py-3 rounded-2xl font-semibold text-sm
+                            <?= $pegawai['status'] == 'aktif'
+                                ? 'bg-green-100 text-green-700'
+                                : 'bg-red-100 text-red-700'; ?>">
+
+                            <?= ucfirst($pegawai['status']); ?>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- STATISTIK -->
+        <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
+
+            <h2 class="text-[30px] font-extrabold text-slate-900 mb-1">
+                Statistik Kehadiran
+            </h2>
+
+            <p class="text-slate-400 text-[14px] mb-8">
+                Ringkasan absensi peserta magang
+            </p>
+
+            <div class="grid grid-cols-3 gap-5">
+
+                <div class="bg-green-50 rounded-2xl p-6 border border-green-100">
+
+                    <p class="text-green-600 text-sm font-semibold mb-2">
                         Hadir
-                    </span>
+                    </p>
+
+                    <h3 class="text-4xl font-extrabold text-green-700">
+                        20
+                    </h3>
 
                 </div>
 
-                <!-- ITEM -->
-                <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
+                <div class="bg-yellow-50 rounded-2xl p-6 border border-yellow-100">
 
-                    <div>
+                    <p class="text-yellow-600 text-sm font-semibold mb-2">
+                        Izin / Sakit
+                    </p>
 
-                        <h4 class="text-slate-900 font-bold text-[15px]">
-                            Terlambat Absensi
-                        </h4>
-
-                        <p class="text-slate-400 text-[13px] mt-1">
-                            04 Juni 2026 • 07:20 WIB
-                        </p>
-
-                    </div>
-
-                    <span class="bg-red-100 text-red-700 px-4 py-2 rounded-xl text-[12px] font-bold">
-                        Terlambat
-                    </span>
+                    <h3 class="text-4xl font-extrabold text-yellow-700">
+                        2
+                    </h3>
 
                 </div>
 
-                <!-- ITEM -->
-                <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
+                <div class="bg-red-50 rounded-2xl p-6 border border-red-100">
 
-                    <div>
+                    <p class="text-red-600 text-sm font-semibold mb-2">
+                        Alpha
+                    </p>
 
-                        <h4 class="text-slate-900 font-bold text-[15px]">
-                            Tidak Hadir
-                        </h4>
-
-                        <p class="text-slate-400 text-[13px] mt-1">
-                            03 Juni 2026
-                        </p>
-
-                    </div>
-
-                    <span class="bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-[12px] font-bold">
-                        Alfa
-                    </span>
-
-                </div>
-
-                <!-- ITEM -->
-                <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
-
-                    <div>
-
-                        <h4 class="text-slate-900 font-bold text-[15px]">
-                            Hadir Tepat Waktu
-                        </h4>
-
-                        <p class="text-slate-400 text-[13px] mt-1">
-                            02 Juni 2026 • 06:58 WIB
-                        </p>
-
-                    </div>
-
-                    <span class="bg-green-100 text-green-700 px-4 py-2 rounded-xl text-[12px] font-bold">
-                        Hadir
-                    </span>
+                    <h3 class="text-4xl font-extrabold text-red-700">
+                        0
+                    </h3>
 
                 </div>
 
@@ -217,248 +277,72 @@
     </div>
 
     <!-- RIGHT -->
-    <div class="col-span-2 space-y-7">
+    <div class="col-span-4 space-y-7">
 
-        <!-- STATISTIK -->
-        <div class="grid grid-cols-3 gap-6">
+        <!-- FOTO -->
+        <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
-            <!-- HADIR -->
-            <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
-
-                <div class="w-16 h-16 rounded-3xl bg-green-100 flex items-center justify-center text-3xl mb-6">
-                    ✅
-                </div>
-
-                <p class="text-slate-400 text-[14px] mb-2">
-                    Hadir
-                </p>
-
-                <h3 class="text-[42px] font-extrabold text-slate-900">
-                    <?= $pegawai['hadir']; ?>
-                </h3>
-
-            </div>
-
-            <!-- TERLAMBAT -->
-            <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
-
-                <div class="w-16 h-16 rounded-3xl bg-red-100 flex items-center justify-center text-3xl mb-6">
-                    ⏰
-                </div>
-
-                <p class="text-slate-400 text-[14px] mb-2">
-                    Terlambat
-                </p>
-
-                <h3 class="text-[42px] font-extrabold text-slate-900">
-                    <?= $pegawai['terlambat']; ?>
-                </h3>
-
-            </div>
-
-            <!-- IZIN -->
-            <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
-
-                <div class="w-16 h-16 rounded-3xl bg-yellow-100 flex items-center justify-center text-3xl mb-6">
-                    📄
-                </div>
-
-                <p class="text-slate-400 text-[14px] mb-2">
-                    Izin
-                </p>
-
-                <h3 class="text-[42px] font-extrabold text-slate-900">
-                    <?= $pegawai['izin']; ?>
-                </h3>
-
-            </div>
-
-            <!-- SAKIT -->
-            <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
-
-                <div class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-3xl mb-6">
-                    🏥
-                </div>
-
-                <p class="text-slate-400 text-[14px] mb-2">
-                    Sakit
-                </p>
-
-                <h3 class="text-[42px] font-extrabold text-slate-900">
-                    <?= $pegawai['sakit']; ?>
-                </h3>
-
-            </div>
-            <!-- ALFA -->
-            <div class="bg-white rounded-[28px] p-6 border border-slate-100 shadow-sm">
-
-                <div class="w-16 h-16 rounded-3xl bg-slate-200 flex items-center justify-center text-3xl mb-6">
-                    ❌
-                </div>
-
-                <p class="text-slate-400 text-[14px] mb-2">
-                    Tidak Hadir
-                </p>
-
-                <h3 class="text-[42px] font-extrabold text-slate-900">
-                    <?= $pegawai['alfa']; ?>
-                </h3>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- INFORMASI -->
-        <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
-
-            <h2 class="text-[32px] font-extrabold text-slate-900 mb-1">
-                Informasi Personal
+            <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
+                Foto Profil
             </h2>
 
             <p class="text-slate-400 text-[14px] mb-8">
-                Data lengkap pegawai ASN
+                Foto peserta magang
             </p>
 
-            <div class="grid grid-cols-2 gap-5">
+            <div class="border-2 border-dashed border-slate-200 rounded-[28px] p-8 text-center">
 
-                <div class="bg-slate-50 rounded-2xl p-5">
+                <?php if (!empty($pegawai['foto_profile'])): ?>
 
-                    <p class="text-slate-400 text-[13px] mb-1">
-                        Email
-                    </p>
+                    <img
+                        src="<?= base_url('uploads/profile/' . $pegawai['foto_profile']) ?>"
+                        class="w-40 h-40 rounded-[32px] object-cover mx-auto mb-5">
 
-                    <h4 class="text-slate-900 font-bold text-[16px]">
-                        <?= $pegawai['email']; ?>
-                    </h4>
+                <?php else: ?>
 
-                </div>
+                    <img
+                        src="https://ui-avatars.com/api/?name=<?= urlencode($pegawai['nama_lengkap']); ?>&background=e2e8f0&color=0f172a"
+                        class="w-40 h-40 rounded-[32px] object-cover mx-auto mb-5">
 
-                <div class="bg-slate-50 rounded-2xl p-5">
+                <?php endif; ?>
 
-                    <p class="text-slate-400 text-[13px] mb-1">
-                        No HP
-                    </p>
+                <h3 class="font-bold text-slate-900 text-xl">
+                    <?= $pegawai['nama_lengkap']; ?>
+                </h3>
 
-                    <h4 class="text-slate-900 font-bold text-[16px]">
-                        <?= $pegawai['nohp']; ?>
-                    </h4>
-
-                </div>
-
-                <div class="col-span-2 bg-slate-50 rounded-2xl p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-1">
-                        Alamat
-                    </p>
-
-                    <h4 class="text-slate-900 font-bold text-[16px]">
-                        <?= $pegawai['alamat']; ?>
-                    </h4>
-
-                </div>
-
-                <div class="bg-slate-50 rounded-2xl p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-1">
-                        Tanggal Lahir
-                    </p>
-
-                    <h4 class="text-slate-900 font-bold text-[16px]">
-                        <?= $pegawai['lahir']; ?>
-                    </h4>
-
-                </div>
-
-                <div class="bg-slate-50 rounded-2xl p-5">
-
-                    <p class="text-slate-400 text-[13px] mb-3">
-                        Persentase Kehadiran
-                    </p>
-
-                    <div class="flex items-center justify-between mb-3">
-
-                        <h4 class="text-green-600 font-extrabold text-[22px]">
-                            <?= $pegawai['persentase']; ?>
-                        </h4>
-
-                        <span class="text-[13px] text-slate-400">
-                            Sangat Baik
-                        </span>
-
-                    </div>
-
-                    <!-- PROGRESS -->
-                    <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
-
-                        <div class="h-full bg-green-500 rounded-full w-[96%]"></div>
-
-                    </div>
-
-                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                    <?= $pegawai['nim'] ?? '-'; ?>
+                </p>
 
             </div>
 
         </div>
 
-        <!-- RIWAYAT -->
-        <div class="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm">
+        <!-- AKSI -->
+        <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
-            <div class="mb-7">
+            <div class="space-y-4">
 
-                <h2 class="text-[32px] font-extrabold text-slate-900 mb-1">
-                    Riwayat Pengajuan
-                </h2>
+                <a href="<?= base_url('admin/pegawai/edit/' . $pegawai['id']) ?>"
+                    class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-bold text-[15px] shadow-lg shadow-blue-500/20 flex items-center justify-center">
 
-                <p class="text-slate-400 text-[14px]">
-                    Pengajuan izin dan sakit terbaru
-                </p>
+                    Edit Data
 
-            </div>
+                </a>
 
-            <div class="space-y-4 h-[320px] overflow-y-auto pr-2 scroll-smooth">
-                <!-- ITEM -->
-                <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
+                <a href="<?= base_url('admin/pegawai/akun/' . $pegawai['id']) ?>"
+                    class="w-full bg-orange-500 hover:bg-orange-600 transition text-white py-4 rounded-2xl font-bold text-[15px] flex items-center justify-center">
 
-                    <div>
+                    Kelola Akun
 
-                        <h4 class="text-slate-900 font-bold text-[16px]">
-                            Izin Acara Keluarga
-                        </h4>
+                </a>
 
-                        <p class="text-slate-400 text-[13px] mt-1">
-                            21 Mei 2026
-                        </p>
+                <a href="<?= base_url('admin/pegawai') ?>"
+                    class="w-full bg-slate-100 hover:bg-slate-200 transition text-slate-700 py-4 rounded-2xl font-bold text-[15px] flex items-center justify-center">
 
-                    </div>
+                    Kembali
 
-                    <span class="bg-yellow-100 text-yellow-700 px-5 py-2 rounded-xl text-[13px] font-bold">
-                        Pending
-                    </span>
-
-                </div>
-
-                <!-- ITEM -->
-                <div class="bg-slate-50 rounded-2xl p-5 flex items-center justify-between">
-
-                    <div>
-
-                        <h4 class="text-slate-900 font-bold text-[16px]">
-                            Sakit Demam
-                        </h4>
-
-                        <p class="text-slate-400 text-[13px] mt-1">
-                            14 Mei 2026
-                        </p>
-
-                    </div>
-
-                    <span class="bg-green-100 text-green-700 px-5 py-2 rounded-xl text-[13px] font-bold">
-                        Disetujui
-                    </span>
-
-                </div>
+                </a>
 
             </div>
 

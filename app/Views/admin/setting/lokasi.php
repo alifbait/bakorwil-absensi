@@ -8,7 +8,6 @@ $uri = service('uri');
 $activeTab = $uri->getSegment(3, 'lokasi');
 ?>
 
-<!-- LEAFLET -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
 <div class="flex items-center justify-between mb-8 flex-wrap gap-5">
@@ -25,7 +24,9 @@ $activeTab = $uri->getSegment(3, 'lokasi');
 
     </div>
 
-    <button type="submit" form="form-setting-lokasi"
+    <button
+        type="submit"
+        form="form-setting-lokasi"
         class="bg-blue-600 hover:bg-blue-700 transition text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
 
         Simpan Lokasi
@@ -51,7 +52,9 @@ $activeTab = $uri->getSegment(3, 'lokasi');
 
         <?php foreach ($tabs as $key => $label): ?>
 
-            <a href="<?= base_url('admin/setting/' . $key) ?>" class="px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === $key)
+            <a
+                href="<?= base_url('admin/setting/' . $key) ?>"
+                class="px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === $key)
                     ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
 
@@ -65,7 +68,10 @@ $activeTab = $uri->getSegment(3, 'lokasi');
 
 </div>
 
-<form id="form-setting-lokasi" action="<?= base_url('admin/setting/lokasi/save') ?>" method="POST">
+<form
+    id="form-setting-lokasi"
+    action="<?= base_url('admin/setting/save-lokasi') ?>"
+    method="POST">
 
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-7">
 
@@ -104,7 +110,10 @@ $activeTab = $uri->getSegment(3, 'lokasi');
                             Latitude
                         </label>
 
-                        <input type="text" name="latitude" value="<?= $setting['latitude'] ?>"
+                        <input
+                            type="text"
+                            name="latitude_kantor"
+                            value="<?= $setting['latitude_kantor'] ?>"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -116,7 +125,10 @@ $activeTab = $uri->getSegment(3, 'lokasi');
                             Longitude
                         </label>
 
-                        <input type="text" name="longitude" value="<?= $setting['longitude'] ?>"
+                        <input
+                            type="text"
+                            name="longitude_kantor"
+                            value="<?= $setting['longitude_kantor'] ?>"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -130,7 +142,10 @@ $activeTab = $uri->getSegment(3, 'lokasi');
 
                         <div class="relative">
 
-                            <input type="number" name="radius" value="<?= $setting['radius'] ?>"
+                            <input
+                                type="number"
+                                name="radius_absensi"
+                                value="<?= $setting['radius_absensi'] ?>"
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pr-24 outline-none focus:border-blue-500">
 
                             <span class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">
@@ -148,17 +163,21 @@ $activeTab = $uri->getSegment(3, 'lokasi');
                             Validasi GPS
                         </label>
 
-                        <option <?= $setting['validasi_gps'] == 'Aktif (Wajib GPS Cocok)' ? 'selected' : '' ?>>
+                        <select
+                            name="mode_validasi_gps"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
-                            Aktif (Wajib GPS Cocok)
+                            <option value="aktif"
+                                <?= $setting['mode_validasi_gps'] == 'aktif' ? 'selected' : '' ?>>
+                                Aktif
+                            </option>
 
-                        </option>
+                            <option value="nonaktif"
+                                <?= $setting['mode_validasi_gps'] == 'nonaktif' ? 'selected' : '' ?>>
+                                Nonaktif
+                            </option>
 
-                        <option <?= $setting['validasi_gps'] == 'Nonaktif' ? 'selected' : '' ?>>
-
-                            Nonaktif
-
-                        </option>
+                        </select>
 
                     </div>
 
@@ -181,7 +200,9 @@ $activeTab = $uri->getSegment(3, 'lokasi');
 
                 </div>
 
-                <div id="map" class="h-[500px] rounded-[28px] overflow-hidden border border-slate-200">
+                <div
+                    id="map"
+                    class="h-[500px] rounded-[28px] overflow-hidden border border-slate-200">
                 </div>
 
                 <!-- INFO -->
@@ -195,21 +216,20 @@ $activeTab = $uri->getSegment(3, 'lokasi');
 
                         <p class="text-slate-400 text-[13px] mt-1">
                             Latitude:
-                            <span id="latText">
-                                -7.983908
-                            </span>
+                            <span id="latText"></span>
                         </p>
 
                         <p class="text-slate-400 text-[13px]">
                             Longitude:
-                            <span id="lngText">
-                                112.621391
-                            </span>
+                            <span id="lngText"></span>
                         </p>
 
                     </div>
 
-                    <a id="mapsButton" href="#" target="_blank"
+                    <a
+                        id="mapsButton"
+                        href="#"
+                        target="_blank"
                         class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
 
                         Buka Google Maps
@@ -225,7 +245,6 @@ $activeTab = $uri->getSegment(3, 'lokasi');
         <!-- RIGHT -->
         <div class="xl:col-span-4 space-y-7">
 
-            <!-- STATUS -->
             <div class="bg-gradient-to-br from-blue-600 to-blue-500 rounded-[36px] p-8 text-white">
 
                 <div class="flex items-center justify-between mb-10">
@@ -237,9 +256,7 @@ $activeTab = $uri->getSegment(3, 'lokasi');
                         </p>
 
                         <h3 id="radiusText" class="text-[42px] font-extrabold leading-none">
-
-                            100m
-
+                            <?= $setting['radius_absensi'] ?>m
                         </h3>
 
                     </div>
@@ -257,11 +274,10 @@ $activeTab = $uri->getSegment(3, 'lokasi');
                     </p>
 
                     <h2 class="text-[26px] font-extrabold mb-4">
-                        Validasi Aktif
+                        <?= ucfirst($setting['mode_validasi_gps']) ?>
                     </h2>
 
-                    <span
-                        class="bg-green-400/20 text-green-100 px-5 py-3 rounded-2xl inline-block text-[13px] font-bold">
+                    <span class="bg-green-400/20 text-green-100 px-5 py-3 rounded-2xl inline-block text-[13px] font-bold">
                         GPS Sinkron Aktif
                     </span>
 
@@ -279,9 +295,9 @@ $activeTab = $uri->getSegment(3, 'lokasi');
 
 <script>
 
-    const latInput = document.querySelector('input[name="latitude"]');
-    const lngInput = document.querySelector('input[name="longitude"]');
-    const radiusInput = document.querySelector('input[name="radius"]');
+    const latInput = document.querySelector('input[name="latitude_kantor"]');
+    const lngInput = document.querySelector('input[name="longitude_kantor"]');
+    const radiusInput = document.querySelector('input[name="radius_absensi"]');
 
     const latText = document.getElementById('latText');
     const lngText = document.getElementById('lngText');
@@ -318,6 +334,7 @@ $activeTab = $uri->getSegment(3, 'lokasi');
     ).addTo(map);
 
     function updateMap() {
+
         const lat = parseFloat(latInput.value);
         const lng = parseFloat(lngInput.value);
         const radius = parseInt(radiusInput.value);
@@ -343,12 +360,14 @@ $activeTab = $uri->getSegment(3, 'lokasi');
     radiusInput.addEventListener('input', updateMap);
 
     marker.on('dragend', function () {
+
         const position = marker.getLatLng();
 
         latInput.value = position.lat.toFixed(6);
         lngInput.value = position.lng.toFixed(6);
 
         updateMap();
+
     });
 
     updateMap();

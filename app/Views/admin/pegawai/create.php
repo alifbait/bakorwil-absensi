@@ -9,11 +9,11 @@
     <div>
 
         <p class="text-slate-400 text-[14px] mb-1">
-            Master Data Magang
+            Master Data Pegawai
         </p>
 
         <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
-            Tambah Anggota
+            Tambah Pegawai
         </h1>
 
     </div>
@@ -27,7 +27,10 @@
 
 </div>
 
-<form action="<?= base_url('admin/pegawai/store') ?>" method="POST" enctype="multipart/form-data">
+<form
+    action="<?= base_url('admin/pegawai/store') ?>"
+    method="POST"
+    enctype="multipart/form-data">
 
     <div class="grid grid-cols-12 gap-7">
 
@@ -56,7 +59,8 @@
 
                         <input
                             type="text"
-                            name="nama"
+                            name="nama_lengkap"
+                            required
                             placeholder="Masukkan nama lengkap"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
@@ -72,6 +76,7 @@
                         <input
                             type="text"
                             name="nim"
+                            required
                             placeholder="Masukkan NIM"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
@@ -101,52 +106,52 @@
 
                         <input
                             type="text"
-                            name="nohp"
+                            name="no_hp"
                             placeholder="08xxxxxxxxxx"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
 
-                    <!-- TANGGAL LAHIR -->
-                    <div>
-
-                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Tanggal Lahir
-                        </label>
-
-                        <input
-                            type="date"
-                            name="lahir"
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
-
-                    </div>
-
-                    <!-- TANGGAL BERGABUNG -->
-                    <div>
-
-                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Tanggal Bergabung
-                        </label>
-
-                        <input
-                            type="date"
-                            name="bergabung"
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
-
-                    </div>
-
-                    <!-- ALAMAT -->
+                    <!-- ASAL INSTANSI -->
                     <div class="col-span-2">
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Alamat
+                            Asal Instansi
                         </label>
 
-                        <textarea
-                            rows="5"
-                            name="alamat"
-                            placeholder="Masukkan alamat lengkap..."
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none resize-none focus:border-blue-500"></textarea>
+                        <input
+                            type="text"
+                            name="asal_instansi"
+                            placeholder="Universitas / Sekolah / Instansi"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- TANGGAL MULAI -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Tanggal Mulai
+                        </label>
+
+                        <input
+                            type="date"
+                            name="tanggal_mulai"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- TANGGAL SELESAI -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Tanggal Selesai
+                        </label>
+
+                        <input
+                            type="date"
+                            name="tanggal_selesai"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
 
@@ -162,12 +167,12 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Data divisi dan status akun
+                    Divisi dan status akun pegawai
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">
 
-                    <!-- DIVISI -->
+                    <!-- DIVISION -->
                     <div>
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
@@ -175,32 +180,23 @@
                         </label>
 
                         <select
-                            name="divisi"
+                            name="division_id"
+                            required
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
                             <option value="">
                                 Pilih Divisi
                             </option>
 
-                            <option value="Record Center">
-                                Record Center
-                            </option>
+                            <?php foreach ($divisions as $division): ?>
 
-                            <option value="Sarpras">
-                                Sarpras
-                            </option>
+                                <option value="<?= $division['id']; ?>">
 
-                            <option value="Ajudan">
-                                Ajudan
-                            </option>
+                                    <?= $division['nama_divisi']; ?>
 
-                            <option value="TU">
-                                TU
-                            </option>
+                                </option>
 
-                            <option value="PE">
-                                PE
-                            </option>
+                            <?php endforeach; ?>
 
                         </select>
 
@@ -210,18 +206,18 @@
                     <div>
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Role Akun
+                            Role
                         </label>
 
                         <select
                             name="role"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
-                            <option value="Anggota">
+                            <option value="anggota">
                                 Anggota
                             </option>
 
-                            <option value="Admin">
+                            <option value="admin">
                                 Admin
                             </option>
 
@@ -233,18 +229,18 @@
                     <div class="col-span-2">
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Status Akun
+                            Status Pegawai
                         </label>
 
                         <select
                             name="status"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
-                            <option value="Aktif">
+                            <option value="aktif">
                                 Aktif
                             </option>
 
-                            <option value="Nonaktif">
+                            <option value="nonaktif">
                                 Nonaktif
                             </option>
 
@@ -265,29 +261,32 @@
             <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
                 <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
-                    Foto Anggota
+                    Foto Profile
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Upload foto profil peserta magang
+                    Upload foto pegawai
                 </p>
 
                 <div class="border-2 border-dashed border-slate-200 rounded-[28px] p-8 text-center">
 
                     <img
-                        src="https://ui-avatars.com/api/?name=Magang&background=e2e8f0&color=0f172a"
+                        id="preview-image"
+                        src="https://ui-avatars.com/api/?name=Pegawai&background=e2e8f0&color=0f172a"
                         class="w-36 h-36 rounded-[30px] object-cover mx-auto mb-5">
 
                     <input
                         type="file"
                         name="foto"
+                        accept="image/*"
+                        onchange="previewImage(event)"
                         class="w-full text-sm text-slate-500">
 
                 </div>
 
             </div>
 
-            <!-- AKUN LOGIN -->
+            <!-- AKUN -->
             <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
                 <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
@@ -295,7 +294,10 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Informasi login anggota
+                    Password default otomatis:
+                    <span class="font-bold text-blue-600">
+                        12345678
+                    </span>
                 </p>
 
                 <div class="space-y-5">
@@ -310,22 +312,8 @@
                         <input
                             type="text"
                             name="username"
-                            placeholder="username"
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
-
-                    </div>
-
-                    <!-- PASSWORD -->
-                    <div>
-
-                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Password Default
-                        </label>
-
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="••••••••"
+                            required
+                            placeholder="Masukkan username"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
                     </div>
@@ -343,7 +331,7 @@
                         type="submit"
                         class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-bold text-[15px] shadow-lg shadow-blue-500/20">
 
-                        Simpan Anggota
+                        Simpan Pegawai
 
                     </button>
 
@@ -364,5 +352,18 @@
     </div>
 
 </form>
+
+<script>
+
+    function previewImage(event)
+    {
+        const image = document.getElementById('preview-image');
+
+        image.src = URL.createObjectURL(
+            event.target.files[0]
+        );
+    }
+
+</script>
 
 <?= $this->endSection() ?>

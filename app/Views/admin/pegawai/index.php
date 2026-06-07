@@ -41,24 +41,36 @@
                     🔍
                 </span>
 
-                <input type="text" name="search" value="<?= $search ?? ''; ?>" placeholder="Cari pegawai..."
+                <input
+                    type="text"
+                    name="search"
+                    value="<?= $search ?? ''; ?>"
+                    placeholder="Cari pegawai..."
                     class="w-full bg-transparent outline-none text-[14px] text-slate-700">
 
             </div>
 
             <!-- STATUS -->
-            <select name="status" class="px-5 py-4 rounded-2xl border border-slate-200 bg-white outline-none">
+            <select
+                name="status"
+                class="px-5 py-4 rounded-2xl border border-slate-200 bg-white outline-none">
 
                 <option value="">
                     Semua Status
                 </option>
 
-                <option value="Aktif" <?= ($status ?? '') == 'Aktif' ? 'selected' : ''; ?>>
+                <option value="aktif"
+                    <?= ($status ?? '') == 'aktif' ? 'selected' : ''; ?>>
+
                     Aktif
+
                 </option>
 
-                <option value="Nonaktif" <?= ($status ?? '') == 'Nonaktif' ? 'selected' : ''; ?>>
+                <option value="nonaktif"
+                    <?= ($status ?? '') == 'nonaktif' ? 'selected' : ''; ?>>
+
                     Nonaktif
+
                 </option>
 
             </select>
@@ -149,69 +161,118 @@
 
             <tbody>
 
-                <?php foreach ($pegawai as $key => $p): ?>
+                <?php if (!empty($pegawai)): ?>
 
-                    <tr class="border-t border-slate-100 hover:bg-slate-50 transition">
+                    <?php foreach ($pegawai as $p): ?>
 
-                        <!-- PEGAWAI -->
-                        <td class="px-6 py-5">
+                        <tr class="border-t border-slate-100 hover:bg-slate-50 transition">
 
-                            <div class="flex items-center gap-4">
+                            <!-- PEGAWAI -->
+                            <td class="px-6 py-5">
 
-                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
-                                    class="w-14 h-14 rounded-2xl object-cover">
+                                <div class="flex items-center gap-4">
 
-                                <div>
+                                    <?php if (!empty($p['foto_profile'])): ?>
 
-                                    <h3 class="font-bold text-slate-900">
-                                        <?= $p['nama']; ?>
-                                    </h3>
+                                        <img
+                                            src="<?= base_url('uploads/profile/' . $p['foto_profile']) ?>"
+                                            class="w-14 h-14 rounded-2xl object-cover">
+
+                                    <?php else: ?>
+
+                                        <img
+                                            src="https://ui-avatars.com/api/?name=<?= urlencode($p['nama_lengkap']); ?>&background=e2e8f0&color=0f172a"
+                                            class="w-14 h-14 rounded-2xl object-cover">
+
+                                    <?php endif; ?>
+
+                                    <div>
+
+                                        <h3 class="font-bold text-slate-900">
+                                            <?= $p['nama_lengkap']; ?>
+                                        </h3>
+
+                                        <p class="text-sm text-slate-400 mt-1">
+                                            <?= $p['email'] ?? '-'; ?>
+                                        </p>
+
+                                    </div>
 
                                 </div>
+
+                            </td>
+
+                            <!-- NIM -->
+                            <td class="px-6 py-5 text-slate-600 font-medium">
+                                <?= $p['nim']; ?>
+                            </td>
+
+                            <!-- DIVISI -->
+                            <td class="px-6 py-5 text-slate-600">
+                                <?= $p['nama_divisi'] ?? '-'; ?>
+                            </td>
+
+                            <!-- STATUS -->
+                            <td class="px-6 py-5">
+
+                                <span class="px-4 py-2 rounded-xl text-sm font-semibold
+                                    <?= $p['status'] == 'aktif'
+                                        ? 'bg-green-100 text-green-700'
+                                        : 'bg-red-100 text-red-700'; ?>">
+
+                                    <?= ucfirst($p['status']); ?>
+
+                                </span>
+
+                            </td>
+
+                            <!-- AKSI -->
+                            <td class="px-6 py-5 text-center">
+
+                                <div class="flex items-center justify-center gap-3">
+
+                                    <a href="<?= base_url('admin/pegawai/detail/' . $p['id']) ?>"
+                                        class="bg-slate-100 hover:bg-slate-200 transition px-5 h-11 rounded-xl font-semibold text-slate-700 text-sm inline-flex items-center justify-center">
+
+                                        Detail
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    <?php endforeach; ?>
+
+                <?php else: ?>
+
+                    <tr>
+
+                        <td colspan="5" class="px-6 py-16 text-center">
+
+                            <div class="flex flex-col items-center">
+
+                                <div class="text-6xl mb-4">
+                                    👨‍💼
+                                </div>
+
+                                <h3 class="text-xl font-bold text-slate-700 mb-2">
+                                    Data Pegawai Kosong
+                                </h3>
+
+                                <p class="text-slate-400 text-sm">
+                                    Belum ada data pegawai yang tersedia
+                                </p>
 
                             </div>
 
                         </td>
 
-                        <!-- NIM -->
-                        <td class="px-6 py-5 text-slate-600">
-                            <?= $p['nim']; ?>
-                        </td>
-
-                        <!-- DIVISI -->
-                        <td class="px-6 py-5 text-slate-600">
-                            <?= $p['divisi']; ?>
-                        </td>
-
-                        <!-- STATUS -->
-                        <td class="px-6 py-5">
-
-                            <span class="px-4 py-2 rounded-xl text-sm font-semibold
-                                <?= $p['status'] == 'Aktif'
-                                    ? 'bg-green-100 text-green-700'
-                                    : 'bg-red-100 text-red-700'; ?>">
-
-                                <?= $p['status']; ?>
-
-                            </span>
-
-                        </td>
-
-                        <!-- AKSI -->
-                        <td class="px-6 py-5 text-center">
-
-                            <a href="<?= base_url('admin/pegawai/detail/' . $key) ?>"
-                                class="bg-slate-100 hover:bg-slate-200 transition px-5 h-11 rounded-xl font-semibold text-slate-700 text-sm inline-flex items-center justify-center">
-
-                                Detail
-
-                            </a>
-
-                        </td>
-
                     </tr>
 
-                <?php endforeach; ?>
+                <?php endif; ?>
 
             </tbody>
 
@@ -223,11 +284,11 @@
     <div class="px-7 py-5 border-t border-slate-100 flex items-center justify-between">
 
         <p class="text-slate-400 text-[14px]">
-            Menampilkan 1-10 data pegawai
+            Sistem monitoring pegawai Bakorwil
         </p>
 
         <p class="text-slate-400 text-[14px]">
-            Menampilkan <?= count($pegawai); ?> data pegawai
+            Total <?= count($pegawai); ?> pegawai
         </p>
 
     </div>

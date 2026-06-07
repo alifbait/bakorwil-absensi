@@ -81,7 +81,11 @@ $activeTab = $uri->getSegment(3, 'absensi');
 </div>
 
 <!-- CONTENT -->
-<form id="form-setting-absensi" action="<?= base_url('admin/setting/absensi/save') ?>" method="POST">
+<form id="form-setting-absensi"
+    action="<?= base_url('admin/setting/save-absensi') ?>"
+    method="POST">
+
+    <?= csrf_field(); ?>
 
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-7">
 
@@ -120,7 +124,10 @@ $activeTab = $uri->getSegment(3, 'absensi');
                             Jam Masuk
                         </label>
 
-                        <input type="time" name="jam_masuk" value="08:00"
+                        <input
+                            type="time"
+                            name="jam_masuk"
+                            value="<?= $setting['jam_masuk']; ?>"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
                     </div>
@@ -132,7 +139,10 @@ $activeTab = $uri->getSegment(3, 'absensi');
                             Jam Pulang
                         </label>
 
-                        <input type="time" name="jam_pulang" value="16:00"
+                        <input
+                            type="time"
+                            name="jam_pulang"
+                            value="<?= $setting['jam_pulang']; ?>"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
                     </div>
@@ -150,7 +160,10 @@ $activeTab = $uri->getSegment(3, 'absensi');
 
                         <div class="relative">
 
-                            <input type="number" name="minimal_jam_kerja" value="8"
+                            <input
+                                type="number"
+                                name="minimal_jam_kerja"
+                                value="<?= $setting['minimal_jam_kerja']; ?>"
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pr-16 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
                             <span
@@ -171,15 +184,22 @@ $activeTab = $uri->getSegment(3, 'absensi');
                             Mode Absensi
                         </label>
 
-                        <select name="mode_absensi"
+                        <select
+                            name="mode_absensi"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
-                            <option value="WFO">
+                            <option value="WFO"
+                                <?= ($setting['mode_validasi_gps'] ?? '') == 'WFO' ? 'selected' : ''; ?>>
+
                                 WFO
+
                             </option>
 
-                            <option value="Hybrid">
+                            <option value="Hybrid"
+                                <?= ($setting['mode_validasi_gps'] ?? '') == 'Hybrid' ? 'selected' : ''; ?>>
+
                                 Hybrid
+
                             </option>
 
                         </select>
@@ -206,7 +226,7 @@ $activeTab = $uri->getSegment(3, 'absensi');
                         </h2>
 
                         <p class="text-slate-400 text-[14px]">
-                            Pengaturan toleransi keterlambatan dan auto alfa
+                            Pengaturan toleransi keterlambatan dan auto alpha
                         </p>
 
                     </div>
@@ -224,7 +244,10 @@ $activeTab = $uri->getSegment(3, 'absensi');
 
                         <div class="relative">
 
-                            <input type="number" name="toleransi" value="15"
+                            <input
+                                type="number"
+                                name="toleransi_terlambat"
+                                value="<?= $setting['toleransi_terlambat']; ?>"
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pr-20 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
                             <span
@@ -238,15 +261,23 @@ $activeTab = $uri->getSegment(3, 'absensi');
 
                     </div>
 
-                    <!-- AUTO ALFA -->
+                    <!-- AUTO ALPHA -->
                     <div>
 
                         <label class="block text-[14px] font-semibold text-slate-700 mb-3">
-                            Jam Auto Alfa
+                            Auto Alpha
                         </label>
 
-                        <input type="time" name="jam_auto_alfa" value="09:00"
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
+                        <div class="flex items-center h-[58px]">
+
+                            <input
+                                type="checkbox"
+                                name="auto_alpha"
+                                value="1"
+                                <?= $setting['auto_alpha'] ? 'checked' : ''; ?>
+                                class="w-6 h-6 rounded border-slate-300 text-blue-600">
+
+                        </div>
 
                     </div>
 
@@ -254,18 +285,22 @@ $activeTab = $uri->getSegment(3, 'absensi');
                     <div>
 
                         <label class="block text-[14px] font-semibold text-slate-700 mb-3">
-                            Status Auto Alfa
+                            Status Auto Alpha
                         </label>
 
-                        <select name="status_auto_alfa"
+                        <select
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
-                            <option value="Aktif">
+                            <option <?= $setting['auto_alpha'] ? 'selected' : ''; ?>>
+
                                 Aktif
+
                             </option>
 
-                            <option value="Nonaktif">
+                            <option <?= !$setting['auto_alpha'] ? 'selected' : ''; ?>>
+
                                 Nonaktif
+
                             </option>
 
                         </select>
@@ -315,10 +350,18 @@ $activeTab = $uri->getSegment(3, 'absensi');
 
                     <?php foreach ($hariKerja as $hari): ?>
 
+                        <?php
+                        $field = 'hari_' . strtolower($hari);
+                        ?>
+
                         <label class="cursor-pointer">
 
-                            <input type="checkbox" name="hari_kerja[]" value="<?= $hari; ?>" class="peer hidden"
-                                <?= in_array($hari, ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']) ? 'checked' : ''; ?>>
+                            <input
+                                type="checkbox"
+                                name="<?= $field; ?>"
+                                value="1"
+                                class="peer hidden"
+                                <?= $setting[$field] ? 'checked' : ''; ?>>
 
                             <div
                                 class="bg-slate-50 border border-slate-200 rounded-[28px] p-5 transition-all peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white hover:border-blue-300">
@@ -364,8 +407,11 @@ $activeTab = $uri->getSegment(3, 'absensi');
                             Waktu Server
                         </p>
 
-                        <h3 class="text-[38px] font-extrabold leading-none">
-                            08:42:13
+                        <h3 class="text-[38px] font-extrabold leading-none"
+                            id="clock">
+
+                            --
+
                         </h3>
 
                         <p class="text-blue-100 text-[14px] mt-3">
@@ -419,7 +465,12 @@ $activeTab = $uri->getSegment(3, 'absensi');
                             </p>
 
                             <h4 class="text-slate-900 font-bold text-[16px]">
-                                08:00 - 16:00 WIB
+
+                                <?= $setting['jam_masuk']; ?>
+                                -
+                                <?= $setting['jam_pulang']; ?>
+                                WIB
+
                             </h4>
 
                         </div>
@@ -439,7 +490,10 @@ $activeTab = $uri->getSegment(3, 'absensi');
                             </p>
 
                             <h4 class="text-slate-900 font-bold text-[16px]">
-                                15 Menit
+
+                                <?= $setting['toleransi_terlambat']; ?>
+                                Menit
+
                             </h4>
 
                         </div>
@@ -459,7 +513,10 @@ $activeTab = $uri->getSegment(3, 'absensi');
                             </p>
 
                             <h4 class="text-slate-900 font-bold text-[16px]">
-                                8 Jam / Hari
+
+                                <?= $setting['minimal_jam_kerja']; ?>
+                                Jam / Hari
+
                             </h4>
 
                         </div>
@@ -479,143 +536,29 @@ $activeTab = $uri->getSegment(3, 'absensi');
     </div>
 
 </form>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-    // =========================
-    // INPUT
-    // =========================
+    function updateClock()
+    {
+        const now = new Date();
 
-    const latInput =
-        document.getElementById('latitude');
+        const jam = now.toLocaleTimeString(
+            'id-ID',
+            {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }
+        );
 
-    const lngInput =
-        document.getElementById('longitude');
-
-    const radiusInput =
-        document.getElementById('radius');
-
-    // =========================
-    // VALUE AWAL
-    // =========================
-
-    let lat =
-        parseFloat(latInput.value);
-
-    let lng =
-        parseFloat(lngInput.value);
-
-    let radius =
-        parseInt(radiusInput.value);
-
-    // =========================
-    // MAP
-    // =========================
-
-    const map = L.map('map').setView(
-        [lat, lng],
-        18
-    );
-
-    // TILE
-    L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {
-            attribution:
-                '&copy; OpenStreetMap contributors'
-        }
-    ).addTo(map);
-
-    // =========================
-    // MARKER
-    // =========================
-
-    const marker = L.marker(
-        [lat, lng],
-        {
-            draggable: true
-        }
-    ).addTo(map);
-
-    // =========================
-    // RADIUS
-    // =========================
-
-    let circle = L.circle(
-        [lat, lng],
-        {
-            radius: radius,
-            color: '#2563eb',
-            fillColor: '#3b82f6',
-            fillOpacity: 0.2
-        }
-    ).addTo(map);
-
-    // =========================
-    // UPDATE MAP
-    // =========================
-
-    function updateMap() {
-        lat =
-            parseFloat(latInput.value);
-
-        lng =
-            parseFloat(lngInput.value);
-
-        radius =
-            parseInt(radiusInput.value);
-
-        // pindah marker
-        marker.setLatLng([lat, lng]);
-
-        // pindah lingkaran
-        circle.setLatLng([lat, lng]);
-
-        // update radius
-        circle.setRadius(radius);
-
-        // center map
-        map.setView([lat, lng], 18);
+        document.getElementById('clock').innerHTML = jam;
     }
 
-    // =========================
-    // INPUT -> MAP
-    // =========================
+    setInterval(updateClock, 1000);
 
-    latInput.addEventListener(
-        'input',
-        updateMap
-    );
-
-    lngInput.addEventListener(
-        'input',
-        updateMap
-    );
-
-    radiusInput.addEventListener(
-        'input',
-        updateMap
-    );
-
-    // =========================
-    // MARKER -> INPUT
-    // =========================
-
-    marker.on('dragend', function (e) {
-        const position =
-            marker.getLatLng();
-
-        latInput.value =
-            position.lat.toFixed(6);
-
-        lngInput.value =
-            position.lng.toFixed(6);
-
-        updateMap();
-    });
+    updateClock();
 
 </script>
+
 <?= $this->endSection() ?>

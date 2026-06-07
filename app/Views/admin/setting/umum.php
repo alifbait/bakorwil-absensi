@@ -18,8 +18,13 @@ $activeTab = $uri->getSegment(3, 'umum');
 |
 */
 
-$sessionTimeout = 120;
-$defaultRole    = 'mahasiswa';
+$sessionTimeout = $setting['session_timeout'] ?? 120;
+
+$defaultRole = $setting['default_role'] ?? 'mahasiswa';
+
+$autoLogout = $setting['auto_logout'] ?? 1;
+
+$singleSession = $setting['single_session'] ?? 0;
 
 ?>
 
@@ -38,9 +43,7 @@ $defaultRole    = 'mahasiswa';
 
     </div>
 
-    <button
-        type="submit"
-        form="form-setting-keamanan"
+    <button type="submit" form="form-setting-keamanan"
         class="bg-blue-600 hover:bg-blue-700 transition text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-blue-500/20">
 
         Simpan Pengaturan
@@ -54,38 +57,33 @@ $defaultRole    = 'mahasiswa';
 
     <div class="flex items-center gap-4 overflow-x-auto">
 
-        <a href="<?= base_url('admin/setting/absensi') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'absensi')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+        <a href="<?= base_url('admin/setting/absensi') ?>" class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'absensi')
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
             🕒 Absensi
         </a>
 
-        <a href="<?= base_url('admin/setting/lokasi') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'lokasi')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+        <a href="<?= base_url('admin/setting/lokasi') ?>" class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'lokasi')
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
             📍 Lokasi GPS
         </a>
 
-        <a href="<?= base_url('admin/setting/harilibur') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'harilibur')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+        <a href="<?= base_url('admin/setting/harilibur') ?>" class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'harilibur')
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
             🎉 Hari Libur
         </a>
 
-        <a href="<?= base_url('admin/setting/umum') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'umum')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+        <a href="<?= base_url('admin/setting/umum') ?>" class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'umum')
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
             🔑 Akun & Keamanan
         </a>
 
-        <a href="<?= base_url('admin/setting/notifikasi') ?>"
-            class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'notifikasi')
-                                                                                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
-                                                                                : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
+        <a href="<?= base_url('admin/setting/notifikasi') ?>" class="min-w-max px-6 py-4 rounded-2xl font-bold transition <?= ($activeTab === 'notifikasi')
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700' ?>">
             🔔 Notifikasi
         </a>
 
@@ -94,10 +92,7 @@ $defaultRole    = 'mahasiswa';
 </div>
 
 <!-- FORM -->
-<form
-    id="form-setting-keamanan"
-    action="<?= base_url('admin/setting/umum/save') ?>"
-    method="POST">
+<form id="form-setting-keamanan" action="<?= base_url('admin/setting/umum/save') ?>" method="POST">
 
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-7">
 
@@ -136,10 +131,7 @@ $defaultRole    = 'mahasiswa';
                             Password Lama
                         </label>
 
-                        <input
-                            type="password"
-                            name="old_password"
-                            placeholder="Masukkan password lama"
+                        <input type="password" name="old_password" placeholder="Masukkan password lama"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
                     </div>
@@ -151,10 +143,7 @@ $defaultRole    = 'mahasiswa';
                             Password Baru
                         </label>
 
-                        <input
-                            type="password"
-                            name="new_password"
-                            placeholder="Masukkan password baru"
+                        <input type="password" name="new_password" placeholder="Masukkan password baru"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
                     </div>
@@ -166,10 +155,7 @@ $defaultRole    = 'mahasiswa';
                             Konfirmasi Password
                         </label>
 
-                        <input
-                            type="password"
-                            name="confirm_password"
-                            placeholder="Konfirmasi password baru"
+                        <input type="password" name="confirm_password" placeholder="Konfirmasi password baru"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
                     </div>
@@ -212,13 +198,11 @@ $defaultRole    = 'mahasiswa';
 
                         <div class="relative">
 
-                            <input
-                                type="number"
-                                name="session_timeout"
-                                value="<?= $sessionTimeout ?>"
+                            <input type="number" name="session_timeout" value="<?= $sessionTimeout ?>"
                                 class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pr-20 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
-                            <span class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold text-[14px]">
+                            <span
+                                class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 font-semibold text-[14px]">
                                 Menit
                             </span>
 
@@ -233,21 +217,16 @@ $defaultRole    = 'mahasiswa';
                             Role Default User
                         </label>
 
-                        <select
-                            name="default_role"
+                        <select name="default_role"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:bg-white transition text-slate-800">
 
-                            <option
-                                value="mahasiswa"
-                                <?= $defaultRole == 'mahasiswa' ? 'selected' : '' ?>>
+                            <option value="mahasiswa" <?= $defaultRole == 'mahasiswa' ? 'selected' : '' ?>>
 
                                 Mahasiswa Magang
 
                             </option>
 
-                            <option
-                                value="siswa"
-                                <?= $defaultRole == 'siswa' ? 'selected' : '' ?>>
+                            <option value="siswa" <?= $defaultRole == 'siswa' ? 'selected' : '' ?>>
 
                                 Siswa Magang
 
@@ -287,7 +266,8 @@ $defaultRole    = 'mahasiswa';
                 <div class="space-y-5">
 
                     <!-- AUTO LOGOUT -->
-                    <label class="bg-slate-50 border border-slate-200 rounded-[28px] p-6 flex items-center justify-between cursor-pointer">
+                    <label
+                        class="bg-slate-50 border border-slate-200 rounded-[28px] p-6 flex items-center justify-between cursor-pointer">
 
                         <div>
 
@@ -301,17 +281,14 @@ $defaultRole    = 'mahasiswa';
 
                         </div>
 
-                        <input
-                            type="checkbox"
-                            name="auto_logout"
-                            value="1"
-                            checked
+                        <input type="checkbox" name="auto_logout" value="1" <?= $autoLogout ? 'checked' : '' ?>
                             class="w-6 h-6 accent-blue-600">
 
                     </label>
 
                     <!-- FORCE SINGLE LOGIN -->
-                    <label class="bg-slate-50 border border-slate-200 rounded-[28px] p-6 flex items-center justify-between cursor-pointer">
+                    <label
+                        class="bg-slate-50 border border-slate-200 rounded-[28px] p-6 flex items-center justify-between cursor-pointer">
 
                         <div>
 
@@ -325,10 +302,7 @@ $defaultRole    = 'mahasiswa';
 
                         </div>
 
-                        <input
-                            type="checkbox"
-                            name="single_session"
-                            value="1"
+                        <input type="checkbox" name="single_session" value="1" <?= $singleSession ? 'checked' : '' ?>
                             class="w-6 h-6 accent-blue-600">
 
                     </label>
@@ -343,7 +317,8 @@ $defaultRole    = 'mahasiswa';
         <div class="xl:col-span-4 space-y-7">
 
             <!-- STATUS -->
-            <div class="bg-gradient-to-br from-blue-600 to-blue-500 rounded-[36px] p-8 text-white shadow-xl shadow-blue-500/20">
+            <div
+                class="bg-gradient-to-br from-blue-600 to-blue-500 rounded-[36px] p-8 text-white shadow-xl shadow-blue-500/20">
 
                 <div class="flex items-center justify-between mb-10">
 
@@ -375,7 +350,8 @@ $defaultRole    = 'mahasiswa';
                         Session Security Aktif
                     </h2>
 
-                    <span class="bg-green-400/20 text-green-100 px-4 py-2 rounded-xl inline-block text-[13px] font-bold">
+                    <span
+                        class="bg-green-400/20 text-green-100 px-4 py-2 rounded-xl inline-block text-[13px] font-bold">
                         Secure Access
                     </span>
 

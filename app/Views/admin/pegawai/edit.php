@@ -9,16 +9,16 @@
     <div>
 
         <p class="text-slate-400 text-[14px] mb-1">
-            Edit Data Magang
+            Edit Data Pegawai
         </p>
 
         <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
-            Edit Anggota
+            Edit Pegawai
         </h1>
 
     </div>
 
-    <a href="<?= base_url('admin/pegawai/detail/' . $id) ?>"
+    <a href="<?= base_url('admin/pegawai/detail/' . $pegawai['id']) ?>"
         class="bg-slate-100 hover:bg-slate-200 transition px-6 py-4 rounded-2xl font-semibold text-slate-700 text-[14px]">
 
         Kembali
@@ -27,9 +27,12 @@
 
 </div>
 
-<form action="<?= base_url('admin/pegawai/update/' . $id) ?>"
+<form
+    action="<?= base_url('admin/pegawai/update/' . $pegawai['id']) ?>"
     method="POST"
     enctype="multipart/form-data">
+
+    <?= csrf_field(); ?>
 
     <div class="grid grid-cols-12 gap-7">
 
@@ -44,7 +47,7 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Edit data identitas peserta magang
+                    Update informasi pegawai
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">
@@ -58,8 +61,9 @@
 
                         <input
                             type="text"
-                            name="nama"
-                            value="<?= $pegawai['nama']; ?>"
+                            name="nama_lengkap"
+                            value="<?= old('nama_lengkap', $pegawai['nama_lengkap']) ?>"
+                            required
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -74,7 +78,8 @@
                         <input
                             type="text"
                             name="nim"
-                            value="<?= $pegawai['nim']; ?>"
+                            value="<?= old('nim', $pegawai['nim']) ?>"
+                            required
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -89,7 +94,7 @@
                         <input
                             type="email"
                             name="email"
-                            value="<?= $pegawai['email']; ?>"
+                            value="<?= old('email', $pegawai['email']) ?>"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
@@ -103,53 +108,24 @@
 
                         <input
                             type="text"
-                            name="nohp"
-                            value="<?= $pegawai['nohp']; ?>"
+                            name="no_hp"
+                            value="<?= old('no_hp', $pegawai['no_hp']) ?>"
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
 
-                    <!-- TANGGAL LAHIR -->
-                    <div>
-
-                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Tanggal Lahir
-                        </label>
-
-                        <input
-                            type="date"
-                            name="lahir"
-                            value="<?= $pegawai['lahir']; ?>"
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
-
-                    </div>
-
-                    <!-- TANGGAL BERGABUNG -->
-                    <div>
-
-                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Tanggal Bergabung
-                        </label>
-
-                        <input
-                            type="date"
-                            name="bergabung"
-                            value="<?= $pegawai['bergabung']; ?>"
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
-
-                    </div>
-
-                    <!-- ALAMAT -->
+                    <!-- ASAL INSTANSI -->
                     <div class="col-span-2">
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Alamat
+                            Asal Instansi
                         </label>
 
-                        <textarea
-                            rows="5"
-                            name="alamat"
-                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none resize-none focus:border-blue-500"><?= $pegawai['alamat']; ?></textarea>
+                        <input
+                            type="text"
+                            name="asal_instansi"
+                            value="<?= old('asal_instansi', $pegawai['asal_instansi']) ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
 
@@ -157,15 +133,15 @@
 
             </div>
 
-            <!-- INFORMASI KEANGGOTAAN -->
+            <!-- INFORMASI MAGANG -->
             <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
                 <h2 class="text-[30px] font-extrabold text-slate-900 mb-1">
-                    Informasi Keanggotaan
+                    Informasi Magang
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Edit data divisi anggota
+                    Data penempatan dan status pegawai
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">
@@ -178,30 +154,85 @@
                         </label>
 
                         <select
-                            name="divisi"
+                            name="division_id"
+                            required
                             class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
 
-                            <option value="Record Center" <?= $pegawai['divisi'] == 'Record Center' ? 'selected' : ''; ?>>
-                                Record Center
+                            <option value="">
+                                -- Pilih Divisi --
                             </option>
 
-                            <option value="Sarpras" <?= $pegawai['divisi'] == 'Sarpras' ? 'selected' : ''; ?>>
-                                Sarpras
+                            <?php foreach ($divisions as $divisi): ?>
+
+                                <option
+                                    value="<?= $divisi['id']; ?>"
+                                    <?= $pegawai['division_id'] == $divisi['id'] ? 'selected' : ''; ?>>
+
+                                    <?= $divisi['nama_divisi']; ?>
+
+                                </option>
+
+                            <?php endforeach; ?>
+
+                        </select>
+
+                    </div>
+
+                    <!-- STATUS -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Status
+                        </label>
+
+                        <select
+                            name="status"
+                            required
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none">
+
+                            <option
+                                value="aktif"
+                                <?= $pegawai['status'] == 'aktif' ? 'selected' : ''; ?>>
+                                Aktif
                             </option>
 
-                            <option value="Ajudan" <?= $pegawai['divisi'] == 'Ajudan' ? 'selected' : ''; ?>>
-                                Ajudan
-                            </option>
-
-                            <option value="TU" <?= $pegawai['divisi'] == 'TU' ? 'selected' : ''; ?>>
-                                TU
-                            </option>
-
-                            <option value="PE" <?= $pegawai['divisi'] == 'PE' ? 'selected' : ''; ?>>
-                                PE
+                            <option
+                                value="nonaktif"
+                                <?= $pegawai['status'] == 'nonaktif' ? 'selected' : ''; ?>>
+                                Nonaktif
                             </option>
 
                         </select>
+
+                    </div>
+
+                    <!-- TANGGAL MULAI -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Tanggal Mulai
+                        </label>
+
+                        <input
+                            type="date"
+                            name="tanggal_mulai"
+                            value="<?= old('tanggal_mulai', $pegawai['tanggal_mulai']) ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
+
+                    </div>
+
+                    <!-- TANGGAL SELESAI -->
+                    <div>
+
+                        <label class="text-[14px] font-semibold text-slate-700 block mb-3">
+                            Tanggal Selesai
+                        </label>
+
+                        <input
+                            type="date"
+                            name="tanggal_selesai"
+                            value="<?= old('tanggal_selesai', $pegawai['tanggal_selesai']) ?>"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-blue-500">
 
                     </div>
 
@@ -218,22 +249,32 @@
             <div class="bg-white rounded-[32px] p-8 shadow-sm border border-slate-100">
 
                 <h2 class="text-[28px] font-extrabold text-slate-900 mb-1">
-                    Foto Anggota
+                    Foto Profil
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Update foto profil peserta magang
+                    Upload foto baru jika ingin mengganti
                 </p>
 
                 <div class="border-2 border-dashed border-slate-200 rounded-[28px] p-8 text-center">
 
-                    <img
-                        src="https://ui-avatars.com/api/?name=<?= urlencode($pegawai['nama']); ?>&background=e2e8f0&color=0f172a"
-                        class="w-36 h-36 rounded-[30px] object-cover mx-auto mb-5">
+                    <?php if (!empty($pegawai['foto_profile'])): ?>
+
+                        <img
+                            src="<?= base_url('uploads/profile/' . $pegawai['foto_profile']) ?>"
+                            class="w-36 h-36 rounded-[30px] object-cover mx-auto mb-5">
+
+                    <?php else: ?>
+
+                        <img
+                            src="https://ui-avatars.com/api/?name=<?= urlencode($pegawai['nama_lengkap']) ?>&background=e2e8f0&color=0f172a"
+                            class="w-36 h-36 rounded-[30px] object-cover mx-auto mb-5">
+
+                    <?php endif; ?>
 
                     <input
                         type="file"
-                        name="foto"
+                        name="foto_profile"
                         class="w-full text-sm text-slate-500">
 
                 </div>
@@ -253,7 +294,7 @@
 
                     </button>
 
-                    <a href="<?= base_url('admin/pegawai/detail/' . $id) ?>"
+                    <a href="<?= base_url('admin/pegawai/detail/' . $pegawai['id']) ?>"
                         class="w-full block text-center bg-slate-100 hover:bg-slate-200 transition text-slate-700 py-4 rounded-2xl font-bold text-[15px]">
 
                         Batal

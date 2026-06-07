@@ -3,130 +3,117 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\AbsensiModel;
 
 class Monitoring extends BaseController
 {
+    protected $absensiModel;
+
+    public function __construct()
+    {
+        $this->absensiModel = new AbsensiModel();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | HALAMAN MONITORING
+    |--------------------------------------------------------------------------
+    */
+
     public function index()
     {
         $keyword = $this->request->getGet('search');
-        $status = $this->request->getGet('status');
-        $tanggal = $this->request->getGet('tanggal');
+        $status  = $this->request->getGet('status');
+        $tanggal = $this->request->getGet('tanggal') ?? date('Y-m-d');
 
-        $pegawai = [
+        $builder = $this->absensiModel
+            ->select('
+                absensi.*,
+                peserta.nama_lengkap,
+                peserta.nim,
+                peserta.foto_profile
+            ')
+            ->join('peserta', 'peserta.id = absensi.peserta_id');
 
-            [
-                'nama' => 'Ahmad Rizki',
-                'nim' => '198812012024011001',
-                'jam_masuk' => '07:01',
-                'jam_pulang' => '15:10',
-                'status' => 'Hadir',
-                'lokasi' => 'Valid',
-                'tanggal' => '2026-06-05',
-            ],
+        /*
+        |--------------------------------------------------------------------------
+        | FILTER TANGGAL
+        |--------------------------------------------------------------------------
+        */
 
-            [
-                'nama' => 'Sinta Permata',
-                'nim' => '198812012024011002',
-                'jam_masuk' => '07:15',
-                'jam_pulang' => '15:00',
-                'status' => 'Terlambat',
-                'lokasi' => 'Valid',
-                'tanggal' => '2026-06-05',
-            ],
+        $builder->where('absensi.tanggal', $tanggal);
 
-            [
-                'nama' => 'Budi Santoso',
-                'nim' => '198812012024011003',
-                'jam_masuk' => '07:20',
-                'jam_pulang' => '15:00',
-                'status' => 'Terlambat',
-                'lokasi' => 'Valid',
-                'tanggal' => '2026-06-04',
-            ],
+        /*
+        |--------------------------------------------------------------------------
+        | FILTER SEARCH
+        |--------------------------------------------------------------------------
+        */
 
-        ];
-
-        // FILTER SEARCH
         if ($keyword) {
 
-            $pegawai = array_filter($pegawai, function ($item) use ($keyword) {
-
-                return stripos($item['nama'], $keyword) !== false;
-
-            });
-
+            $builder->groupStart()
+                ->like('peserta.nama_lengkap', $keyword)
+                ->orLike('peserta.nim', $keyword)
+                ->groupEnd();
         }
 
-        // FILTER STATUS
+        /*
+        |--------------------------------------------------------------------------
+        | FILTER STATUS
+        |--------------------------------------------------------------------------
+        */
+
         if ($status) {
 
-            $pegawai = array_filter($pegawai, function ($item) use ($status) {
-
-                return $item['status'] == $status;
-
-            });
-
+            $builder->where('absensi.status', strtolower($status));
         }
 
-        // FILTER TANGGAL
-        if ($tanggal) {
-
-            $pegawai = array_filter($pegawai, function ($item) use ($tanggal) {
-
-                return $item['tanggal'] == $tanggal;
-
-            });
-
-        }
+        $pegawai = $builder
+            ->orderBy('absensi.id', 'DESC')
+            ->findAll();
 
         $data = [
-            'title' => 'Monitoring Absensi',
+
+            'title'   => 'Monitoring Absensi',
             'pegawai' => $pegawai,
-            'search' => $keyword,
-            'status' => $status,
+            'search'  => $keyword,
+            'status'  => $status,
             'tanggal' => $tanggal,
+
         ];
 
         return view('admin/monitoring/index', $data);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DETAIL MONITORING
+    |--------------------------------------------------------------------------
+    */
+
     public function detail($id)
     {
-        $pegawai = [
+        $pegawai = $this->absensiModel
+            ->select('
+                absensi.*,
+                peserta.nama_lengkap,
+                peserta.nim,
+                peserta.foto_profile
+            ')
+            ->join('peserta', 'peserta.id = absensi.peserta_id')
+            ->where('absensi.id', $id)
+            ->first();
 
-            [
-                'nama' => 'Ahmad Rizki',
-                'nim' => '198812012024011001',
-                'jam_masuk' => '07:01',
-                'jam_pulang' => '15:10',
-                'status' => 'Hadir',
-                'lokasi' => 'Valid',
-                'tanggal' => '2026-06-05',
-            ],
+        if (!$pegawai) {
 
-            [
-                'nama' => 'Sinta Permata',
-                'nim' => '198812012024011002',
-                'jam_masuk' => '07:15',
-                'jam_pulang' => '15:00',
-                'status' => 'Terlambat',
-                'lokasi' => 'Valid',
-                'tanggal' => '2026-06-05',
-            ],
-            [
-                'nama' => 'Budi Santoso',
-                'nim' => '198812012024011003',
-                'jam_masuk' => '07:20',
-                'jam_pulang' => '15:00',
-                'status' => 'Terlambat',
-                'lokasi' => 'Valid',
-                'tanggal' => '2026-06-04',
-            ],
-
-        ];
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
 
         $data = [
-            'title' => 'Detail Monitoring',
-            'pegawai' => $pegawai[$id],
+
+            'title'   => 'Detail Monitoring',
+            'pegawai' => $pegawai,
+
         ];
 
         return view('admin/monitoring/detail', $data);

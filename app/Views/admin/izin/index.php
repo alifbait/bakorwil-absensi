@@ -13,7 +13,7 @@
         </h1>
 
         <p class="text-slate-400 text-[14px] mt-2">
-            Monitoring pengajuan izin & sakit pegawai
+            Monitoring pengajuan izin & sakit peserta
         </p>
 
     </div>
@@ -23,52 +23,43 @@
 <!-- FILTER -->
 <form action="<?= base_url('admin/izin') ?>" method="GET" class="mb-6">
 
-    <div class="bg-white rounded-[32px] border border-slate-100 shadow-sm p-6 flex items-center justify-between">
+    <div
+        class="bg-white rounded-[32px] border border-slate-100 shadow-sm p-6 flex flex-wrap items-center justify-between gap-4">
 
-        <div class="flex items-center gap-4">
+        <div class="flex flex-wrap items-center gap-4">
 
             <!-- SEARCH -->
-            <div
-                class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 w-[320px] flex items-center gap-3">
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 w-[320px] flex items-center gap-3">
 
                 <span class="text-slate-400 text-lg">
                     🔍
                 </span>
 
-                <input
-                    type="text"
-                    name="search"
-                    value="<?= $search ?? ''; ?>"
-                    placeholder="Cari pegawai..."
+                <input type="text" name="search" value="<?= $search ?? ''; ?>" placeholder="Cari nama / NIM..."
                     class="w-full bg-transparent outline-none text-[14px] text-slate-700">
 
             </div>
 
             <!-- DATE -->
-            <input
-                type="date"
-                name="tanggal"
-                value="<?= $tanggal ?? ''; ?>"
+            <input type="date" name="tanggal" value="<?= $tanggal ?? ''; ?>"
                 class="border border-slate-200 rounded-2xl px-5 py-4 text-[14px] outline-none">
 
             <!-- STATUS -->
-            <select
-                name="status"
-                class="px-5 py-4 rounded-2xl border border-slate-200 bg-white outline-none">
+            <select name="status" class="px-5 py-4 rounded-2xl border border-slate-200 bg-white outline-none">
 
                 <option value="">
                     Semua Status
                 </option>
 
-                <option value="Pending" <?= ($status ?? '') == 'Pending' ? 'selected' : ''; ?>>
+                <option value="pending" <?= ($status ?? '') == 'pending' ? 'selected' : ''; ?>>
                     Pending
                 </option>
 
-                <option value="Disetujui" <?= ($status ?? '') == 'Disetujui' ? 'selected' : ''; ?>>
+                <option value="disetujui" <?= ($status ?? '') == 'disetujui' ? 'selected' : ''; ?>>
                     Disetujui
                 </option>
 
-                <option value="Ditolak" <?= ($status ?? '') == 'Ditolak' ? 'selected' : ''; ?>>
+                <option value="ditolak" <?= ($status ?? '') == 'ditolak' ? 'selected' : ''; ?>>
                     Ditolak
                 </option>
 
@@ -77,8 +68,7 @@
         </div>
 
         <!-- BUTTON -->
-        <button
-            type="submit"
+        <button type="submit"
             class="bg-blue-600 hover:bg-blue-700 transition text-white px-7 py-4 rounded-2xl font-semibold text-[14px]">
 
             Filter Data
@@ -98,32 +88,25 @@
         <div>
 
             <h3 class="text-slate-900 font-bold text-[26px]">
-                Pengajuan Tanggal
-                <?= date('d M Y', strtotime($tanggal ?? date('Y-m-d'))); ?>
+
+                Data Pengajuan Izin
+
             </h3>
 
             <p class="text-slate-400 text-[14px]">
-                Monitoring pengajuan izin pegawai harian
+                Total <?= count($izin); ?> pengajuan ditemukan
             </p>
 
         </div>
 
-        <button
-            class="bg-orange-500 hover:bg-orange-600 transition text-white px-6 py-3 rounded-2xl text-[14px] font-semibold">
-
-            Export PDF
-
-        </button>
-
     </div>
 
-    <!-- EMPTY STATE -->
+    <!-- EMPTY -->
     <?php if (empty($izin)): ?>
 
         <div class="py-24 flex flex-col items-center justify-center text-center">
 
-            <div
-                class="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center text-4xl mb-5">
+            <div class="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center text-4xl mb-5">
                 📄
             </div>
 
@@ -132,7 +115,7 @@
             </h3>
 
             <p class="text-slate-400 text-[15px] max-w-[400px] leading-relaxed">
-                Belum ada data pengajuan izin pada tanggal yang dipilih.
+                Belum ada data pengajuan izin.
             </p>
 
         </div>
@@ -142,33 +125,33 @@
         <!-- TABLE -->
         <div class="overflow-x-auto">
 
-            <table class="w-full">
+            <table class="w-full min-w-[1100px]">
 
                 <thead class="bg-slate-50">
 
                     <tr>
 
-                        <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
-                            Pegawai
+                        <th class="px-6 py-5 text-left text-[13px] text-slate-500 font-bold">
+                            Peserta
                         </th>
 
-                        <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
+                        <th class="px-6 py-5 text-left text-[13px] text-slate-500 font-bold">
                             Jenis
                         </th>
 
-                        <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
+                        <th class="px-6 py-5 text-left text-[13px] text-slate-500 font-bold">
                             Tanggal
                         </th>
 
-                        <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
+                        <th class="px-6 py-5 text-left text-[13px] text-slate-500 font-bold">
                             Alasan
                         </th>
 
-                        <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
+                        <th class="px-6 py-5 text-left text-[13px] text-slate-500 font-bold">
                             Status
                         </th>
 
-                        <th class="px-7 py-5 text-center text-[13px] text-slate-500 font-bold">
+                        <th class="px-6 py-5 text-center text-[13px] text-slate-500 font-bold">
                             Aksi
                         </th>
 
@@ -178,24 +161,40 @@
 
                 <tbody>
 
-                    <?php foreach ($izin as $key => $i): ?>
+                    <?php foreach ($izin as $i): ?>
 
                         <tr class="border-t border-slate-100 hover:bg-slate-50 transition">
 
-                            <!-- PEGAWAI -->
+                            <!-- PESERTA -->
                             <td class="px-6 py-5">
 
                                 <div class="flex items-center gap-4">
 
-                                    <img
-                                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
-                                        class="w-14 h-14 rounded-2xl object-cover">
+                                    <?php if ($i['foto_profile']): ?>
+
+                                        <img src="<?= base_url('uploads/profile/' . $i['foto_profile']); ?>"
+                                            class="w-14 h-14 rounded-2xl object-cover">
+
+                                    <?php else: ?>
+
+                                        <div
+                                            class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center font-bold text-blue-700">
+
+                                            <?= strtoupper(substr($i['nama_lengkap'], 0, 1)); ?>
+
+                                        </div>
+
+                                    <?php endif; ?>
 
                                     <div>
 
                                         <h3 class="font-bold text-slate-900">
-                                            <?= $i['nama']; ?>
+                                            <?= $i['nama_lengkap']; ?>
                                         </h3>
+
+                                        <p class="text-slate-400 text-sm mt-1">
+                                            NIM : <?= $i['nim']; ?>
+                                        </p>
 
                                     </div>
 
@@ -207,11 +206,11 @@
                             <td class="px-6 py-5">
 
                                 <span class="px-4 py-2 rounded-xl text-sm font-semibold
-                                    <?= $i['jenis'] == 'Sakit'
+                                    <?= $i['jenis'] == 'sakit'
                                         ? 'bg-red-100 text-red-700'
                                         : 'bg-yellow-100 text-yellow-700'; ?>">
 
-                                    <?= $i['jenis']; ?>
+                                    <?= ucfirst($i['jenis']); ?>
 
                                 </span>
 
@@ -219,25 +218,38 @@
 
                             <!-- TANGGAL -->
                             <td class="px-6 py-5 text-slate-600">
-                                <?= date('d M Y', strtotime($i['tanggal'])); ?>
+
+                                <?= date('d M Y', strtotime($i['tanggal_mulai'])); ?>
+
+                                <?php if ($i['tanggal_selesai'] != $i['tanggal_mulai']): ?>
+
+                                    <span class="block text-xs text-slate-400 mt-1">
+                                        s/d <?= date('d M Y', strtotime($i['tanggal_selesai'])); ?>
+                                    </span>
+
+                                <?php endif; ?>
+
                             </td>
 
                             <!-- ALASAN -->
-                            <td class="px-6 py-5 text-slate-600 max-w-[280px]">
-                                <?= $i['alasan']; ?>
+                            <td class="px-6 py-5 text-slate-600 max-w-[300px]">
+
+                                <?= character_limiter($i['alasan'], 80); ?>
+
                             </td>
 
                             <!-- STATUS -->
                             <td class="px-6 py-5">
 
                                 <span class="px-4 py-2 rounded-xl text-sm font-semibold
-                                    <?= $i['status'] == 'Pending'
+
+                                    <?= $i['status'] == 'pending'
                                         ? 'bg-yellow-100 text-yellow-700'
-                                        : ($i['status'] == 'Disetujui'
+                                        : ($i['status'] == 'disetujui'
                                             ? 'bg-green-100 text-green-700'
                                             : 'bg-red-100 text-red-700') ?>">
 
-                                    <?= $i['status']; ?>
+                                    <?= ucfirst($i['status']); ?>
 
                                 </span>
 
@@ -246,7 +258,7 @@
                             <!-- AKSI -->
                             <td class="px-6 py-5 text-center">
 
-                                <a href="<?= base_url('admin/izin/detail/' . $key) ?>"
+                                <a href="<?= base_url('admin/izin/detail/' . $i['id']) ?>"
                                     class="bg-slate-100 hover:bg-slate-200 transition px-5 py-3 rounded-xl text-[14px] font-bold text-slate-700 inline-block">
 
                                     Detail
@@ -266,31 +278,6 @@
         </div>
 
     <?php endif; ?>
-
-    <!-- FOOTER -->
-    <div class="px-7 py-5 border-t border-slate-100 flex items-center justify-between">
-
-        <p class="text-slate-400 text-[14px]">
-            Menampilkan <?= count($izin); ?> data pengajuan
-        </p>
-
-        <div class="flex items-center gap-3">
-
-            <button class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600">
-                ←
-            </button>
-
-            <button class="w-12 h-12 rounded-xl bg-blue-600 text-white font-bold">
-                1
-            </button>
-
-            <button class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600">
-                →
-            </button>
-
-        </div>
-
-    </div>
 
 </div>
 
