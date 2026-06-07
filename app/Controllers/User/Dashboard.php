@@ -43,16 +43,41 @@ class Dashboard extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | ABSENSI HARI INI
+        | TANGGAL HARI INI
         |--------------------------------------------------------------------------
         */
 
         $today = date('Y-m-d');
 
+        /*
+        |--------------------------------------------------------------------------
+        | ABSENSI HARI INI
+        |--------------------------------------------------------------------------
+        */
+
         $todayAbsensi = $absensiModel
             ->where('peserta_id', $user['id'])
             ->where('tanggal', $today)
             ->first();
+
+        /*
+        |--------------------------------------------------------------------------
+        | DEFAULT STATUS
+        |--------------------------------------------------------------------------
+        */
+
+        $statusHariIni = 'Belum Hadir';
+
+        /*
+        |--------------------------------------------------------------------------
+        | JIKA SUDAH ABSEN
+        |--------------------------------------------------------------------------
+        */
+
+        if ($todayAbsensi) {
+
+            $statusHariIni = $todayAbsensi['status'];
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -65,15 +90,23 @@ class Dashboard extends BaseController
             ->orderBy('tanggal', 'DESC')
             ->findAll(5);
 
+        /*
+        |--------------------------------------------------------------------------
+        | DATA VIEW
+        |--------------------------------------------------------------------------
+        */
+
         $data = [
 
-            'title'         => 'Dashboard User',
+            'title' => 'Dashboard User',
 
-            'user'          => $user,
+            'user' => $user,
 
-            'todayAbsensi'  => $todayAbsensi,
+            'todayAbsensi' => $todayAbsensi,
 
-            'riwayat'       => $riwayat
+            'riwayat' => $riwayat,
+
+            'statusHariIni' => $statusHariIni
 
         ];
 

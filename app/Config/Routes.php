@@ -336,18 +336,55 @@ $routes->group(
         );
 
         $routes->post(
-            'absensi/masuk/process',
-            'Absensi::processMasuk'
-        );
-
-        $routes->get(
-            'absensi/pulang',
-            'Absensi::pulang'
+            'absensi/preview',
+            'Absensi::preview'
         );
 
         $routes->post(
-            'absensi/pulang/process',
-            'Absensi::processPulang'
+            'absensi/store',
+            'Absensi::store'
+        );
+
+        $routes->get(
+            'absensi/success',
+            'Absensi::success'
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | ABSEN PULANG
+        |--------------------------------------------------------------------------
+        */
+
+        $routes->get(
+            'absen-pulang',
+            'AbsenPulang::index'
+        );
+
+        $routes->post(
+            'absen-pulang/preview',
+            'AbsenPulang::preview'
+        );
+
+        $routes->post(
+            'absen-pulang/store',
+            'AbsenPulang::store'
+        );
+
+        $routes->get(
+            'absen-pulang/success',
+            'AbsenPulang::success'
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | SURVEY
+        |--------------------------------------------------------------------------
+        */
+
+        $routes->get(
+            'survey',
+            'User\Survey::index'
         );
 
         /*
@@ -389,3 +426,5 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     );
 
 });
+
+
