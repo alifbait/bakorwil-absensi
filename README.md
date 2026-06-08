@@ -1,3 +1,362 @@
+# Sistem Presensi Magang Berbasis Web
+
+### Bakorwil III Malang - Provinsi Jawa Timur
+
+<p align="center">
+  <img src="https://img.shields.io/badge/CodeIgniter-4-red?style=for-the-badge">
+  <img src="https://img.shields.io/badge/PHP-8+-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/TailwindCSS-3.x-06B6D4?style=for-the-badge">
+  <img src="https://img.shields.io/badge/MySQL-Database-orange?style=for-the-badge">
+</p>
+
+---
+
+# 📌 Deskripsi Project
+
+Sistem Presensi Magang berbasis web mobile-first yang dikembangkan untuk mendukung proses kehadiran peserta magang di lingkungan **Bakorwil III Malang Provinsi Jawa Timur**.
+
+Aplikasi ini dirancang agar:
+
+* mudah digunakan melalui smartphone,
+* memiliki validasi GPS realtime,
+* mendukung selfie absensi,
+* pengajuan izin/sakit,
+* monitoring kehadiran,
+* serta pelaporan data presensi secara digital.
+
+---
+
+# 🎯 Tujuan Sistem
+
+* Digitalisasi absensi peserta magang
+* Mengurangi manipulasi kehadiran
+* Mempermudah monitoring admin
+* Menyediakan riwayat absensi realtime
+* Mempermudah pengajuan izin/sakit
+* Menyediakan dashboard monitoring kehadiran
+
+---
+
+# 🛠️ Teknologi Yang Digunakan
+
+| Teknologi        | Keterangan              |
+| ---------------- | ----------------------- |
+| PHP 8+           | Backend utama           |
+| CodeIgniter 4    | Framework backend       |
+| Tailwind CSS     | UI Styling              |
+| Alpine.js        | Interaktivitas frontend |
+| MySQL            | Database                |
+| HTML5 Camera API | Selfie realtime         |
+| Geolocation API  | Validasi GPS            |
+| PhpSpreadsheet   | Export Excel            |
+| TCPDF            | Export PDF              |
+
+---
+
+# 📱 Konsep UI
+
+Sistem menggunakan konsep:
+
+* Mobile First
+* Modern Dashboard
+* Clean UI
+* Glassmorphism ringan
+* Rounded Card Interface
+* Gradient Accent Color
+
+---
+
+# 🔐 Fitur Utama
+
+## 1. Login Authentication
+
+* Login username & password
+* Session authentication
+* Role access:
+
+  * Admin
+  * Peserta Magang
+
+---
+
+## 2. Dashboard User
+
+Menampilkan:
+
+* Data profile user
+* Status absensi hari ini
+* Jam masuk
+* Jam pulang
+* Riwayat absensi terbaru
+
+---
+
+## 3. Absensi Masuk
+
+### Fitur:
+
+* Selfie kamera realtime
+* Validasi GPS
+* Preview selfie
+* Validasi radius kantor
+* Simpan lokasi latitude & longitude
+* Redirect survey otomatis
+* Success page
+
+### Flow:
+
+```text
+Masuk Page
+↓
+Aktifkan GPS
+↓
+Ambil Selfie
+↓
+Preview Absensi
+↓
+Simpan Database
+↓
+Redirect Survey
+↓
+Success Page
+```
+
+---
+
+## 4. Absensi Pulang
+
+### Fitur:
+
+* Validasi sudah absen masuk
+* Selfie pulang
+* Simpan jam pulang
+* Hitung total jam kerja
+* Success page
+
+### Flow:
+
+```text
+Absen Pulang
+↓
+Validasi Absen Masuk
+↓
+Selfie
+↓
+Preview
+↓
+Simpan Database
+↓
+Success
+```
+
+---
+
+## 5. Pengajuan Izin / Sakit
+
+### Fitur:
+
+* Multi hari izin
+* Upload file pendukung
+* Preview pengajuan
+* Validasi file
+* Status approval
+
+### Flow:
+
+```text
+Tambah Izin
+↓
+Preview Pengajuan
+↓
+Submit
+↓
+Menunggu Approval
+↓
+Success Page
+```
+
+---
+
+## 6. Riwayat Kehadiran
+
+Menampilkan:
+
+* Riwayat hadir
+* Telat
+* Izin
+* Sakit
+* Detail absensi
+* Selfie absensi
+* Jam masuk & pulang
+
+---
+
+## 7. Profile User
+
+### Fitur:
+
+* Data peserta realtime
+* Informasi profile
+* Ubah password
+* Logout
+
+---
+
+## 8. Dashboard Admin
+
+### Fitur admin:
+
+* Monitoring peserta
+* Approval izin
+* Statistik kehadiran
+* Export laporan
+* Setting lokasi GPS
+* Setting jam absensi
+* Hari libur
+* Manajemen peserta
+
+---
+
+# 🗂️ Struktur Database
+
+## Tabel Users
+
+Digunakan untuk:
+
+* login
+* role
+* password
+* session user
+
+## Tabel Peserta
+
+Digunakan untuk:
+
+* data peserta magang
+* asal instansi
+* kontak
+* profile
+
+## Tabel Absensi
+
+Digunakan untuk:
+
+* jam masuk
+* jam pulang
+* lokasi GPS
+* selfie absensi
+* total jam kerja
+
+## Tabel Izin
+
+Digunakan untuk:
+
+* pengajuan izin
+* pengajuan sakit
+* upload bukti
+* approval admin
+
+---
+
+# 🔒 Keamanan Sistem
+
+Sistem menggunakan:
+
+* Password Hashing
+* Session Authentication
+* GPS Validation
+* Radius Validation
+* File Validation
+* Role Access Control
+
+---
+
+# 📸 Validasi GPS
+
+Sistem akan:
+
+* mengambil lokasi realtime user
+* membandingkan dengan titik kantor
+* menghitung radius jarak
+* menolak absensi di luar area
+
+---
+
+# 📊 Fitur Reporting
+
+Admin dapat:
+
+* export Excel
+* export PDF
+* monitoring kehadiran
+* melihat statistik absensi
+
+---
+
+# 🚀 Status Pengembangan
+
+## ✅ Selesai
+
+* Authentication
+* Dashboard User
+* Absensi Masuk
+* Absensi Pulang
+* GPS Validation
+* Selfie Validation
+* Survey Redirect
+* Izin / Sakit
+* Preview & Success Page
+* Profile User
+* Ubah Password
+
+## 🔄 Dalam Pengembangan
+
+* Riwayat Absensi
+* Monitoring Realtime
+* Statistik Dashboard
+* Push Notification
+* Mobile Optimization
+
+---
+
+# 📁 Struktur Folder
+
+```bash
+app/
+├── Controllers/
+│   ├── Admin/
+│   └── User/
+│
+├── Models/
+│
+├── Views/
+│   ├── admin/
+│   ├── user/
+│   │   ├── absensi/
+│   │   ├── izin/
+│   │   ├── profile/
+│   │   └── dashboard/
+│
+public/
+├── uploads/
+│   ├── selfie/
+│   ├── izin/
+│   └── profile/
+```
+
+---
+
+# 👨‍💻 Developer
+
+Dikembangkan oleh peserta MBKM / Magang
+untuk Bakorwil III Malang Provinsi Jawa Timur.
+
+---
+
+# 📌 Catatan
+
+Project ini masih dalam tahap pengembangan aktif dan akan terus dikembangkan untuk mendukung digitalisasi pelayanan internal secara lebih modern dan efisien.
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
