@@ -38,6 +38,7 @@ class SettingModel extends Model
         'notif_izin',
         'reminder_absensi',
 
-        'survey_link'
+        'survey_link',
+        'batas_alpha', 
     ];
 }

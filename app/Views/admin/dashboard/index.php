@@ -262,6 +262,13 @@
                         Approval Pending
 
                     </a>
+                    <a href="<?= base_url('admin/generate-alpha') ?>"
+                        class="w-full bg-red-600 hover:bg-red-700 transition text-white py-4 rounded-2xl font-bold text-[15px] flex items-center justify-center">
+
+                        Generate Alpha
+
+                    </a>
+
 
                 </div>
 
@@ -299,8 +306,7 @@
 
     let serverTime = new Date();
 
-    function updateServerClock()
-    {
+    function updateServerClock() {
         document.getElementById('server-clock').innerHTML =
             serverTime.toLocaleTimeString(
                 'id-ID',

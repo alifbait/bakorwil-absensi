@@ -260,6 +260,17 @@ $activeTab = $uri->getSegment(3, 'absensi');
                         </div>
 
                     </div>
+                    <div>
+                        <label class="text-sm font-semibold text-slate-700 mb-2 block">
+                            Batas Alpha
+                        </label>
+                        <input
+                            type="time"
+                            name="batas_alpha"
+                            value="<?= $setting['batas_alpha'] ?>"
+                            class="w-full rounded-2xl border border-slate-200 px-4 py-4 bg-slate-50">
+
+                    </div>   
 
                     <!-- AUTO ALPHA -->
                     <div>

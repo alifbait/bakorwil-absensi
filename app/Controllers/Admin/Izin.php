@@ -16,8 +16,8 @@ class Izin extends BaseController
     public function index()
     {
         helper('text');
-        $search  = $this->request->getGet('search');
-        $status  = $this->request->getGet('status');
+        $search = $this->request->getGet('search');
+        $status = $this->request->getGet('status');
         $tanggal = $this->request->getGet('tanggal');
 
         $izinModel = new IzinModel();
@@ -99,15 +99,15 @@ class Izin extends BaseController
 
         $data = [
 
-            'title'    => 'Approval Izin',
+            'title' => 'Approval Izin',
 
-            'izin'     => $izin,
+            'izin' => $izin,
 
-            'search'   => $search,
+            'search' => $search,
 
-            'status'   => $status,
+            'status' => $status,
 
-            'tanggal'  => $tanggal
+            'tanggal' => $tanggal
 
         ];
 
@@ -166,7 +166,7 @@ class Izin extends BaseController
 
             'title' => 'Detail Pengajuan',
 
-            'izin'  => $izin
+            'izin' => $izin
 
         ];
 
@@ -186,13 +186,96 @@ class Izin extends BaseController
     {
         $izinModel = new IzinModel();
 
+        $absensiModel = new \App\Models\AbsensiModel();
+
+        /*
+        |--------------------------------------------------------------------------
+        | DATA IZIN
+        |--------------------------------------------------------------------------
+        */
+
+        $izin = $izinModel->find($id);
+
+        if (!$izin) {
+
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'Data izin tidak ditemukan'
+                );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE STATUS IZIN
+        |--------------------------------------------------------------------------
+        */
+
         $izinModel->update($id, [
 
-            'status'      => 'disetujui',
+            'status' => 'disetujui',
 
             'approved_by' => session()->get('user_id')
 
         ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | CEK ABSENSI HARI ITU
+        |--------------------------------------------------------------------------
+        */
+
+        $absensi = $absensiModel
+
+            ->where('peserta_id', $izin['peserta_id'])
+
+            ->where('tanggal', $izin['tanggal_mulai'])
+
+            ->first();
+
+        /*
+        |--------------------------------------------------------------------------
+        | STATUS ABSENSI
+        |--------------------------------------------------------------------------
+        */
+
+        $statusAbsensi =
+            strtolower($izin['jenis']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | JIKA SUDAH ADA RECORD
+        |--------------------------------------------------------------------------
+        */
+
+        if ($absensi) {
+
+            $absensiModel
+                ->update($absensi['id'], [
+
+                    'status' => $statusAbsensi
+
+                ]);
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | JIKA BELUM ADA RECORD
+        |--------------------------------------------------------------------------
+        */ else {
+
+            $absensiModel->insert([
+
+                'peserta_id' => $izin['peserta_id'],
+
+                'tanggal' => $izin['tanggal_mulai'],
+
+                'status' => $statusAbsensi
+
+            ]);
+        }
 
         return redirect()
 
@@ -216,7 +299,7 @@ class Izin extends BaseController
 
         $izinModel->update($id, [
 
-            'status'      => 'ditolak',
+            'status' => 'ditolak',
 
             'approved_by' => session()->get('user_id')
 

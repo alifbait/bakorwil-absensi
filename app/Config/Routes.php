@@ -313,6 +313,9 @@ $routes->group(
 );
 
 
+
+
+
 /*
 |--------------------------------------------------------------------------
 | USER / PESERTA AREA
@@ -512,6 +515,10 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         'dashboard',
         'User\Dashboard::index'
     );
+    $routes->get(
+    'admin/generate-alpha',
+    'User\Absensi::generateAlpha'
+);
 
 });
 

@@ -54,8 +54,7 @@
                 'semua' => 'Semua',
                 'hadir' => 'Hadir',
                 'telat' => 'Telat',
-                'izin'  => 'Izin',
-                'sakit' => 'Sakit'
+                'alpha' => 'Alpha',
 
             ];
 
@@ -97,7 +96,7 @@
 
                 /*
                 |--------------------------------------------------------------------------
-                | STYLE STATUS
+                | DEFAULT STYLE
                 |--------------------------------------------------------------------------
                 */
 
@@ -107,7 +106,13 @@
 
                 $badge = 'bg-green-100 text-green-700';
 
-                $subtitle = ($item['jam_masuk'] ?? '--:--') . ' - ' . ($item['jam_pulang'] ?? '--:--');
+                $subtitle = ($item['jam_masuk'] ?? '--:--');
+
+                /*
+                |--------------------------------------------------------------------------
+                | STATUS TELAT
+                |--------------------------------------------------------------------------
+                */
 
                 if ($item['status'] == 'telat') {
 
@@ -116,31 +121,23 @@
                     $iconBg = 'bg-yellow-100 text-yellow-600';
 
                     $badge = 'bg-yellow-100 text-yellow-700';
-
                 }
 
-                if ($item['status'] == 'izin') {
+                /*
+                |--------------------------------------------------------------------------
+                | STATUS ALPHA
+                |--------------------------------------------------------------------------
+                */
 
-                    $icon = '📝';
+                if ($item['status'] == 'alpha') {
 
-                    $iconBg = 'bg-blue-100 text-blue-600';
-
-                    $badge = 'bg-blue-100 text-blue-700';
-
-                    $subtitle = 'Pengajuan Izin';
-
-                }
-
-                if ($item['status'] == 'sakit') {
-
-                    $icon = '✚';
+                    $icon = '✕';
 
                     $iconBg = 'bg-red-100 text-red-600';
 
                     $badge = 'bg-red-100 text-red-700';
 
-                    $subtitle = 'Surat Dokter';
-
+                    $subtitle = 'Tidak melakukan absensi';
                 }
 
                 ?>
@@ -152,12 +149,14 @@
 
                     <div class="flex items-center gap-4">
 
+                        <!-- ICON -->
                         <div class="w-14 h-14 rounded-2xl <?= $iconBg ?> flex items-center justify-center text-xl shrink-0">
 
                             <?= $icon ?>
 
                         </div>
 
+                        <!-- CONTENT -->
                         <div>
 
                             <h3 class="text-slate-900 font-bold text-[15px]">
@@ -176,6 +175,7 @@
 
                     </div>
 
+                    <!-- STATUS -->
                     <div class="text-right">
 
                         <span class="<?= $badge ?> px-3 py-1 rounded-xl text-[11px] font-semibold capitalize">
@@ -207,7 +207,7 @@
 
                 <p class="text-slate-400 text-[13px] leading-relaxed">
 
-                    Data absensi akan muncul
+                    Riwayat absensi akan muncul
                     setelah melakukan kehadiran.
 
                 </p>

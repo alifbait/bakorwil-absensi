@@ -63,11 +63,17 @@ class Absensi extends BaseController
         |--------------------------------------------------------------------------
         */
 
-        if ($existing) {
+
+        if (
+            $existing &&
+            in_array($existing['status'], ['hadir', 'telat'])
+        ) {
 
             return redirect()->to('/absensi/success');
 
         }
+
+
 
         /*
         |--------------------------------------------------------------------------
@@ -210,11 +216,35 @@ class Absensi extends BaseController
 
         $statusKehadiran = 'Belum Hadir';
 
-        if ($existing) {
 
-            $statusKehadiran =
-                ucfirst($existing['status'] ?? 'Belum Hadir');
-        }
+        /*
+        |--------------------------------------------------------------------------
+        | AMBIL SETTING
+        |--------------------------------------------------------------------------
+        */
+
+        $setting = $this->settingModel->first();
+
+        $jamMasuk = $setting['jam_masuk'];
+
+        $toleransi = $setting['toleransi_terlambat'];
+
+        $batasTelat = date(
+            'H:i:s',
+            strtotime($jamMasuk . " +{$toleransi} minutes")
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | STATUS PREVIEW
+        |--------------------------------------------------------------------------
+        */
+
+        $statusKehadiran =
+            ($jamServer <= $batasTelat)
+            ? 'Hadir'
+            : 'Telat';
+
 
         /*
         |--------------------------------------------------------------------------
@@ -269,7 +299,7 @@ class Absensi extends BaseController
 
             'statusKehadiran' => $statusKehadiran,
 
-            'statusBadge' => $statusBadge,  
+            'statusBadge' => $statusBadge,
 
             'server_time' => time(),
 
@@ -286,6 +316,7 @@ class Absensi extends BaseController
             $data
         );
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -336,11 +367,17 @@ class Absensi extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | CEK SUDAH ABSEN ATAU BELUM
+        | MODEL ABSENSI
         |--------------------------------------------------------------------------
         */
 
         $absensiModel = new \App\Models\AbsensiModel();
+
+        /*
+        |--------------------------------------------------------------------------
+        | CEK SUDAH ABSEN
+        |--------------------------------------------------------------------------
+        */
 
         $today = date('Y-m-d');
 
@@ -349,10 +386,19 @@ class Absensi extends BaseController
             ->where('tanggal', $today)
             ->first();
 
+        /*
+        |--------------------------------------------------------------------------
+        | JIKA SUDAH ABSEN
+        |--------------------------------------------------------------------------
+        */
+
         if ($existing) {
 
             return redirect()->to('/dashboard')
-                ->with('error', 'Anda sudah melakukan absensi hari ini');
+                ->with(
+                    'error',
+                    'Anda sudah melakukan absensi hari ini'
+                );
 
         }
 
@@ -382,7 +428,48 @@ class Absensi extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | SIMPAN ABSENSI
+        | AMBIL SETTING
+        |--------------------------------------------------------------------------
+        */
+
+        $settingModel = new \App\Models\SettingModel();
+
+        $setting = $settingModel->first();
+
+        $jamMasuk = $setting['jam_masuk'];
+
+        $toleransi = $setting['toleransi_terlambat'];
+
+        $batasTelat = date(
+            'H:i:s',
+            strtotime($jamMasuk . " +{$toleransi} minutes")
+        );
+
+        $batasAlpha = $setting['batas_alpha'];
+
+        /*
+        |--------------------------------------------------------------------------
+        | STATUS ABSENSI
+        |--------------------------------------------------------------------------
+        */
+
+        if ($preview['jam'] <= $batasTelat) {
+
+            $status = 'hadir';
+
+        } elseif ($preview['jam'] <= $batasAlpha) {
+
+            $status = 'telat';
+
+        } elseif ($preview['jam'] > $batasAlpha) {
+
+            $status = 'alpha';
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | INSERT ABSENSI
         |--------------------------------------------------------------------------
         */
 
@@ -400,7 +487,11 @@ class Absensi extends BaseController
 
             'selfie_masuk' => $fileName,
 
-            'status' => 'hadir'
+            'status' => $status,
+
+            'survey_filled' => 0,
+
+            'total_jam_kerja' => 0
 
         ]);
 
@@ -414,12 +505,13 @@ class Absensi extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | REDIRECT SURVEY
+        | REDIRECT SUCCESS
         |--------------------------------------------------------------------------
         */
 
         return redirect()->to('/absensi/success');
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -446,6 +538,12 @@ class Absensi extends BaseController
             )
             ->first();
 
+        if (!$peserta) {
+
+            return redirect()->to('/dashboard');
+
+        }
+
         /*
         |--------------------------------------------------------------------------
         | ABSENSI HARI INI
@@ -459,23 +557,240 @@ class Absensi extends BaseController
             ->where('tanggal', $today)
             ->first();
 
+        /*
+        |--------------------------------------------------------------------------
+        | JIKA BELUM ABSEN
+        |--------------------------------------------------------------------------
+        */
+
         if (!$absensi) {
 
             return redirect()->to('/dashboard');
 
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | STYLE STATUS
+        |--------------------------------------------------------------------------
+        */
+
+        $badgeClass = 'bg-green-100 text-green-700';
+
+        $iconBg = 'bg-green-100';
+
+        $icon = '✅';
+
+        if ($absensi['status'] == 'telat') {
+
+            $badgeClass = 'bg-yellow-100 text-yellow-700';
+
+            $iconBg = 'bg-yellow-100';
+
+            $icon = '⏰';
+
+        }
+
+        if ($absensi['status'] == 'alpha') {
+
+            $badgeClass = 'bg-red-100 text-red-700';
+
+            $iconBg = 'bg-red-100';
+
+            $icon = '✕';
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | DATA VIEW
+        |--------------------------------------------------------------------------
+        */
+
         $data = [
 
             'title' => 'Absensi Berhasil',
 
-            'absensi' => $absensi
+            'absensi' => $absensi,
+
+            'badgeClass' => $badgeClass,
+
+            'iconBg' => $iconBg,
+
+            'icon' => $icon
 
         ];
+
+        /*
+        |--------------------------------------------------------------------------
+        | VIEW
+        |--------------------------------------------------------------------------
+        */
 
         return view(
             'user/absensi/success',
             $data
         );
     }
+    public function generateAlpha()
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | MODEL
+        |--------------------------------------------------------------------------
+        */
+
+        $pesertaModel = new \App\Models\PesertaModel();
+
+        $absensiModel = new \App\Models\AbsensiModel();
+
+        $settingModel = new \App\Models\SettingModel();
+
+        $izinModel = new \App\Models\IzinModel();
+
+        /*
+        |--------------------------------------------------------------------------
+        | AMBIL SETTING
+        |--------------------------------------------------------------------------
+        */
+
+        $setting = $settingModel->first();
+
+        /*
+        |--------------------------------------------------------------------------
+        | BATAS ALPHA
+        |--------------------------------------------------------------------------
+        */
+
+        $batasAlpha = $setting['batas_alpha'];
+
+        /*
+        |--------------------------------------------------------------------------
+        | JIKA BELUM LEWAT BATAS ALPHA
+        |--------------------------------------------------------------------------
+        */
+
+        if (date('H:i:s') < $batasAlpha) {
+
+            return;
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | TANGGAL HARI INI
+        |--------------------------------------------------------------------------
+        */
+
+        $today = date('Y-m-d');
+
+        /*
+        |--------------------------------------------------------------------------
+        | AMBIL SEMUA PESERTA
+        |--------------------------------------------------------------------------
+        */
+
+        $pesertaList = $pesertaModel->findAll();
+
+        /*
+        |--------------------------------------------------------------------------
+        | LOOP PESERTA
+        |--------------------------------------------------------------------------
+        */
+
+        foreach ($pesertaList as $peserta) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | CEK ABSENSI HARI INI
+            |--------------------------------------------------------------------------
+            */
+
+            $existing = $absensiModel
+                ->where('peserta_id', $peserta['id'])
+                ->where('tanggal', $today)
+                ->first();
+
+            /*
+            |--------------------------------------------------------------------------
+            | JIKA SUDAH ADA ABSENSI
+            |--------------------------------------------------------------------------
+            */
+
+            if ($existing) {
+
+                continue;
+
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | CEK IZIN / SAKIT YANG DISETUJUI
+            |--------------------------------------------------------------------------
+            */
+
+            $izin = $izinModel
+                ->where('peserta_id', $peserta['id'])
+                ->where('status', 'disetujui')
+                ->where('tanggal_mulai <=', $today)
+                ->where('tanggal_selesai >=', $today)
+                ->first();
+
+            /*
+            |--------------------------------------------------------------------------
+            | JIKA IZIN / SAKIT
+            |--------------------------------------------------------------------------
+            */
+
+            if ($izin) {
+
+                $statusIzin = strtolower($izin['jenis']);
+
+                $absensiModel->insert([
+
+                    'peserta_id' => $peserta['id'],
+
+                    'tanggal' => $today,
+
+                    'status' => $statusIzin,
+
+                    'survey_filled' => 0,
+
+                    'total_jam_kerja' => 0
+
+                ]);
+
+            } else {
+
+                /*
+                |--------------------------------------------------------------------------
+                | AUTO ALPHA
+                |--------------------------------------------------------------------------
+                */
+
+                $absensiModel->insert([
+
+                    'peserta_id' => $peserta['id'],
+
+                    'tanggal' => $today,
+
+                    'status' => 'alpha',
+
+                    'survey_filled' => 0,
+
+                    'total_jam_kerja' => 0
+
+                ]);
+
+            }
+
+        }
+        return redirect()
+            ->to('/admin/dashboard')
+            ->with(
+                'success',
+                'Generate alpha berhasil dijalankan'
+            );
+    }
+
 }

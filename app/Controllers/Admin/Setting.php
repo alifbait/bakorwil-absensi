@@ -312,6 +312,8 @@ class Setting extends BaseController
 
             'toleransi_terlambat' => $this->request->getPost('toleransi_terlambat'),
 
+            'batas_alpha' => $this->request->getPost('batas_alpha'),
+
             'auto_alpha' => $this->request->getPost('auto_alpha') ? 1 : 0,
 
             'hari_senin' => $this->request->getPost('hari_senin') ? 1 : 0,

@@ -5,9 +5,9 @@
 <div class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
 
     <!-- ICON -->
-    <div class="w-32 h-32 rounded-full bg-green-100 flex items-center justify-center text-6xl mb-8 shadow-xl">
+    <div class="w-32 h-32 rounded-full <?= $iconBg ?> flex items-center justify-center text-6xl mb-8 shadow-xl">
 
-        ✅
+        <?= $icon ?>
 
     </div>
 
@@ -51,7 +51,7 @@
                     Status
                 </span>
 
-                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-xl text-[12px] font-bold capitalize">
+                <span class="<?= $badgeClass ?> px-3 py-1 rounded-xl text-[12px] font-bold capitalize">
                     <?= $absensi['status'] ?>
                 </span>
 

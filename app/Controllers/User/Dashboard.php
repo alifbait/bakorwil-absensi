@@ -11,7 +11,7 @@ class Dashboard extends BaseController
 {
     public function index()
     {
-        $this->generateAbsensiHarian();
+
         $userId = session()->get('user_id');
 
         $pesertaModel = new PesertaModel();
@@ -71,13 +71,39 @@ class Dashboard extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | JIKA SUDAH ABSEN
+        | JIKA ADA DATA ABSENSI
         |--------------------------------------------------------------------------
         */
 
         if ($todayAbsensi) {
 
-            $statusHariIni = $todayAbsensi['status'];
+            /*
+            |--------------------------------------------------------------------------
+            | STATUS IZIN / SAKIT
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                in_array(
+                    $todayAbsensi['status'],
+                    ['izin', 'sakit']
+                )
+            ) {
+
+                $statusHariIni =
+                    ucfirst($todayAbsensi['status']);
+
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | STATUS HADIR / TELAT / ALPHA
+            |--------------------------------------------------------------------------
+            */ else {
+
+                $statusHariIni =
+                    ucfirst($todayAbsensi['status']);
+            }
         }
 
         /*
@@ -89,6 +115,7 @@ class Dashboard extends BaseController
         $riwayat = $absensiModel
             ->where('peserta_id', $user['id'])
             ->orderBy('tanggal', 'DESC')
+            ->orderBy('id', 'DESC')
             ->findAll(5);
 
         /*

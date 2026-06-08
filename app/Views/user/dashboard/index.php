@@ -6,100 +6,125 @@
 
 $active = 'home';
 
-$statusHariIni = $todayAbsensi['status'] ?? 'belum absen';
+/*
+|--------------------------------------------------------------------------
+| STATUS HARI INI
+|--------------------------------------------------------------------------
+*/
 
-$warnaStatus = 'bg-slate-100 text-slate-700';
+$statusHariIni = strtolower(
+    $todayAbsensi['status'] ?? 'belum hadir'
+);
+
+/*
+|--------------------------------------------------------------------------
+| WARNA STATUS
+|--------------------------------------------------------------------------
+*/
+
+$warnaStatus = 'from-slate-500 to-slate-400';
 
 if ($statusHariIni == 'hadir') {
 
-    $warnaStatus = 'bg-green-100 text-green-700';
+    $warnaStatus = 'from-green-600 to-green-500';
 
 } elseif ($statusHariIni == 'telat') {
 
-    $warnaStatus = 'bg-yellow-100 text-yellow-700';
-
-} elseif ($statusHariIni == 'izin') {
-
-    $warnaStatus = 'bg-blue-100 text-blue-700';
-
-} elseif ($statusHariIni == 'sakit') {
-
-    $warnaStatus = 'bg-orange-100 text-orange-700';
+    $warnaStatus = 'from-yellow-500 to-orange-400';
 
 } elseif ($statusHariIni == 'alpha') {
 
-    $warnaStatus = 'bg-red-100 text-red-700';
+    $warnaStatus = 'from-red-600 to-red-500';
 
+} elseif ($statusHariIni == 'izin') {
+
+    $warnaStatus = 'from-blue-600 to-cyan-500';
+
+} elseif ($statusHariIni == 'sakit') {
+
+    $warnaStatus = 'from-purple-600 to-pink-500';
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| DISABLE ABSENSI
+|--------------------------------------------------------------------------
+*/
+
+$disableAbsensi = false;
+
+if (
+    in_array(
+        $statusHariIni,
+        ['izin', 'sakit']
+    )
+) {
+
+    $disableAbsensi = true;
 }
 
 ?>
 
-<div class="relative min-h-screen pb-28">
+<div class="relative min-h-screen bg-slate-50 pb-28">
 
     <!-- BACKGROUND -->
     <div class="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-blue-100 opacity-70"></div>
 
-    <div class="absolute top-24 right-7 grid grid-cols-4 gap-2 opacity-40">
-
-        <?php for ($i = 0; $i < 8; $i++): ?>
-
-            <span class="w-2 h-2 rounded-full bg-blue-300"></span>
-
-        <?php endfor; ?>
-
-    </div>
-
     <!-- STATUS CARD -->
-    <div class="px-5 mt-6 relative z-10">
+    <div class="px-5 mt-5 relative z-10">
 
-        <div
-            class="bg-gradient-to-r from-blue-600 to-blue-500 rounded-[30px] p-5 text-white shadow-xl shadow-blue-500/30">
+        <div class="bg-gradient-to-r <?= $warnaStatus ?> rounded-[36px] p-6 text-white shadow-2xl">
 
             <div class="flex items-center justify-between mb-5">
 
                 <div>
 
-                    <p class="text-blue-100 text-[13px]">
+                    <p class="text-white/80 text-[13px]">
                         Status Kehadiran
                     </p>
 
-                    <h3 class="text-[24px] font-bold capitalize">
+                    <h2 class="text-[22px] font-extrabold capitalize">
                         <?= esc($statusHariIni) ?>
-                    </h3>
+                    </h2>
 
                 </div>
 
-                <div class="bg-white/20 px-4 py-2 rounded-2xl text-[13px] font-medium">
+                <div class="bg-white/20 px-4 py-3 rounded-2xl font-bold">
+
                     <?= date('d M Y') ?>
+
                 </div>
 
             </div>
 
             <div class="grid grid-cols-2 gap-4">
 
-                <!-- JAM MASUK -->
-                <div class="bg-white/10 rounded-2xl p-4">
+                <div class="bg-white/10 rounded-[26px] p-5 backdrop-blur">
 
-                    <p class="text-blue-100 text-[12px] mb-1">
+                    <p class="text-white/80 text-[13px] mb-2">
                         Jam Masuk
                     </p>
 
-                    <h4 class="text-[24px] font-bold">
+                    <h3 class="text-3xl font-bold tracking-wide">
+
                         <?= $todayAbsensi['jam_masuk'] ?? '--:--' ?>
-                    </h4>
+
+                    </h3>
 
                 </div>
 
-                <!-- JAM PULANG -->
-                <div class="bg-white/10 rounded-2xl p-4">
+                <div class="bg-white/10 rounded-[26px] p-5 backdrop-blur">
 
-                    <p class="text-blue-100 text-[12px] mb-1">
+                    <p class="text-white/80 text-[13px] mb-2">
                         Jam Pulang
                     </p>
 
-                    <h4 class="text-[24px] font-bold">
+                    <h3 class="text-3xl font-bold tracking-wide">
+
                         <?= $todayAbsensi['jam_pulang'] ?? '--:--' ?>
-                    </h4>
+
+                    </h3>
 
                 </div>
 
@@ -115,8 +140,9 @@ if ($statusHariIni == 'hadir') {
         <div class="grid grid-cols-2 gap-4">
 
             <!-- ABSEN MASUK -->
-            <a href="<?= base_url('absensi/masuk') ?>"
-                class="bg-white rounded-[26px] p-5 shadow-md border border-slate-100 text-left block">
+            <a
+                href="<?= $disableAbsensi ? '#' : base_url('absensi/masuk') ?>"
+                class="bg-white rounded-[26px] p-5 shadow-md border border-slate-100 text-left block <?= $disableAbsensi ? 'opacity-50 pointer-events-none' : '' ?>">
 
                 <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-2xl mb-4">
                     📍
@@ -131,8 +157,9 @@ if ($statusHariIni == 'hadir') {
             </a>
 
             <!-- ABSEN PULANG -->
-            <a href="<?= base_url('absen-pulang') ?>"
-                class="bg-white rounded-[26px] p-5 shadow-md border border-slate-100 text-left block">
+            <a
+                href="<?= $disableAbsensi ? '#' : base_url('absen-pulang') ?>"
+                class="bg-white rounded-[26px] p-5 shadow-md border border-slate-100 text-left block <?= $disableAbsensi ? 'opacity-50 pointer-events-none' : '' ?>">
 
                 <div class="w-12 h-12 rounded-2xl bg-orange-100 flex items-center justify-center text-2xl mb-4">
                     📷
@@ -147,7 +174,8 @@ if ($statusHariIni == 'hadir') {
             </a>
 
             <!-- IZIN -->
-            <a href="<?= base_url('izin') ?>"
+            <a
+                href="<?= base_url('izin') ?>"
                 class="bg-white rounded-[26px] p-5 shadow-md border border-slate-100 text-left block">
 
                 <div class="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center text-2xl mb-4">
@@ -163,7 +191,8 @@ if ($statusHariIni == 'hadir') {
             </a>
 
             <!-- RIWAYAT -->
-            <a href="<?= base_url('riwayat') ?>"
+            <a
+                href="<?= base_url('riwayat') ?>"
                 class="bg-white rounded-[26px] p-5 shadow-md border border-slate-100 text-left block">
 
                 <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center text-2xl mb-4">
@@ -182,13 +211,12 @@ if ($statusHariIni == 'hadir') {
 
     </div>
 
-    <!-- GPS STATUS -->
+    <!-- GPS -->
     <div class="px-5 mt-5 relative z-10">
 
         <div class="bg-blue-50 border border-blue-100 rounded-[26px] p-4 flex items-center gap-4">
 
-            <div
-                class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center text-white text-xl shadow-md shrink-0">
+            <div class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center text-white text-xl shadow-md shrink-0">
                 📡
             </div>
 
@@ -208,7 +236,7 @@ if ($statusHariIni == 'hadir') {
 
     </div>
 
-    <!-- HISTORY -->
+    <!-- RIWAYAT -->
     <div class="px-5 mt-5 relative z-10">
 
         <div class="flex items-center justify-between mb-4">
@@ -217,7 +245,9 @@ if ($statusHariIni == 'hadir') {
                 Riwayat Terakhir
             </h3>
 
-            <a href="<?= base_url('riwayat') ?>" class="text-blue-600 text-[13px] font-medium">
+            <a
+                href="<?= base_url('riwayat') ?>"
+                class="text-blue-600 text-[13px] font-medium">
 
                 Lihat Semua
 
@@ -227,9 +257,9 @@ if ($statusHariIni == 'hadir') {
 
         <div class="space-y-3">
 
-            <?php if (!empty($riwayat)): ?>
+            <?php if (!empty($riwayat)) : ?>
 
-                <?php foreach ($riwayat as $item): ?>
+                <?php foreach ($riwayat as $item) : ?>
 
                     <?php
 
@@ -249,7 +279,11 @@ if ($statusHariIni == 'hadir') {
 
                     } elseif ($item['status'] == 'sakit') {
 
-                        $badge = 'bg-orange-100 text-orange-700';
+                        $badge = 'bg-purple-100 text-purple-700';
+
+                    } elseif ($item['status'] == 'alpha') {
+
+                        $badge = 'bg-red-100 text-red-700';
 
                     }
 
@@ -260,13 +294,17 @@ if ($statusHariIni == 'hadir') {
                         <div>
 
                             <h4 class="text-slate-900 font-semibold text-[15px]">
+
                                 <?= date('d M Y', strtotime($item['tanggal'])) ?>
+
                             </h4>
 
                             <p class="text-slate-400 text-[12px]">
+
                                 <?= $item['jam_masuk'] ?? '--:--' ?>
                                 -
                                 <?= $item['jam_pulang'] ?? '--:--' ?>
+
                             </p>
 
                         </div>
@@ -281,7 +319,7 @@ if ($statusHariIni == 'hadir') {
 
                 <?php endforeach; ?>
 
-            <?php else: ?>
+            <?php else : ?>
 
                 <div class="bg-white rounded-2xl p-5 border border-slate-100 text-center text-slate-400 text-sm">
 

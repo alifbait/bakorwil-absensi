@@ -13,7 +13,7 @@ class Dashboard extends BaseController
 {
     public function index()
     {
-        $this->generateAbsensiHarian();
+        // $this->generateAbsensiHarian();
         $absensiModel = new AbsensiModel();
         $izinModel    = new IzinModel();
         $userModel    = new UserModel();
