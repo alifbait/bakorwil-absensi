@@ -16,18 +16,6 @@
     <!-- RIGHT -->
     <div class="flex items-center gap-4">
 
-        <!-- SEARCH -->
-        <div
-            class="bg-white border border-slate-200 rounded-[22px] px-5 py-4 w-[340px] flex items-center gap-3 shadow-sm">
-
-            <span class="text-slate-400 text-lg">
-                🔍
-            </span>
-
-            <input type="text" placeholder="Cari pegawai..."
-                class="w-full bg-transparent outline-none text-[14px] text-slate-700" />
-
-        </div>
 
         <!-- NOTIFICATION -->
         <button class="w-16 h-16 rounded-[22px] bg-white border border-slate-200 shadow-sm text-xl">

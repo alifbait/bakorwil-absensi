@@ -9,11 +9,11 @@
     <div>
 
         <p class="text-slate-400 text-[14px] mb-1">
-            Master Data Pegawai
+            Master Data Peserta Magang
         </p>
 
         <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
-            Tambah Pegawai
+            Tambah Peserta Magang
         </h1>
 
     </div>
@@ -167,7 +167,7 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Divisi dan status akun pegawai
+                    Divisi dan status akun Peserta Magang
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">
@@ -229,7 +229,7 @@
                     <div class="col-span-2">
 
                         <label class="text-[14px] font-semibold text-slate-700 block mb-3">
-                            Status Pegawai
+                            Status Magang
                         </label>
 
                         <select
@@ -265,7 +265,7 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Upload foto pegawai
+                    Upload foto Peserta Magang
                 </p>
 
                 <div class="border-2 border-dashed border-slate-200 rounded-[28px] p-8 text-center">
@@ -331,7 +331,7 @@
                         type="submit"
                         class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-2xl font-bold text-[15px] shadow-lg shadow-blue-500/20">
 
-                        Simpan Pegawai
+                        Simpan Peserta Magang
 
                     </button>
 

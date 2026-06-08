@@ -9,7 +9,7 @@
     <div>
 
         <p class="text-slate-400 text-[14px] mb-1">
-            Pengaturan akses akun pegawai
+            Pengaturan akses akun peserta magang
         </p>
 
         <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
@@ -128,7 +128,7 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Kelola username, role, status akun dan password pegawai
+                    Kelola username, role, status akun dan password peserta magang
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">

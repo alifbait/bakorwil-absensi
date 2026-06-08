@@ -53,7 +53,7 @@
             </div>
 
             <p class="text-slate-400 text-[14px] mb-2">
-                Pegawai Telat
+                Peserta Magang Telat
             </p>
 
             <h1 class="text-slate-900 text-[42px] font-extrabold leading-none">
@@ -105,7 +105,7 @@
             </div>
 
             <p class="text-slate-400 text-[14px] mb-2">
-                Pegawai Sakit
+                Peserta Magang Sakit
             </p>
 
             <h1 class="text-slate-900 text-[42px] font-extrabold leading-none">
@@ -157,7 +157,7 @@
                     </h3>
 
                     <p class="text-slate-400 text-[14px]">
-                        Monitoring realtime pegawai
+                        Monitoring realtime Peserta Magang
                     </p>
 
                 </div>
@@ -250,10 +250,10 @@
 
                 <div class="space-y-4">
 
-                    <a href="<?= base_url('admin/pegawai/create') ?>"
+                    <a href="<?= base_url('admin/Peserta Magang/create') ?>"
                         class="w-full block text-center bg-slate-100 hover:bg-slate-200 transition text-slate-700 py-4 rounded-2xl font-semibold text-[15px]">
 
-                        Tambah Pegawai
+                        Tambah Peserta Magang
 
                     </a>
                     <a href="<?= base_url('admin/izin?status=pending') ?>"

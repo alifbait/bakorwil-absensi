@@ -11,7 +11,7 @@
         </p>
 
         <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
-            Detail Pegawai
+            Detail Peserta Magang
         </h1>
 
     </div>

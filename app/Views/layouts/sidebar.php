@@ -105,7 +105,7 @@
                         : 'text-slate-400' ?>
                         text-[12px]">
 
-                        Data kehadiran pegawai
+                        Data kehadiran Peserta Magang
 
                     </p>
 
@@ -174,7 +174,7 @@
                         : 'text-slate-800' ?>
                         font-semibold text-[15px]">
 
-                        Data Pegawai
+                        Data Peserta Magang
 
                     </h3>
 
@@ -183,7 +183,7 @@
                         : 'text-slate-400' ?>
                         text-[12px]">
 
-                        Master data ASN
+                        Data peserta magang
 
                     </p>
 

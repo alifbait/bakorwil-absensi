@@ -9,11 +9,11 @@
     <div>
 
         <p class="text-slate-400 text-[14px] mb-1">
-            Edit Data Pegawai
+            Edit Data Peserta Magang
         </p>
 
         <h1 class="text-[48px] font-extrabold text-slate-900 leading-none">
-            Edit Pegawai
+            Edit Peserta Magang
         </h1>
 
     </div>
@@ -47,7 +47,7 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Update informasi pegawai
+                    Update informasi Peserta Magang
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">
@@ -141,7 +141,7 @@
                 </h2>
 
                 <p class="text-slate-400 text-[14px] mb-8">
-                    Data penempatan dan status pegawai
+                    Data penempatan dan status peserta magang
                 </p>
 
                 <div class="grid grid-cols-2 gap-5">
