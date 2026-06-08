@@ -305,6 +305,7 @@ $routes->group(
 |--------------------------------------------------------------------------
 */
 
+
 $routes->group(
     '',
     [
@@ -389,7 +390,7 @@ $routes->group(
 
         /*
         |--------------------------------------------------------------------------
-        | IZIN / SAKIT
+        | IZIN
         |--------------------------------------------------------------------------
         */
 
@@ -398,9 +399,24 @@ $routes->group(
             'Izin::index'
         );
 
+        $routes->get(
+            'izin/create',
+            'Izin::create'
+        );
+
+        $routes->post(
+            'izin/preview',
+            'Izin::preview'
+        );
+
         $routes->post(
             'izin/store',
             'Izin::store'
+        );
+
+        $routes->get(
+            'izin/success/(:num)',
+            'Izin::success/$1'
         );
 
         /*
@@ -413,8 +429,29 @@ $routes->group(
             'riwayat',
             'Riwayat::index'
         );
+        /*
+|--------------------------------------------------------------------------
+| PROFILE
+|--------------------------------------------------------------------------
+*/
+
+        $routes->get(
+            'profile',
+            'Profile::index'
+        );
+
+        $routes->get(
+            'profile/password',
+            'Profile::password'
+        );
+
+        $routes->post(
+            'profile/update-password',
+            'Profile::updatePassword'
+        );
 
     }
+
 );
 
 
@@ -426,5 +463,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     );
 
 });
+
+
 
 

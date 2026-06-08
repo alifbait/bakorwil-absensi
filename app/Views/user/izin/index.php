@@ -13,8 +13,7 @@
 
                 <div class="flex items-center gap-3">
 
-                    <a
-                        href="<?= base_url('dashboard') ?>"
+                    <a href="<?= base_url('dashboard') ?>"
                         class="w-11 h-11 rounded-2xl bg-slate-100 shadow-sm flex items-center justify-center text-lg">
 
                         ←
@@ -44,7 +43,8 @@
     <!-- SUMMARY -->
     <div class="px-5 mt-5">
 
-        <div class="bg-gradient-to-r from-blue-600 to-blue-500 rounded-[30px] p-5 text-white shadow-xl shadow-blue-500/20">
+        <div
+            class="bg-gradient-to-r from-blue-600 to-blue-500 rounded-[30px] p-5 text-white shadow-xl shadow-blue-500/20">
 
             <div class="flex items-center justify-between">
 
@@ -114,33 +114,42 @@
     </div>
 
     <!-- FILTER -->
+    <!-- FILTER -->
     <div class="px-5 mt-5">
 
         <div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
 
-            <button class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-3 rounded-2xl text-[13px] font-bold whitespace-nowrap shadow-lg shadow-blue-500/20">
+            <!-- SEMUA -->
+            <a href="<?= base_url('izin?status=semua') ?>"
+                class="<?= (!$filter || $filter == 'semua') ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20' : 'bg-white border border-slate-200 text-slate-600' ?> px-5 py-3 rounded-2xl text-[13px] font-bold whitespace-nowrap">
 
                 Semua
 
-            </button>
+            </a>
 
-            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-3 rounded-2xl text-[13px] font-semibold whitespace-nowrap">
+            <!-- PENDING -->
+            <a href="<?= base_url('izin?status=pending') ?>"
+                class="<?= ($filter == 'pending') ? 'bg-yellow-500 text-white shadow-lg shadow-yellow-300/30' : 'bg-white border border-slate-200 text-slate-600' ?> px-5 py-3 rounded-2xl text-[13px] font-bold whitespace-nowrap">
 
                 Pending
 
-            </button>
+            </a>
 
-            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-3 rounded-2xl text-[13px] font-semibold whitespace-nowrap">
+            <!-- DISETUJUI -->
+            <a href="<?= base_url('izin?status=disetujui') ?>"
+                class="<?= ($filter == 'disetujui') ? 'bg-green-500 text-white shadow-lg shadow-green-300/30' : 'bg-white border border-slate-200 text-slate-600' ?> px-5 py-3 rounded-2xl text-[13px] font-bold whitespace-nowrap">
 
                 Disetujui
 
-            </button>
+            </a>
 
-            <button class="bg-white border border-slate-200 text-slate-600 px-5 py-3 rounded-2xl text-[13px] font-semibold whitespace-nowrap">
+            <!-- DITOLAK -->
+            <a href="<?= base_url('izin?status=ditolak') ?>"
+                class="<?= ($filter == 'ditolak') ? 'bg-red-500 text-white shadow-lg shadow-red-300/30' : 'bg-white border border-slate-200 text-slate-600' ?> px-5 py-3 rounded-2xl text-[13px] font-bold whitespace-nowrap">
 
                 Ditolak
 
-            </button>
+            </a>
 
         </div>
 
@@ -149,9 +158,9 @@
     <!-- LIST -->
     <div class="px-5 mt-5 space-y-4">
 
-        <?php if (!empty($izin)) : ?>
+        <?php if (!empty($izin)): ?>
 
-            <?php foreach ($izin as $item) : ?>
+            <?php foreach ($izin as $item): ?>
 
                 <?php
 
@@ -216,8 +225,7 @@
                 ?>
 
                 <!-- ITEM -->
-                <a
-                    href="<?= base_url('izin/detail/' . $item['id']) ?>"
+                <a href="<?= base_url('izin/detail/' . $item['id']) ?>"
                     class="bg-white rounded-[28px] border border-slate-100 shadow-md p-4 flex items-center justify-between block active:scale-[0.98] transition">
 
                     <div class="flex items-center gap-4">
@@ -243,7 +251,7 @@
 
                                 <?= $tanggalMulai ?>
 
-                                <?php if ($item['tanggal_mulai'] != $item['tanggal_selesai']) : ?>
+                                <?php if ($item['tanggal_mulai'] != $item['tanggal_selesai']): ?>
 
                                     - <?= $tanggalSelesai ?>
 
@@ -274,7 +282,7 @@
 
             <?php endforeach; ?>
 
-        <?php else : ?>
+        <?php else: ?>
 
             <!-- EMPTY -->
             <div class="bg-white rounded-[30px] border border-slate-100 shadow-sm p-8 text-center">
@@ -301,8 +309,7 @@
     </div>
 
     <!-- FLOAT BUTTON -->
-    <a
-        href="<?= base_url('izin/create') ?>"
+    <a href="<?= base_url('izin/create') ?>"
         class="fixed bottom-24 right-5 z-40 w-16 h-16 rounded-full bg-gradient-to-r from-orange-500 to-orange-400 shadow-2xl shadow-orange-300 flex items-center justify-center text-white text-3xl active:scale-95 transition">
 
         +
@@ -312,11 +319,9 @@
 </div>
 
 <style>
-
-    .no-scrollbar::-webkit-scrollbar{
-        display:none;
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
-
 </style>
 
 <?= $this->endSection() ?>
