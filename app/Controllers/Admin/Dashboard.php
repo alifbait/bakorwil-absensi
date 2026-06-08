@@ -7,6 +7,7 @@ use App\Controllers\BaseController;
 use App\Models\AbsensiModel;
 use App\Models\IzinModel;
 use App\Models\UserModel;
+use App\Models\PesertaModel;
 
 class Dashboard extends BaseController
 {
@@ -15,6 +16,7 @@ class Dashboard extends BaseController
         $absensiModel = new AbsensiModel();
         $izinModel    = new IzinModel();
         $userModel    = new UserModel();
+        $pesertaModel = new PesertaModel();
 
         $today = date('Y-m-d');
 
@@ -42,6 +44,17 @@ class Dashboard extends BaseController
 
         /*
         |--------------------------------------------------------------------------
+        | ALPHA
+        |--------------------------------------------------------------------------
+        */
+
+        $alpha = $absensiModel
+            ->where('tanggal', $today)
+            ->where('status', 'alpha')
+            ->countAllResults();
+
+        /*
+        |--------------------------------------------------------------------------
         | IZIN
         |--------------------------------------------------------------------------
         */
@@ -64,6 +77,16 @@ class Dashboard extends BaseController
 
         /*
         |--------------------------------------------------------------------------
+        | PENDING IZIN
+        |--------------------------------------------------------------------------
+        */
+
+        $pendingIzin = $izinModel
+            ->where('status', 'pending')
+            ->countAllResults();
+
+        /*
+        |--------------------------------------------------------------------------
         | TOTAL PESERTA
         |--------------------------------------------------------------------------
         */
@@ -72,16 +95,40 @@ class Dashboard extends BaseController
             ->where('role', 'anggota')
             ->countAllResults();
 
+        /*
+        |--------------------------------------------------------------------------
+        | AKTIVITAS TERBARU ABSENSI
+        |--------------------------------------------------------------------------
+        */
+
+        $aktivitas = $absensiModel
+            ->select('absensi.*, peserta.nama_lengkap, peserta.foto_profile')
+            ->join('peserta', 'peserta.id = absensi.peserta_id')
+            ->orderBy('absensi.created_at', 'DESC')
+            ->limit(5)
+            ->findAll();
+
+        /*
+        |--------------------------------------------------------------------------
+        | DATA VIEW
+        |--------------------------------------------------------------------------
+        */
+
         $data = [
 
             'title' => 'Dashboard',
 
             'hadir' => $hadir,
             'telat' => $telat,
+            'alpha' => $alpha,
             'izin'  => $izin,
             'sakit' => $sakit,
 
-            'totalPeserta' => $totalPeserta
+            'pendingIzin' => $pendingIzin,
+
+            'totalPeserta' => $totalPeserta,
+
+            'aktivitas' => $aktivitas
 
         ];
 

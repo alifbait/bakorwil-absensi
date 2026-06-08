@@ -96,6 +96,8 @@ class Auth extends BaseController
 
             'role' => $user['role'],
 
+            'divisi' => $user['divisi'] ?? '-',
+
             'logged_in' => true
 
         ];
@@ -141,4 +143,5 @@ class Auth extends BaseController
 
         return redirect()->to('/login');
     }
+    
 }

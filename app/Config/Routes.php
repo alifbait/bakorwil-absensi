@@ -12,17 +12,31 @@ use CodeIgniter\Router\RouteCollection;
 |--------------------------------------------------------------------------
 */
 
-$routes->get('/', 'Auth::login');
-
 /*
 |--------------------------------------------------------------------------
 | AUTH
 |--------------------------------------------------------------------------
 */
 
-$routes->get('login', 'Auth::login');
-$routes->post('login/process', 'Auth::attemptLogin');
-$routes->get('logout', 'Auth::logout');
+$routes->get(
+    '/',
+    'Auth::login'
+);
+
+$routes->get(
+    'login',
+    'Auth::login'
+);
+
+$routes->post(
+    'login/process',
+    'Auth::attemptLogin'
+);
+
+$routes->get(
+    'logout',
+    'Auth::logout'
+);
 
 
 /*
@@ -314,6 +328,37 @@ $routes->group(
     ],
     function ($routes) {
 
+        $routes->get(
+            'dashboard',
+            'Dashboard::index'
+        );
+
+        $routes->get(
+            'riwayat',
+            'Riwayat::index'
+        );
+
+    }
+);
+
+$routes->group(
+    '',
+    [
+        'namespace' => 'App\Controllers\User',
+        'filter' => 'auth'
+    ],
+    function ($routes) {
+        /*
+|--------------------------------------------------------------------------
+| DETAIL IZIN
+|--------------------------------------------------------------------------
+*/
+
+        $routes->get(
+            'izin/detail/(:num)',
+            'Izin::detail/$1'
+        );
+
         /*
         |--------------------------------------------------------------------------
         | DASHBOARD USER
@@ -429,11 +474,17 @@ $routes->group(
             'riwayat',
             'Riwayat::index'
         );
+
+        $routes->get(
+            'riwayat/detail/(:num)',
+            'Riwayat::detail/$1'
+        );
+
         /*
-|--------------------------------------------------------------------------
-| PROFILE
-|--------------------------------------------------------------------------
-*/
+        |--------------------------------------------------------------------------
+        | PROFILE
+        |--------------------------------------------------------------------------
+        */
 
         $routes->get(
             'profile',

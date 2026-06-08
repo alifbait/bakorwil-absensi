@@ -9,11 +9,11 @@
     <div>
 
         <h1 class="text-[42px] font-extrabold text-slate-900 leading-none">
-            Data Pegawai
+            Data Peserta Magang
         </h1>
 
         <p class="text-slate-400 text-[14px] mt-2">
-            Master data ASN & pegawai Bakorwil
+            Master data Peserta Magang
         </p>
 
     </div>
@@ -21,7 +21,7 @@
     <a href="<?= base_url('admin/pegawai/create') ?>"
         class="bg-blue-600 hover:bg-blue-700 transition text-white px-7 py-4 rounded-2xl font-semibold text-[14px] shadow-lg shadow-blue-500/20 inline-flex items-center gap-2">
 
-        + Tambah Pegawai
+        + Tambah Peserta
 
     </a>
 
@@ -45,7 +45,7 @@
                     type="text"
                     name="search"
                     value="<?= $search ?? ''; ?>"
-                    placeholder="Cari pegawai..."
+                    placeholder="Cari Peserta Magang..."
                     class="w-full bg-transparent outline-none text-[14px] text-slate-700">
 
             </div>
@@ -108,11 +108,11 @@
         <div>
 
             <h3 class="text-slate-900 font-bold text-[26px]">
-                Data ASN & Pegawai
+                Data Peserta Magang
             </h3>
 
             <p class="text-slate-400 text-[14px]">
-                Monitoring seluruh pegawai aktif
+                Monitoring seluruh peserta magang aktif
             </p>
 
         </div>
@@ -136,7 +136,7 @@
                 <tr>
 
                     <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
-                        Pegawai
+                        Peserta
                     </th>
 
                     <th class="px-7 py-5 text-left text-[13px] text-slate-500 font-bold">
@@ -259,11 +259,11 @@
                                 </div>
 
                                 <h3 class="text-xl font-bold text-slate-700 mb-2">
-                                    Data Pegawai Kosong
+                                    Data Peserta Magang Kosong
                                 </h3>
 
                                 <p class="text-slate-400 text-sm">
-                                    Belum ada data pegawai yang tersedia
+                                    Belum ada data peserta magang yang tersedia
                                 </p>
 
                             </div>
@@ -284,11 +284,11 @@
     <div class="px-7 py-5 border-t border-slate-100 flex items-center justify-between">
 
         <p class="text-slate-400 text-[14px]">
-            Sistem monitoring pegawai Bakorwil
+            Sistem monitoring Peserta Magang Bakorwil
         </p>
 
         <p class="text-slate-400 text-[14px]">
-            Total <?= count($pegawai); ?> pegawai
+            Total <?= count($pegawai); ?> peserta magang
         </p>
 
     </div>

@@ -23,7 +23,7 @@ $active = $active ?? 'home';
 
     <!-- ABSENSI -->
     <a
-        href="<?= base_url('absensi') ?>"
+        href="<?= base_url('riwayat') ?>"
         class="flex flex-col items-center gap-1 <?= $active == 'absensi'
                                                     ? 'text-blue-600'
                                                     : 'text-slate-400' ?>">

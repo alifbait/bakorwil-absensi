@@ -4,34 +4,32 @@
     <div class="flex items-center justify-between">
 
         <!-- PROFILE -->
-        <div class="flex items-center gap-3">
+        <a href="<?= base_url('profile') ?>" class="flex items-center gap-3 active:scale-[0.98] transition">
 
-            <!-- FOTO -->
-            <div class="w-14 h-14 rounded-2xl overflow-hidden border-2 border-white shadow-md bg-slate-100">
+            <img src="<?= base_url('uploads/profile/' . (session('foto') ?? 'default.png')) ?>"
+                class="w-14 h-14 rounded-2xl object-cover border border-slate-200">
 
-                <img src="<?= base_url('uploads/profile/' . (session()->get('foto') ?? 'default.png')) ?>"
-                    class="w-full h-full object-cover">
-
-            </div>
-
-            <!-- INFO -->
             <div>
 
-                <p class="text-slate-400 text-[13px]">
+                <p class="text-slate-400 text-[12px]">
                     Selamat Datang 👋
                 </p>
 
-                <h2 class="text-slate-900 font-bold text-[18px] leading-tight">
-                    <?= esc(session()->get('nama') ?? 'User') ?>
+                <h2 class="text-slate-900 font-bold text-[24px] leading-tight">
+
+                    <?= session('nama') ?>
+
                 </h2>
 
-                <p class="text-blue-600 text-[13px] font-medium capitalize">
-                    <?= esc(session()->get('role') ?? 'anggota') ?>
-                </p>
+                <p class="text-blue-600 font-semibold text-[13px]">
 
+                    <?= session('divisi') ?? 'Peserta Magang' ?>
+
+                </p>
+                
             </div>
 
-        </div>
+        </a>
 
         <!-- NOTIF -->
         <button
