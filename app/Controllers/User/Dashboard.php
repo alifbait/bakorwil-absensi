@@ -11,6 +11,7 @@ class Dashboard extends BaseController
 {
     public function index()
     {
+        $this->generateAbsensiHarian();
         $userId = session()->get('user_id');
 
         $pesertaModel = new PesertaModel();
